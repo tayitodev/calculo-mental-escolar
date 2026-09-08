@@ -1,0 +1,177 @@
+---
+// src/pages/index.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examen de Cálculo Mental - 5to Grado</title>
+  </head>
+  <body style="background-color: #f4f6f9; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;">
+
+    <div style="background: white; padding: 35px 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 400px; text-align: center;">
+      
+      <div style="margin-bottom: 20px;">
+        <img src="/logo-escuela.png" alt="Logo Escuela" style="max-height: 170px; width: auto; object-fit: contain;" onerror="this.style.display='none'" />
+      </div>
+
+      <h2 style="color: #1e293b; margin: 0 0 8px 0; font-size: 24px;">Cálculo Mental</h2>
+      <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Selecciona tu nombre e ingresa tu PIN para comenzar.</p>
+
+      <form id="form-login">
+        <div style="margin-bottom: 20px; text-align: left;">
+          <label for="select-alumno" style="display: block; font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 6px;">Alumno:</label>
+          <select id="select-alumno" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; background: #fff; color: #1e293b;">
+            <option value="" disabled selected>Cargando lista de alumnos...</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 25px; text-align: left;">
+          <label for="input-pin" style="display: block; font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 6px;">PIN de Acceso (4 dígitos):</label>
+          <input type="password" id="input-pin" maxlength="4" placeholder="••••" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; text-align: center; letter-spacing: 6px;" />
+        </div>
+
+        <button type="submit" style="width: 100%; background-color: #2563eb; color: white; border: none; padding: 14px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.2s;">
+          Entrar al Examen
+        </button>
+      </form>
+      
+      <p id="mensaje-error" style="color: #ef4444; font-size: 13px; margin-top: 15px; display: none; background: #fef2f2; padding: 10px; border-radius: 6px;"></p>
+
+      <!-- Enlace discreto para el acceso de la maestra (Ahora dentro de la tarjeta) -->
+      <div style="margin-top: 25px; border-top: 1px solid #f1f5f9; padding-top: 15px;">
+        <button id="btn-maestra" style="background: none; border: none; color: #64748b; font-size: 13px; cursor: pointer; text-decoration: underline;">
+          Acceso Docente (Panel de Resultados)
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Modal de Instrucciones -->
+    <div id="modal-instrucciones" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); justify-content: center; align-items: center; padding: 20px; z-index: 1000;">
+      <div style="background: white; padding: 35px; border-radius: 16px; max-width: 450px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); text-align: left;">
+        <h2 style="color: #1e293b; margin-top: 0; text-align: center; font-size: 22px;">⚠️ Instrucciones Importantes</h2>
+        <p style="color: #475569; font-size: 14px; margin-bottom: 20px; text-align: center;">Lee con atención antes de comenzar:</p>
+        
+        <ul style="color: #334155; font-size: 14px; line-height: 1.6; padding-left: 20px; margin-bottom: 25px;">
+          <li style="margin-bottom: 10px;">Tienes un límite de <strong>30 segundos</strong> para responder cada pregunta. Si el tiempo se acaba, se contará como incorrecta.</li>
+          <li style="margin-bottom: 10px;">Escribe <strong>únicamente números</strong> en las respuestas (ej. <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">120</code> o <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">0.8</code>). No utilices letras ni palabras.</li>
+          <li style="margin-bottom: 10px;">Tienes <strong>solo una oportunidad</strong> para realizar este examen.</li>
+          <li>Al hacer clic en el botón de abajo, el examen comenzará de inmediato y correrá el tiempo.</li>
+        </ul>
+
+        <button id="btn-comenzar-oficial" style="width: 100%; background-color: #10b981; color: white; border: none; padding: 14px; font-size: 16px; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center;">
+          ¡Entendido, Comenzar Examen!
+        </button>
+      </div>
+    </div>
+
+    <script>
+      import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+      import { db } from "../firebase.js";
+
+      const selectAlumno = document.getElementById('select-alumno') as HTMLSelectElement;
+      let alumnosMap = new Map();
+
+      async function cargarAlumnos() {
+        if (sessionStorage.getItem('alumnoActivo')) {
+          window.location.replace('/examen');
+          return;
+        }
+
+        try {
+          const querySnapshot = await getDocs(collection(db, "alumnos"));
+          selectAlumno.innerHTML = '<option value="" disabled selected>Selecciona tu nombre...</option>';
+          
+          let lista = [];
+          querySnapshot.forEach((docSnap) => {
+            lista.push({ id: docSnap.id, ...docSnap.data() });
+          });
+          lista.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+          lista.forEach((alumno) => {
+            alumnosMap.set(alumno.id, alumno);
+            const option = document.createElement('option');
+            option.value = alumno.id;
+            option.textContent = alumno.nombre;
+            selectAlumno.appendChild(option);
+          });
+        } catch (error) {
+          console.error("Error al cargar alumnos:", error);
+          selectAlumno.innerHTML = '<option value="" disabled selected>Error al cargar la lista</option>';
+        }
+      }
+
+      cargarAlumnos();
+
+      const formLogin = document.getElementById('form-login') as HTMLFormElement;
+      const inputPin = document.getElementById('input-pin') as HTMLInputElement;
+      const mensajeError = document.getElementById('mensaje-error') as HTMLElement;
+      const modalInstrucciones = document.getElementById('modal-instrucciones') as HTMLElement;
+      const btnComenzarOficial = document.getElementById('btn-comenzar-oficial') as HTMLButtonElement;
+      const btnMaestra = document.getElementById('btn-maestra') as HTMLButtonElement;
+
+      let idSeleccionadoTemp = "";
+      let nombreSeleccionadoTemp = "";
+
+      formLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
+        idSeleccionadoTemp = selectAlumno.value;
+        const pinIngresado = inputPin.value.trim();
+
+        const alumnoData = alumnosMap.get(idSeleccionadoTemp);
+
+        if (!alumnoData) {
+          mensajeError.textContent = "Por favor selecciona un alumno.";
+          mensajeError.style.display = "block";
+          return;
+        }
+
+        if (alumnoData.completado) {
+          mensajeError.textContent = "Este examen ya ha sido enviado anteriormente.";
+          mensajeError.style.display = "block";
+          return;
+        }
+
+        if (alumnoData.pin !== pinIngresado) {
+          mensajeError.textContent = "PIN incorrecto. Inténtalo de nuevo.";
+          mensajeError.style.display = "block";
+          return;
+        }
+
+        nombreSeleccionadoTemp = alumnoData.nombre;
+        mensajeError.style.display = "none";
+        modalInstrucciones.style.display = 'flex';
+      });
+
+      btnComenzarOficial.addEventListener('click', async () => {
+        try {
+          const alumnoRef = doc(db, "alumnos", idSeleccionadoTemp);
+          await updateDoc(alumnoRef, {
+            completado: true,
+            calificacion: 0,
+            historial: []
+          });
+
+          sessionStorage.setItem('alumnoActivo', idSeleccionadoTemp);
+          sessionStorage.setItem('nombreActivo', nombreSeleccionadoTemp);
+          window.location.replace('/examen');
+        } catch (error) {
+          console.error("Error al activar el candado:", error);
+          alert("Hubo un error al iniciar el examen. Inténtalo de nuevo.");
+        }
+      });
+
+      // Lógica protegida para el acceso de la maestra
+      btnMaestra.addEventListener('click', () => {
+        const password = prompt("Ingresa la contraseña de docente:");
+        if (password === "MaestraBrenda24") {
+          window.location.href = '/resultados';
+        } else if (password !== null) {
+          alert("Contraseña incorrecta.");
+        }
+      });
+    </script>
+  </body>
+</html>

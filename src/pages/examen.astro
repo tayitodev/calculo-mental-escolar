@@ -1,0 +1,211 @@
+---
+// src/pages/examen.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examen en Proceso - Cálculo Mental</title>
+  </head>
+  <body style="background-color: #f4f6f9; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;">
+
+    <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 450px; text-align: center;">
+      
+      <!-- Cabecera con el nombre, progreso y temporizador -->
+      <div id="contenedor-info" style="margin-bottom: 20px;">
+        <span id="label-nombre" style="font-size: 14px; color: #64748b; font-weight: bold; display: block; margin-bottom: 5px;">Alumno: Cargando...</span>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 id="contador-pregunta" style="color: #1e293b; margin: 0; font-size: 16px;">Pregunta 1 de 10</h3>
+          <span id="timer-display" style="background: #fee2e2; color: #dc2626; padding: 4px 10px; border-radius: 20px; font-size: 14px; font-weight: bold;">⏱️ 30s</span>
+        </div>
+      </div>
+
+      <!-- Contenedor del Examen -->
+      <div id="seccion-preguntas">
+        <div id="caja-pregunta" style="font-size: 28px; font-weight: bold; color: #2563eb; margin: 25px 0; background: #eff6ff; padding: 20px; border-radius: 12px;">
+          Cargando...
+        </div>
+
+        <form id="form-respuesta">
+          <input type="text" id="input-respuesta" placeholder="Tu respuesta" required autocomplete="off" style="width: 100%; padding: 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 20px; text-align: center; margin-bottom: 20px;" />
+          <button type="submit" style="width: 100%; background-color: #10b981; color: white; border: none; padding: 14px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            Siguiente / Responder
+          </button>
+        </form>
+      </div>
+
+      <!-- Pantalla Final (Oculta al inicio) -->
+      <div id="seccion-final" style="display: none;">
+        <h2 style="color: #1e293b; margin-bottom: 10px;">¡Examen Concluido!</h2>
+        <p style="color: #64748b; font-size: 15px; margin-bottom: 20px;">Tus respuestas han sido guardadas correctamente.</p>
+        <div id="resultado-final" style="font-size: 24px; font-weight: bold; color: #2563eb; margin-bottom: 25px;"></div>
+        <button id="btn-terminar" style="width: 100%; background-color: #475569; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 8px; cursor: pointer;">
+          Salir
+        </button>
+      </div>
+
+    </div>
+
+    <script>
+      import { doc, getDoc, updateDoc } from "firebase/firestore";
+      import { db } from "../firebase.js";
+
+      const alumnoId = sessionStorage.getItem('alumnoActivo');
+      const alumnoNombre = sessionStorage.getItem('nombreActivo');
+
+      if (!alumnoId || !alumnoNombre) {
+        window.location.replace('/');
+      }
+
+      // Verificación estricta de seguridad con Firebase
+      async function verificarSeguridad() {
+        const alumnoRef = doc(db, "alumnos", alumnoId);
+        const docSnap = await getDoc(alumnoRef);
+        
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          // Si por alguna razón extraña recargan y ya se guardó calificación previa, fuera de aquí
+          if (data.historial && data.historial.length >= 10) {
+            sessionStorage.clear();
+            window.location.replace('/');
+          }
+        }
+      }
+      verificarSeguridad();
+
+      // Reemplazamos la historia actual para que no puedan usar el botón "atrás"
+      history.replaceState(null, '', location.href);
+
+      document.getElementById('label-nombre')!.textContent = `Alumno: ${alumnoNombre}`;
+
+      const preguntasOficiales = [
+        { operacion: "1500 + 200", respuesta: 1700 },
+        { operacion: "100 - 89", respuesta: 11 },
+        { operacion: "20 × 6", respuesta: 120 },
+        { operacion: "8 ÷ 2", respuesta: 4 },
+        { operacion: "20 ÷ 4", respuesta: 5 },
+        { operacion: "1.5 + 0.5", respuesta: 2 },
+        { operacion: "1.0 - 0.2", respuesta: 0.8 },
+        { operacion: "2.3 + 1.0", respuesta: 3.3 },
+        { operacion: "650 ÷ 10", respuesta: 65 },
+        { operacion: "298 para 400", respuesta: 102 }
+      ];
+
+      function barajarPreguntas(array: any[]) {
+        let mezcladas = [...array];
+        for (let i = mezcladas.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [mezcladas[i], mezcladas[j]] = [mezcladas[j], mezcladas[i]];
+        }
+        return mezcladas;
+      }
+
+      const preguntasExamen = barajarPreguntas(preguntasOficiales);
+
+      let preguntaActual = 0;
+      let aciertos = 0;
+      let historialRespuestas: any[] = [];
+      let tiempoRestante = 30;
+      let temporizador: any = null;
+
+      const cajaPregunta = document.getElementById('caja-pregunta') as HTMLElement;
+      const contadorPregunta = document.getElementById('contador-pregunta') as HTMLElement;
+      const timerDisplay = document.getElementById('timer-display') as HTMLElement;
+      const inputRespuesta = document.getElementById('input-respuesta') as HTMLInputElement;
+      const formRespuesta = document.getElementById('form-respuesta') as HTMLFormElement;
+      
+      const seccionPreguntas = document.getElementById('seccion-preguntas') as HTMLElement;
+      const seccionFinal = document.getElementById('seccion-final') as HTMLElement;
+      const resultadoFinal = document.getElementById('resultado-final') as HTMLElement;
+
+      function iniciarTemporizador() {
+        tiempoRestante = 30;
+        timerDisplay.textContent = `⏱️ ${tiempoRestante}s`;
+        
+        clearInterval(temporizador);
+        temporizador = setInterval(() => {
+          tiempoRestante--;
+          timerDisplay.textContent = `⏱️ ${tiempoRestante}s`;
+
+          if (tiempoRestante <= 0) {
+            clearInterval(temporizador);
+            // Si se acaba el tiempo, cuenta como incorrecta y avanza a la siguiente pregunta
+            registrarRespuesta(NaN, true);
+          }
+        }, 1000);
+      }
+
+      function mostrarPregunta() {
+        if (preguntaActual < preguntasExamen.length) {
+          contadorPregunta.textContent = `Pregunta ${preguntaActual + 1} de 10`;
+          cajaPregunta.textContent = preguntasExamen[preguntaActual].operacion;
+          inputRespuesta.value = '';
+          inputRespuesta.focus();
+          iniciarTemporizador();
+        } else {
+          clearInterval(temporizador);
+          finalizarExamen();
+        }
+      }
+
+      function registrarRespuesta(valorUsuario: number, tiempoAgotado = false) {
+        clearInterval(temporizador);
+        const preguntaObj = preguntasExamen[preguntaActual];
+        
+        const esCorrecta = !tiempoAgotado && !isNaN(valorUsuario) && Math.abs(valorUsuario - preguntaObj.respuesta) < 0.0001;
+        if (esCorrecta) {
+          aciertos++;
+        }
+
+        historialRespuestas.push({
+          operacion: preguntaObj.operacion,
+          respuestaUsuario: tiempoAgotado ? "Tiempo agotado" : (isNaN(valorUsuario) ? 0 : valorUsuario),
+          respuestaCorrecta: preguntaObj.respuesta,
+          esCorrecta: esCorrecta
+        });
+
+        preguntaActual++;
+        mostrarPregunta();
+      }
+
+      formRespuesta.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let rawValue = inputRespuesta.value.trim().replace(',', '.');
+        if (rawValue.startsWith('.')) {
+          rawValue = '0' + rawValue;
+        }
+        const respuestaUsuario = parseFloat(rawValue);
+        registrarRespuesta(respuestaUsuario, false);
+      });
+
+      async function finalizarExamen() {
+        seccionPreguntas.style.display = 'none';
+        document.getElementById('contenedor-info')!.style.display = 'none';
+        seccionFinal.style.display = 'block';
+        resultadoFinal.textContent = `Calificación: ${aciertos} / 10`;
+
+        // Limpiamos la sesión para que ya no puedan recargar ni reingresar con el mismo token
+        sessionStorage.clear();
+
+        try {
+          const alumnoRef = doc(db, "alumnos", alumnoId!);
+          await updateDoc(alumnoRef, {
+            completado: true,
+            calificacion: aciertos,
+            historial: historialRespuestas
+          });
+        } catch (error) {
+          console.error("Error al guardar en Firebase:", error);
+        }
+      }
+
+      document.getElementById('btn-terminar')!.addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.replace('/');
+      });
+
+      mostrarPregunta();
+    </script>
+  </body>
+</html>
