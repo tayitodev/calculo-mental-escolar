@@ -136,7 +136,7 @@
                   let tipo = null;
                   if (h.operacion.includes('+')) tipo = 'Sumas (+)';
                   else if (h.operacion.includes('-')) tipo = 'Restas (-)';
-                  else if (h.operacion.includes('x') || h.operacion.includes('*')) tipo = 'Multipl. (x)';
+                  else if (h.operacion.includes('x') || h.operacion.includes('X') || h.operacion.includes('*') || h.operacion.includes('×')) tipo = 'Multipl. (x)';
                   else if (h.operacion.includes('/') || h.operacion.includes('÷')) tipo = 'Divis. (÷)';
 
                   if (tipo) {
