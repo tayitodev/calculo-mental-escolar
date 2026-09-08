@@ -216,7 +216,10 @@
             tdAcciones.style.justifyContent = 'center';
             tdAcciones.style.gap = '8px';
 
-            if (alumno.completado) {
+            // NUEVA LÓGICA: Mostrar si está completado O si hay intentos previos
+            if (alumno.completado || (alumno.intentosPrevios && alumno.intentosPrevios.length > 0)) {
+              
+              // Botón Ver Detalle (Ahora siempre visible si hay historial)
               const btnDetalle = document.createElement('button');
               btnDetalle.textContent = 'Ver Detalle';
               btnDetalle.style.cssText = 'background-color: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
@@ -248,12 +251,12 @@
                     </tr>`;
                   });
                 } else {
-                  htmlDetalle += `<tr><td colspan="5" style="text-align: center; padding: 15px; color: #64748b;">No hay historial detallado disponible.</td></tr>`;
+                  htmlDetalle += `<tr><td colspan="5" style="text-align: center; padding: 15px; color: #64748b;">El alumno está contestando el intento actual...</td></tr>`;
                 }
 
                 htmlDetalle += `</table>`;
 
-                // NUEVO CÓDIGO: Mostrar los intentos previos (respaldos)
+                // Mostrar los intentos previos (respaldos)
                 if (alumno.intentosPrevios && alumno.intentosPrevios.length > 0) {
                   htmlDetalle += `<h4 style="margin-top: 25px; color: #475569; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; font-size: 15px;">Historial de Reinicios</h4>`;
                   
@@ -277,34 +280,39 @@
                 modalDetalle.style.display = 'flex';
               });
 
-              const btnReiniciar = document.createElement('button');
-              btnReiniciar.textContent = 'Reiniciar';
-              btnReiniciar.style.cssText = 'background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
-              
-              btnReiniciar.addEventListener('click', async () => {
-                if (confirm(`¿Estás seguro de reiniciar el examen para ${alumno.nombre}?`)) {
-                  try {
-                    const alumnoRef = doc(db, "alumnos", alumno.id);
-                    await updateDoc(alumnoRef, {
-                      completado: false,
-                      calificacion: 0,
-                      historial: [],
-                      intentosPrevios: arrayUnion({
-                        calificacion: alumno.calificacion,
-                        historial: alumno.historial,
-                        fecha: new Date().toISOString()
-                      })
-                    });
-                    cargarResultadosYGrafica();
-                  } catch (err) {
-                    console.error("Error al reiniciar alumno:", err);
-                    alert("No se pudo reiniciar el examen.");
-                  }
-                }
-              });
-
               tdAcciones.appendChild(btnDetalle);
-              tdAcciones.appendChild(btnReiniciar);
+
+              // El botón Reiniciar SOLO debe aparecer si el intento ACTUAL ya se completó
+              if (alumno.completado) {
+                const btnReiniciar = document.createElement('button');
+                btnReiniciar.textContent = 'Reiniciar';
+                btnReiniciar.style.cssText = 'background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
+                
+                btnReiniciar.addEventListener('click', async () => {
+                  if (confirm(`¿Estás seguro de reiniciar el examen para ${alumno.nombre}?`)) {
+                    try {
+                      const alumnoRef = doc(db, "alumnos", alumno.id);
+                      await updateDoc(alumnoRef, {
+                        completado: false,
+                        calificacion: 0,
+                        historial: [],
+                        intentosPrevios: arrayUnion({
+                          calificacion: alumno.calificacion,
+                          historial: alumno.historial,
+                          fecha: new Date().toISOString()
+                        })
+                      });
+                      cargarResultadosYGrafica();
+                    } catch (err) {
+                      console.error("Error al reiniciar alumno:", err);
+                      alert("No se pudo reiniciar el examen.");
+                    }
+                  }
+                });
+                
+                tdAcciones.appendChild(btnReiniciar);
+              }
+
             } else {
               tdAcciones.style.color = '#94a3b8';
               tdAcciones.textContent = '—';
