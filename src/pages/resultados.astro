@@ -21,16 +21,18 @@
         <a href="/" style="background-color: #e2e8f0; color: #334155; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold;">Volver al Inicio</a>
       </div>
 
-      <!-- Sección de las Gráficas -->
+      <!-- Sección de las Gráficas (Limpia y unificada) -->
       <div style="margin-bottom: 40px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
         <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
           <button id="btn-vista-general" style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Promedios Generales</button>
-          <button id="btn-vista-operaciones" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Rendimiento por Operación</button>
+          <button id="btn-vista-operaciones" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Rendimiento</button>
+          <button id="btn-vista-tiempos" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Tiempos Promedio</button>
         </div>
         
         <div style="position: relative; height: 250px; width: 100%;">
           <canvas id="graficaCalificaciones"></canvas>
           <canvas id="grafica-operaciones" style="display: none;"></canvas>
+          <canvas id="grafica-tiempos" style="display: none;"></canvas>
         </div>
       </div>
 
@@ -54,7 +56,7 @@
 
     </div>
 
-    <!-- Modal para ver el desglose de respuestas (Aquí vive el <th>Tiempo</th> inyectado) -->
+    <!-- Modal para ver el desglose de respuestas -->
     <div id="modal-detalle" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px;">
       <div style="background: white; padding: 30px; border-radius: 12px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
         <h3 id="modal-titulo" style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Desglose de Examen</h3>
@@ -76,28 +78,50 @@
       // Controles de gráficas
       const btnGeneral = document.getElementById('btn-vista-general') as HTMLElement;
       const btnOperaciones = document.getElementById('btn-vista-operaciones') as HTMLElement;
+      const btnTiempos = document.getElementById('btn-vista-tiempos') as HTMLElement;
+
       const canvasGeneral = document.getElementById('graficaCalificaciones') as HTMLCanvasElement;
       const canvasOperaciones = document.getElementById('grafica-operaciones') as HTMLCanvasElement;
+      const canvasTiempos = document.getElementById('grafica-tiempos') as HTMLCanvasElement;
 
       let miGrafica: any = null;
       let graficaOp: any = null;
+      let graficaTiempos: any = null;
 
       btnCerrarModal.addEventListener('click', () => {
         modalDetalle.style.display = 'none';
       });
 
-      btnGeneral.addEventListener('click', () => {
-        canvasGeneral.style.display = 'block';
-        canvasOperaciones.style.display = 'none';
-        btnGeneral.style.background = '#2563eb'; btnGeneral.style.color = 'white';
-        btnOperaciones.style.background = '#e2e8f0'; btnOperaciones.style.color = '#475569';
+      // Función para reiniciar los estilos de los botones y ocultar gráficas
+      function resetBotones() {
+        [btnGeneral, btnOperaciones, btnTiempos].forEach(btn => {
+          btn.style.background = '#e2e8f0'; 
+          btn.style.color = '#475569';
+        });
+        [canvasGeneral, canvasOperaciones, canvasTiempos].forEach(canvas => {
+          canvas.style.display = 'none';
+        });
+      }
+
+      btnGeneral.addEventListener('click', () => { 
+        resetBotones(); 
+        canvasGeneral.style.display = 'block'; 
+        btnGeneral.style.background = '#2563eb'; 
+        btnGeneral.style.color = 'white'; 
       });
 
-      btnOperaciones.addEventListener('click', () => {
-        canvasGeneral.style.display = 'none';
-        canvasOperaciones.style.display = 'block';
-        btnOperaciones.style.background = '#2563eb'; btnOperaciones.style.color = 'white';
-        btnGeneral.style.background = '#e2e8f0'; btnGeneral.style.color = '#475569';
+      btnOperaciones.addEventListener('click', () => { 
+        resetBotones(); 
+        canvasOperaciones.style.display = 'block'; 
+        btnOperaciones.style.background = '#2563eb'; 
+        btnOperaciones.style.color = 'white'; 
+      });
+
+      btnTiempos.addEventListener('click', () => { 
+        resetBotones(); 
+        canvasTiempos.style.display = 'block'; 
+        btnTiempos.style.background = '#2563eb'; 
+        btnTiempos.style.color = 'white'; 
       });
 
       async function cargarResultadosYGrafica() {
@@ -115,6 +139,7 @@
           
           // Variables para las gráficas
           let conteoCalificaciones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          
           let statsOperaciones: Record<string, { aciertos: number, total: number }> = {
             'Sumas (+)': { aciertos: 0, total: 0 },
             'Restas (-)': { aciertos: 0, total: 0 },
@@ -122,26 +147,38 @@
             'Divis. (÷)': { aciertos: 0, total: 0 }
           };
 
+          let statsTiempos: Record<string, { suma: number, conteo: number }> = {
+            'Sumas (+)': { suma: 0, conteo: 0 },
+            'Restas (-)': { suma: 0, conteo: 0 },
+            'Multipl. (x)': { suma: 0, conteo: 0 },
+            'Divis. (÷)': { suma: 0, conteo: 0 }
+          };
+
           lista.forEach((alumno) => {
-            // Recolectar datos para gráfica general
             if (alumno.completado) {
               const nota = alumno.calificacion;
               if (nota >= 0 && nota <= 10) {
                 conteoCalificaciones[nota]++;
               }
               
-              // Recolectar datos para gráfica de operaciones
               if (alumno.historial) {
                 alumno.historial.forEach((h: any) => {
                   let tipo = null;
                   if (h.operacion.includes('+')) tipo = 'Sumas (+)';
                   else if (h.operacion.includes('-')) tipo = 'Restas (-)';
+                  // CORRECCIÓN: Detecta múltiples variantes del símbolo de multiplicación
                   else if (h.operacion.includes('x') || h.operacion.includes('X') || h.operacion.includes('*') || h.operacion.includes('×')) tipo = 'Multipl. (x)';
                   else if (h.operacion.includes('/') || h.operacion.includes('÷')) tipo = 'Divis. (÷)';
 
                   if (tipo) {
                     statsOperaciones[tipo].total++;
                     if (h.esCorrecta) statsOperaciones[tipo].aciertos++;
+                    
+                    // Sumamos los tiempos si existen
+                    if (h.tiempoUsado !== undefined) {
+                      statsTiempos[tipo].suma += h.tiempoUsado;
+                      statsTiempos[tipo].conteo++;
+                    }
                   }
                 });
               }
@@ -172,7 +209,6 @@
             tdCalificacion.style.color = alumno.completado ? '#2563eb' : '#94a3b8';
             tdCalificacion.textContent = alumno.completado ? `${alumno.calificacion} / 10` : '—';
 
-            // Columna de Acciones (Ver Detalle + Reiniciar)
             const tdAcciones = document.createElement('td');
             tdAcciones.style.padding = '12px';
             tdAcciones.style.textAlign = 'center';
@@ -181,7 +217,6 @@
             tdAcciones.style.gap = '8px';
 
             if (alumno.completado) {
-              // Botón Ver Detalle
               const btnDetalle = document.createElement('button');
               btnDetalle.textContent = 'Ver Detalle';
               btnDetalle.style.cssText = 'background-color: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
@@ -189,7 +224,6 @@
               btnDetalle.addEventListener('click', () => {
                 modalTitulo.textContent = `Desglose de examen: ${alumno.nombre}`;
                 
-                // AQUÍ ES DONDE SE INYECTA EL TH DE TIEMPO
                 let htmlDetalle = `<table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                   <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
                     <th style="padding: 8px; text-align: left;">Operación</th>
@@ -203,8 +237,6 @@
                   alumno.historial.forEach((h: any) => {
                     const badgeColor = h.esCorrecta ? 'background: #dcfce7; color: #166534;' : 'background: #fee2e2; color: #dc2626;';
                     const textoEstado = h.esCorrecta ? 'Correcta' : (h.respuestaUsuario === "Tiempo agotado" ? 'Sin tiempo' : 'Incorrecta');
-                    
-                    // PARACAIDAS: Si no hay tiempo guardado, muestra un guion
                     const tiempoTexto = h.tiempoUsado !== undefined ? `${h.tiempoUsado}s` : '—';
                     
                     htmlDetalle += `<tr style="border-bottom: 1px solid #f1f5f9;">
@@ -220,11 +252,31 @@
                 }
 
                 htmlDetalle += `</table>`;
+
+                // NUEVO CÓDIGO: Mostrar los intentos previos (respaldos)
+                if (alumno.intentosPrevios && alumno.intentosPrevios.length > 0) {
+                  htmlDetalle += `<h4 style="margin-top: 25px; color: #475569; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; font-size: 15px;">Historial de Reinicios</h4>`;
+                  
+                  alumno.intentosPrevios.forEach((intento: any, index: number) => {
+                    const fecha = new Date(intento.fecha).toLocaleString('es-MX');
+                    htmlDetalle += `
+                    <div style="background: #f8fafc; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <p style="margin: 0; font-size: 13px; color: #1e293b;">
+                          <strong>Intento ${index + 1}</strong> <span style="color: #64748b;">(${fecha})</span>
+                        </p>
+                        <p style="margin: 0; font-size: 13px; font-weight: bold; color: #2563eb;">
+                          Calificación: ${intento.calificacion} / 10
+                        </p>
+                      </div>
+                    </div>`;
+                  });
+                }
+
                 modalContenido.innerHTML = htmlDetalle;
                 modalDetalle.style.display = 'flex';
               });
 
-              // Botón Reiniciar con RESPALDO
               const btnReiniciar = document.createElement('button');
               btnReiniciar.textContent = 'Reiniciar';
               btnReiniciar.style.cssText = 'background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
@@ -309,6 +361,33 @@
             options: {
               responsive: true, maintainAspectRatio: false,
               scales: { y: { beginAtZero: true, max: 100 } },
+              plugins: { legend: { display: false } }
+            }
+          });
+
+          // RENDERIZAR GRÁFICA DE TIEMPOS
+          const ctxTiempos = canvasTiempos.getContext('2d');
+          if (graficaTiempos) { graficaTiempos.destroy(); }
+          
+          const promediosTiempos = etiquetasOp.map(tipo => {
+            const { suma, conteo } = statsTiempos[tipo];
+            return conteo > 0 ? Number((suma / conteo).toFixed(1)) : 0;
+          });
+
+          graficaTiempos = new Chart(ctxTiempos!, {
+            type: 'bar',
+            data: {
+              labels: etiquetasOp,
+              datasets: [{
+                label: 'Segundos Promedio',
+                data: promediosTiempos,
+                backgroundColor: '#0ea5e9',
+                borderRadius: 6
+              }]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              scales: { y: { beginAtZero: true, title: { display: true, text: 'Segundos' } } },
               plugins: { legend: { display: false } }
             }
           });
