@@ -158,11 +158,14 @@
           aciertos++;
         }
 
+        const tiempoTardado = tiempoAgotado ? 30 : (30 - tiempoRestante);
+
         historialRespuestas.push({
           operacion: preguntaObj.operacion,
           respuestaUsuario: tiempoAgotado ? "Tiempo agotado" : (isNaN(valorUsuario) ? 0 : valorUsuario),
           respuestaCorrecta: preguntaObj.respuesta,
-          esCorrecta: esCorrecta
+          esCorrecta: esCorrecta,
+          tiempoUsado: tiempoTardado // <-- Nueva propiedad que Firebase aceptará sin problemas
         });
 
         preguntaActual++;
