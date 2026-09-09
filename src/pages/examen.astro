@@ -58,7 +58,6 @@
         window.location.replace('/');
       }
 
-      // Verificación estricta de seguridad con Firebase
       async function verificarSeguridad() {
         const alumnoRef = doc(db, "alumnos", alumnoId);
         const docSnap = await getDoc(alumnoRef);
@@ -73,7 +72,6 @@
       }
       verificarSeguridad();
 
-      // Bloqueamos el botón "atrás" del navegador
       history.replaceState(null, '', location.href);
 
       document.getElementById('label-nombre')!.textContent = `Alumno: ${alumnoNombre}`;
@@ -100,27 +98,26 @@
         return mezcladas;
       }
 
-      // VARIABLES DEL EXAMEN
       let preguntasExamen: any[] = [];
       let preguntaActual = 0;
       let aciertos = 0;
       let historialRespuestas: any[] = [];
-      let tiempoRestante = 30;
+      let tiempoRestante = 30; // Iniciamos en 30
       let temporizador: any = null;
 
-      // ---- NUEVA LÓGICA DE RESPALDO (LOCALSTORAGE) ----
+      // ---- RECUPERAR RESPALDO INCLUYENDO EL TIEMPO ----
       const claveRespaldo = `respaldo_${alumnoId}`;
       const respaldoGuardado = localStorage.getItem(claveRespaldo);
 
       if (respaldoGuardado) {
-        // Si recargó la página, recuperamos TODO su estado exacto
         const datos = JSON.parse(respaldoGuardado);
         preguntasExamen = datos.preguntasExamen;
         preguntaActual = datos.preguntaActual;
         aciertos = datos.aciertos;
         historialRespuestas = datos.historialRespuestas;
+        // Recuperamos el segundo exacto en el que iba, si no hay, ponemos 30
+        tiempoRestante = datos.tiempoRestante !== undefined ? datos.tiempoRestante : 30;
       } else {
-        // Si es la primera vez que entra, barajamos y guardamos el inicio
         preguntasExamen = barajarPreguntas(preguntasOficiales);
         guardarProgreso();
       }
@@ -130,10 +127,10 @@
           preguntasExamen,
           preguntaActual,
           aciertos,
-          historialRespuestas
+          historialRespuestas,
+          tiempoRestante // <-- Ahora guardamos el tiempo exacto
         }));
       }
-      // --------------------------------------------------
 
       const cajaPregunta = document.getElementById('caja-pregunta') as HTMLElement;
       const contadorPregunta = document.getElementById('contador-pregunta') as HTMLElement;
@@ -145,14 +142,21 @@
       const seccionFinal = document.getElementById('seccion-final') as HTMLElement;
       const resultadoFinal = document.getElementById('resultado-final') as HTMLElement;
 
-      function iniciarTemporizador() {
-        tiempoRestante = 30;
+      // Le pasamos un aviso de si la pregunta es "nueva" o viene de un "refresh"
+      function iniciarTemporizador(esNuevaPregunta = false) {
+        if (esNuevaPregunta) {
+          tiempoRestante = 30; // Solo reiniciamos a 30s si avanzó a la siguiente
+        }
+        
         timerDisplay.textContent = `⏱️ ${tiempoRestante}s`;
         
         clearInterval(temporizador);
         temporizador = setInterval(() => {
           tiempoRestante--;
           timerDisplay.textContent = `⏱️ ${tiempoRestante}s`;
+          
+          // Guardamos en el disco duro cada que el reloj hace "tic-tac"
+          guardarProgreso();
 
           if (tiempoRestante <= 0) {
             clearInterval(temporizador);
@@ -161,13 +165,15 @@
         }, 1000);
       }
 
-      function mostrarPregunta() {
+      function mostrarPregunta(esReanudacion = false) {
         if (preguntaActual < preguntasExamen.length) {
           contadorPregunta.textContent = `Pregunta ${preguntaActual + 1} de 10`;
           cajaPregunta.textContent = preguntasExamen[preguntaActual].operacion;
           inputRespuesta.value = '';
           inputRespuesta.focus();
-          iniciarTemporizador();
+          
+          // Si es reanudación, le decimos que NO es nueva pregunta (para que no reinicie el reloj)
+          iniciarTemporizador(!esReanudacion); 
         } else {
           clearInterval(temporizador);
           finalizarExamen();
@@ -194,11 +200,10 @@
         });
 
         preguntaActual++;
+        tiempoRestante = 30; // Preparamos el reloj para la siguiente pregunta
+        guardarProgreso(); // Guardamos el pase de pregunta
         
-        // Cada que contesta, actualizamos el disco duro
-        guardarProgreso(); 
-        
-        mostrarPregunta();
+        mostrarPregunta(false); // Arrancamos la siguiente pregunta como "nueva"
       }
 
       formRespuesta.addEventListener('submit', (e) => {
@@ -217,7 +222,6 @@
         seccionFinal.style.display = 'block';
         resultadoFinal.textContent = `Calificación: ${aciertos} / 10`;
 
-        // Limpiamos todo para que no queden rastros
         sessionStorage.clear();
         localStorage.removeItem(claveRespaldo);
 
@@ -238,8 +242,8 @@
         window.location.replace('/');
       });
 
-      // Arrancamos el examen
-      mostrarPregunta();
+      // Si viene de un refresco de página (respaldoGuardado es true), pasamos la bandera a true
+      mostrarPregunta(!!respaldoGuardado);
     </script>
   </body>
 </html>
