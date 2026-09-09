@@ -65,7 +65,6 @@
         
         if (docSnap.exists()) {
           const data = docSnap.data();
-          // Si por alguna razón extraña recargan y ya se guardó calificación previa, fuera de aquí
           if (data.historial && data.historial.length >= 10) {
             sessionStorage.clear();
             window.location.replace('/');
@@ -74,7 +73,7 @@
       }
       verificarSeguridad();
 
-      // Reemplazamos la historia actual para que no puedan usar el botón "atrás"
+      // Bloqueamos el botón "atrás" del navegador
       history.replaceState(null, '', location.href);
 
       document.getElementById('label-nombre')!.textContent = `Alumno: ${alumnoNombre}`;
@@ -101,13 +100,40 @@
         return mezcladas;
       }
 
-      const preguntasExamen = barajarPreguntas(preguntasOficiales);
-
+      // VARIABLES DEL EXAMEN
+      let preguntasExamen: any[] = [];
       let preguntaActual = 0;
       let aciertos = 0;
       let historialRespuestas: any[] = [];
       let tiempoRestante = 30;
       let temporizador: any = null;
+
+      // ---- NUEVA LÓGICA DE RESPALDO (LOCALSTORAGE) ----
+      const claveRespaldo = `respaldo_${alumnoId}`;
+      const respaldoGuardado = localStorage.getItem(claveRespaldo);
+
+      if (respaldoGuardado) {
+        // Si recargó la página, recuperamos TODO su estado exacto
+        const datos = JSON.parse(respaldoGuardado);
+        preguntasExamen = datos.preguntasExamen;
+        preguntaActual = datos.preguntaActual;
+        aciertos = datos.aciertos;
+        historialRespuestas = datos.historialRespuestas;
+      } else {
+        // Si es la primera vez que entra, barajamos y guardamos el inicio
+        preguntasExamen = barajarPreguntas(preguntasOficiales);
+        guardarProgreso();
+      }
+
+      function guardarProgreso() {
+        localStorage.setItem(claveRespaldo, JSON.stringify({
+          preguntasExamen,
+          preguntaActual,
+          aciertos,
+          historialRespuestas
+        }));
+      }
+      // --------------------------------------------------
 
       const cajaPregunta = document.getElementById('caja-pregunta') as HTMLElement;
       const contadorPregunta = document.getElementById('contador-pregunta') as HTMLElement;
@@ -130,7 +156,6 @@
 
           if (tiempoRestante <= 0) {
             clearInterval(temporizador);
-            // Si se acaba el tiempo, cuenta como incorrecta y avanza a la siguiente pregunta
             registrarRespuesta(NaN, true);
           }
         }, 1000);
@@ -165,10 +190,14 @@
           respuestaUsuario: tiempoAgotado ? "Tiempo agotado" : (isNaN(valorUsuario) ? 0 : valorUsuario),
           respuestaCorrecta: preguntaObj.respuesta,
           esCorrecta: esCorrecta,
-          tiempoUsado: tiempoTardado // <-- Nueva propiedad que Firebase aceptará sin problemas
+          tiempoUsado: tiempoTardado
         });
 
         preguntaActual++;
+        
+        // Cada que contesta, actualizamos el disco duro
+        guardarProgreso(); 
+        
         mostrarPregunta();
       }
 
@@ -188,8 +217,9 @@
         seccionFinal.style.display = 'block';
         resultadoFinal.textContent = `Calificación: ${aciertos} / 10`;
 
-        // Limpiamos la sesión para que ya no puedan recargar ni reingresar con el mismo token
+        // Limpiamos todo para que no queden rastros
         sessionStorage.clear();
+        localStorage.removeItem(claveRespaldo);
 
         try {
           const alumnoRef = doc(db, "alumnos", alumnoId!);
@@ -208,6 +238,7 @@
         window.location.replace('/');
       });
 
+      // Arrancamos el examen
       mostrarPregunta();
     </script>
   </body>
