@@ -133,15 +133,14 @@ const preguntas = examenData.preguntas;
       }
       document.getElementById('nombre-alumno-display')!.textContent = alumnoNombre;
 
-      // Variables para el cronómetro silencioso y seguridad
       let tiempoInicio: number;
       const modal = document.getElementById('modal-instrucciones') as HTMLElement;
       const btnComenzar = document.getElementById('btn-comenzar') as HTMLButtonElement;
 
-      // Alarma Anti-Recarga (Se desactiva cuando mandan el form)
+      // Alarma Anti-Recarga (Moderna)
       const advertenciaSalida = (e: BeforeUnloadEvent) => {
         e.preventDefault();
-        e.returnValue = 'Si sales de la página perderás tu progreso.';
+        return ''; 
       };
 
       btnComenzar.addEventListener('click', () => {
@@ -155,7 +154,7 @@ const preguntas = examenData.preguntas;
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Apagamos la alarma antes de guardar para que no bloquee el redireccionamiento
+        // Apagamos la alarma ANTES de guardar para que no estorbe
         window.removeEventListener('beforeunload', advertenciaSalida);
         
         const tiempoFin = Date.now();
@@ -210,7 +209,7 @@ const preguntas = examenData.preguntas;
         });
 
         const btnEnviar = document.getElementById('btn-enviar') as HTMLButtonElement;
-        btnEnviar.textContent = "Guardando...";
+        btnEnviar.textContent = "Guardando en la nube...";
         btnEnviar.disabled = true;
 
         try {
@@ -225,14 +224,18 @@ const preguntas = examenData.preguntas;
             }
           });
 
-          alert("¡Tus respuestas han sido guardadas correctamente! Regresando al portal...");
-          window.location.replace('/dashboard');
+          // Retraso de medio segundo para asegurar que la base de datos termine
+          setTimeout(() => {
+            alert("¡Tus respuestas han sido guardadas correctamente!");
+            window.location.replace('/dashboard');
+          }, 500);
+
         } catch (error) {
           console.error("Error al guardar:", error);
           alert("Hubo un error al guardar. Inténtalo de nuevo.");
           btnEnviar.textContent = "Enviar Examen";
           btnEnviar.disabled = false;
-          // Si falla, volvemos a prender la alarma por si intentan salir
+          // Si hubo error, volvemos a encender la alarma
           window.addEventListener('beforeunload', advertenciaSalida);
         }
       });
