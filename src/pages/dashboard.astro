@@ -1,0 +1,103 @@
+---
+// src/pages/dashboard.astro
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal del Alumno</title>
+  </head>
+  <body style="background-color: #f4f6f9; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;">
+
+    <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 600px;">
+      
+      <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px;">
+        <h2 style="color: #1e293b; margin: 0 0 10px 0;">¡Hola, <span id="nombre-alumno">Alumno</span>! 👋</h2>
+        <p style="color: #64748b; font-size: 15px; margin: 0;">Selecciona la evaluación que vas a realizar hoy.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Tarjeta: Cálculo Mental -->
+        <div id="card-calculo" style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;">
+          <div>
+            <h3 style="margin: 0 0 5px 0; color: #0f172a;">Cálculo Mental</h3>
+            <p style="margin: 0; color: #64748b; font-size: 14px;">10 operaciones matemáticas con tiempo límite.</p>
+          </div>
+          <div id="accion-calculo">
+            <span style="color: #94a3b8; font-size: 14px;">Cargando...</span>
+          </div>
+        </div>
+
+        <!-- Tarjeta: Examen Montenegro -->
+        <div id="card-montenegro" style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;">
+          <div>
+            <h3 style="margin: 0 0 5px 0; color: #0f172a;">Examen Diagnóstico</h3>
+            <p style="margin: 0; color: #64748b; font-size: 14px;">Evaluación general por materias (Montenegro).</p>
+          </div>
+          <div id="accion-montenegro">
+             <!-- Este por ahora estará siempre activo hasta que le programemos su propia base de datos -->
+            <a href="/montenegro" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Ingresar</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 30px;">
+        <button id="btn-cerrar-sesion" style="background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; font-size: 14px; text-decoration: underline;">
+          Cerrar Sesión
+        </button>
+      </div>
+
+    </div>
+
+    <script>
+      import { doc, getDoc } from "firebase/firestore";
+      import { db } from "../firebase.js";
+
+      const alumnoId = sessionStorage.getItem('alumnoActivo');
+      const alumnoNombre = sessionStorage.getItem('nombreActivo');
+
+      if (!alumnoId || !alumnoNombre) {
+        window.location.replace('/');
+      }
+
+      document.getElementById('nombre-alumno')!.textContent = alumnoNombre;
+
+      const accionCalculo = document.getElementById('accion-calculo') as HTMLElement;
+      const cardCalculo = document.getElementById('card-calculo') as HTMLElement;
+
+      async function verificarEstatus() {
+        try {
+          const alumnoRef = doc(db, "alumnos", alumnoId!);
+          const docSnap = await getDoc(alumnoRef);
+          
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            
+            // Si ya terminó el de cálculo, bloqueamos el acceso
+            if (data.completado === true) {
+              cardCalculo.style.backgroundColor = '#f8fafc';
+              cardCalculo.style.borderColor = '#f1f5f9';
+              accionCalculo.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado ✅</span>';
+            } else {
+              // Si no ha terminado o la maestra lo reinició, le mostramos el botón
+              accionCalculo.innerHTML = '<a href="/examen" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Ingresar</a>';
+            }
+          }
+        } catch (error) {
+          console.error("Error al obtener estatus:", error);
+          accionCalculo.innerHTML = '<span style="color: #ef4444; font-size: 14px;">Error de conexión</span>';
+        }
+      }
+
+      verificarEstatus();
+
+      document.getElementById('btn-cerrar-sesion')!.addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.replace('/');
+      });
+    </script>
+  </body>
+</html>
