@@ -94,7 +94,7 @@
       <div style="background: white; padding: 30px; border-radius: 12px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
         <h3 id="modal-titulo" style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Desglose</h3>
         <div id="modal-contenido" style="margin: 20px 0;"></div>
-        <button id="btn-cerrar-modal" style="width: 100%; background-color: #2563eb; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer;">Cerrar Panel de Detalles</button>
+        <button id="btn-cerrar-modal" style="width: 100%; background-color: #2563eb; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 20px;">Cerrar Panel de Detalles</button>
       </div>
     </div>
 
@@ -176,6 +176,7 @@
           let conteoLengCalif = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; 
           let nombresLeng: string[] = [];
           let tiemposLeng: number[] = [];
+          let coloresTiemposLeng: string[] = [];
 
           lista.forEach((alumno) => {
             // ================== TABLA CÁLCULO MENTAL ==================
@@ -206,7 +207,7 @@
             trCalc.style.borderBottom = '1px solid #f1f5f9';
             trCalc.innerHTML = `
               <td style="padding: 12px; color: #1e293b; font-weight: 500;">${alumno.nombre}</td>
-              <td style="padding: 12px; text-align: center;">${alumno.completado ? '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Completado</span>' : '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Pendiente</span>'}</td>
+              <td style="padding: 12px; text-align: center;">${alumno.completado ? '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight:bold;">Completado</span>' : '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight:bold;">Pendiente</span>'}</td>
               <td style="padding: 12px; text-align: center; font-weight: bold; color: ${alumno.completado ? '#2563eb' : '#94a3b8'};">${alumno.completado ? `${alumno.calificacion} / 10` : '—'}</td>
             `;
 
@@ -277,32 +278,42 @@
             trCalc.appendChild(tdAccionesCalc);
             document.getElementById('tabla-cuerpo-calculo')!.appendChild(trCalc);
 
+
             // ================== TABLA LENGUAJES ==================
             const examLeng = alumno.examen_lenguajes;
             const intentosLeng = alumno.intentosPreviosLenguajes;
 
+            let htmlEstatus = '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Pendiente</span>';
+            let htmlCalif = '—';
+            let htmlTiempo = '—';
+
             if (examLeng && examLeng.completado) {
-              let notaBase10 = Math.round((examLeng.aciertos / examLeng.totalPreguntas) * 10);
-              if(notaBase10 >= 0 && notaBase10 <= 10) conteoLengCalif[notaBase10]++;
+              htmlEstatus = '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado</span>';
+              
+              // Calificación Base 10
+              const califBase10 = ((examLeng.aciertos / examLeng.totalPreguntas) * 10).toFixed(1);
+              htmlCalif = `${califBase10} / 10`;
+
+              // Para la gráfica (Redondeo clásico a enteros para las barras)
+              let notaBase10Entera = Math.round((examLeng.aciertos / examLeng.totalPreguntas) * 10);
+              if(notaBase10Entera >= 0 && notaBase10Entera <= 10) conteoLengCalif[notaBase10Entera]++;
               
               nombresLeng.push(alumno.nombre.split(" ")[0]);
-              tiemposLeng.push(Math.round(examLeng.tiempoSegundos / 60)); // En minutos
-            }
+              // Guardamos en minutos con 2 decimales para más precisión en la gráfica
+              tiemposLeng.push(Number((examLeng.tiempoSegundos / 60).toFixed(2))); 
+              coloresTiemposLeng.push('#f59e0b');
 
-            const trLeng = document.createElement('tr');
-            trLeng.style.borderBottom = '1px solid #f1f5f9';
-            
-            let htmlTiempo = '—';
-            if (examLeng && examLeng.completado) {
               const mins = Math.floor(examLeng.tiempoSegundos / 60);
               const secs = examLeng.tiempoSegundos % 60;
               htmlTiempo = `<span style="background: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">⏱️ ${mins}m ${secs}s</span>`;
             }
 
+            const trLeng = document.createElement('tr');
+            trLeng.style.borderBottom = '1px solid #f1f5f9';
             trLeng.innerHTML = `
               <td style="padding: 12px; color: #1e293b; font-weight: 500;">${alumno.nombre}</td>
-              <td style="padding: 12px; text-align: center;">${examLeng?.completado ? '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Completado</span>' : '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Pendiente</span>'}</td>
-              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${examLeng?.completado ? '#10b981' : '#94a3b8'};">${examLeng?.completado ? `${examLeng.aciertos} / ${examLeng.totalPreguntas}` : '—'}</td>
+              <td style="padding: 12px; text-align: center;">${htmlEstatus}</td>
+              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${examLeng?.completado ? '#10b981' : '#94a3b8'};">${htmlCalif}</td>
               <td style="padding: 12px; text-align: center;">${htmlTiempo}</td>
             `;
 
@@ -318,7 +329,20 @@
               
               btnDetalleLeng.addEventListener('click', () => {
                 modalTitulo.textContent = `Lenguajes: ${alumno.nombre}`;
-                let detalles = `<div style="display:flex; flex-direction:column; gap:10px;">`;
+                let detalles = ``;
+
+                // Resumen de Aciertos y Base 10
+                if (examLeng && examLeng.completado) {
+                  const base10 = ((examLeng.aciertos / examLeng.totalPreguntas) * 10).toFixed(1);
+                  detalles += `
+                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                      <h4 style="margin: 0 0 5px 0; color: #166534; font-size: 16px;">Resumen de Resultados</h4>
+                      <p style="margin: 0 0 5px 0; font-size: 14px; color: #15803d;"><strong>Aciertos:</strong> ${examLeng.aciertos} de ${examLeng.totalPreguntas}</p>
+                      <p style="margin: 0; font-size: 14px; color: #15803d;"><strong>Calificación Escolar:</strong> ${base10} / 10</p>
+                    </div>`;
+                }
+
+                detalles += `<div style="display:flex; flex-direction:column; gap:10px;">`;
                 
                 if (examLeng && examLeng.historial) {
                   examLeng.historial.forEach((h: any, i: number) => {
@@ -392,13 +416,25 @@
           graficaTiempos = new Chart(ctxTiempos!, { type: 'bar', data: { labels: etiquetasOp, datasets: [{ label: 'Segundos Promedio', data: promediosTiempos, backgroundColor: '#0ea5e9', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } } });
 
           // ================== RENDER GRÁFICAS LENGUAJES ==================
+          // Gráfica de Calificaciones
           const ctxLengCalif = canvasLengCalif.getContext('2d');
           if (grafLengCalif) grafLengCalif.destroy();
           grafLengCalif = new Chart(ctxLengCalif!, { type: 'bar', data: { labels: ['0','1','2','3','4','5','6','7','8','9','10'], datasets: [{ label: 'Alumnos (Calificación base 10)', data: conteoLengCalif, backgroundColor: '#10b981', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
 
+          // Calcular Promedio Grupal de Tiempo
+          if (tiemposLeng.length > 0) {
+            const sumaTotalTiempos = tiemposLeng.reduce((a, b) => a + b, 0);
+            const promedioGrupal = Number((sumaTotalTiempos / tiemposLeng.length).toFixed(2));
+            
+            nombresLeng.push('PROMEDIO GRUPAL');
+            tiemposLeng.push(promedioGrupal);
+            coloresTiemposLeng.push('#2563eb'); // Color azul oscuro para destacar el promedio
+          }
+
+          // Gráfica de Tiempo por Alumno
           const ctxLengTiempo = canvasLengTiempo.getContext('2d');
           if (grafLengTiempo) grafLengTiempo.destroy();
-          grafLengTiempo = new Chart(ctxLengTiempo!, { type: 'bar', data: { labels: nombresLeng, datasets: [{ label: 'Minutos Tardados', data: tiemposLeng, backgroundColor: '#f59e0b', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Minutos' } } }, plugins: { legend: { display: false } } } });
+          grafLengTiempo = new Chart(ctxLengTiempo!, { type: 'bar', data: { labels: nombresLeng, datasets: [{ label: 'Minutos Tardados', data: tiemposLeng, backgroundColor: coloresTiemposLeng, borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Minutos' } } }, plugins: { legend: { display: false } } } });
 
         } catch (error) {
           console.error("Error cargando DB:", error);
