@@ -378,17 +378,6 @@
         { "id": "31_4", "texto": "Definir el lugar y el tiempo.", "respuestaCorrecta": 3 },
         { "id": "31_5", "texto": "Elegir el tema.", "respuestaCorrecta": 1 }
       ]
-    },
-    {
-      "id": 32,
-      "tipo": "abierta",
-      "instruccion": "Lee el cuento y contesta las preguntas con tus propias palabras.",
-      "requiere_revision_manual": true,
-      "preguntas_abiertas": [
-        { "id": "32_1", "pregunta": "¿Por qué Lía se sentía sola al inicio del cuento?" },
-        { "id": "32_2", "pregunta": "¿Qué hizo Lía para ayudar al mono?" },
-        { "id": "32_3", "pregunta": "¿Qué cambió en la vida de Lía después de ayudar al mono?" }
-      ]
     }
   ]
 }

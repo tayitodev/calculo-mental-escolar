@@ -14,16 +14,24 @@ const preguntas = examenData.preguntas;
   </head>
   <body style="background-color: #f8fafc; font-family: sans-serif; margin: 0; padding-bottom: 80px;">
 
-    <!-- Barra Superior Fija -->
+    <!-- Barra Superior Fija (Sin reloj) -->
     <div style="background: white; padding: 15px 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center;">
       <h2 style="margin: 0; color: #1e293b; font-size: 18px;">Evaluación de {examenData.materia}</h2>
-      <div style="background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">
-        ⏱️ <span id="reloj-global">60:00</span>
-      </div>
+      <span style="color: #64748b; font-size: 14px; font-weight: bold;" id="nombre-alumno-display">Cargando...</span>
     </div>
 
     <div style="max-width: 800px; margin: 30px auto; padding: 0 20px;">
       
+      <!-- Advertencia de Seguridad -->
+      <div style="background: #fffbeb; border: 1px solid #fef3c7; border-left: 5px solid #f59e0b; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+        <h3 style="margin-top: 0; color: #b45309; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+          ⚠️ Advertencia Importante
+        </h3>
+        <p style="color: #92400e; margin: 0; font-size: 14px; line-height: 1.5;">
+          <strong>No cierres ni recargues esta página</strong> hasta haber dado clic en el botón de "Enviar Examen" al final. Si sales de esta pantalla, tus respuestas se perderán y el examen será anulado por seguridad. Tómate el tiempo necesario para leer y contestar.
+        </p>
+      </div>
+
       <!-- Sección de Lectura -->
       <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 30px; border-left: 5px solid #3b82f6;">
         <h3 style="margin-top: 0; color: #2563eb; font-size: 20px;">📖 Lectura: {lectura.titulo}</h3>
@@ -39,6 +47,7 @@ const preguntas = examenData.preguntas;
               {index + 1}. {p.pregunta || p.instruccion}
             </p>
 
+            {/* Opción Múltiple */}
             {p.tipo === 'opcion_multiple' && (
               <div style="display: flex; flex-direction: column; gap: 10px;">
                 {Object.entries(p.opciones).map(([letra, texto]) => (
@@ -50,26 +59,168 @@ const preguntas = examenData.preguntas;
               </div>
             )}
 
-            {p.tipo === 'abierta' && (
+            {/* Completar Texto (Pregunta 29) */}
+            {p.tipo === 'completar_texto' && (
               <div style="display: flex; flex-direction: column; gap: 15px;">
-                {p.preguntas_abiertas.map((pa) => (
-                  <div>
-                    <p style="margin: 0 0 8px 0; color: #475569; font-size: 14px;">{pa.pregunta}</p>
-                    <textarea name={`abierta_${pa.id}`} rows="3" required placeholder="Escribe tu respuesta aquí..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: sans-serif; font-size: 14px; box-sizing: border-box; resize: vertical;"></textarea>
+                {p.oraciones.map((oracion) => (
+                  <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="color: #334155; font-size: 14px;">{oracion.texto}</label>
+                    <input type="text" name={`pregunta_${oracion.id}`} required placeholder="Escribe la palabra aquí..." style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; width: 100%; max-width: 300px;" autocomplete="off" />
                   </div>
                 ))}
               </div>
             )}
+
+            {/* Verdadero o Falso (Pregunta 30) */}
+            {p.tipo === 'verdadero_falso' && (
+              <div style="display: flex; flex-direction: column; gap: 15px;">
+                {p.afirmaciones.map((afirmacion) => (
+                  <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
+                    <label style="color: #334155; font-size: 14px; flex: 1;">{afirmacion.texto}</label>
+                    <input type="text" name={`pregunta_${afirmacion.id}`} required maxlength="1" placeholder="V o F" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; font-weight: bold; width: 50px; text-align: center; text-transform: uppercase;" autocomplete="off" />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Ordenamiento (Pregunta 31) */}
+            {p.tipo === 'ordenamiento' && (
+              <div style="display: flex; flex-direction: column; gap: 15px;">
+                {p.elementos.map((elemento) => (
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                    <input type="number" name={`pregunta_${elemento.id}`} required min="1" max="5" placeholder="#" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; font-weight: bold; width: 60px; text-align: center;" />
+                    <label style="color: #334155; font-size: 14px;">{elemento.texto}</label>
+                  </div>
+                ))}
+              </div>
+            )}
+
           </div>
         ))}
 
         <div style="text-align: center; margin-top: 40px;">
-          <button type="submit" style="background-color: #10b981; color: white; border: none; padding: 16px 40px; font-size: 18px; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4);">
+          <button type="submit" id="btn-enviar" style="background-color: #10b981; color: white; border: none; padding: 16px 40px; font-size: 18px; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4);">
             Enviar Examen
           </button>
         </div>
 
       </form>
     </div>
+
+    <!-- Pasamos el JSON de Astro a JavaScript del Cliente -->
+    <script id="data-preguntas" type="application/json" set:html={JSON.stringify(preguntas)}></script>
+
+    <script>
+      import { doc, getDoc, updateDoc } from "firebase/firestore";
+      import { db } from "../firebase.js";
+
+      // Autenticación
+      const alumnoId = sessionStorage.getItem('alumnoActivo');
+      const alumnoNombre = sessionStorage.getItem('nombreActivo');
+
+      if (!alumnoId || !alumnoNombre) {
+        window.location.replace('/');
+      }
+      document.getElementById('nombre-alumno-display')!.textContent = alumnoNombre;
+
+      // Cronómetro Silencioso (Arranca cuando carga la página)
+      const tiempoInicio = Date.now();
+
+      // Advertencia al intentar cerrar o recargar la pestaña
+      window.addEventListener('beforeunload', (e) => {
+        e.preventDefault();
+        e.returnValue = '';
+      });
+
+      const form = document.getElementById('form-lenguajes') as HTMLFormElement;
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Calculamos el tiempo total tardado
+        const tiempoFin = Date.now();
+        const segundosTardados = Math.floor((tiempoFin - tiempoInicio) / 1000);
+
+        // Desactivamos la advertencia de salida porque ya va a enviar
+        window.onbeforeunload = null;
+
+        // Leemos las respuestas correctas
+        const preguntasText = document.getElementById('data-preguntas')!.textContent;
+        const preguntasJSON = JSON.parse(preguntasText!);
+
+        let aciertos = 0;
+        let totalCalificables = 0;
+        let historial = [];
+
+        // Lógica de calificación automática (ignora mayúsculas/minúsculas)
+        preguntasJSON.forEach((p: any) => {
+          if (p.tipo === 'opcion_multiple') {
+            totalCalificables++;
+            const input = document.querySelector(`input[name="pregunta_${p.id}"]:checked`) as HTMLInputElement;
+            const valor = input ? input.value : "";
+            const esCorrecta = valor === p.respuestaCorrecta;
+            if (esCorrecta) aciertos++;
+            historial.push({ id: p.id, tipo: p.tipo, respuestaUsuario: valor, correcta: p.respuestaCorrecta, esCorrecta });
+          
+          } else if (p.tipo === 'completar_texto') {
+            p.oraciones.forEach((oracion: any) => {
+              totalCalificables++;
+              const input = document.querySelector(`input[name="pregunta_${oracion.id}"]`) as HTMLInputElement;
+              const valor = input ? input.value.trim().toLowerCase() : "";
+              const esCorrecta = valor === oracion.respuestaCorrecta.toLowerCase();
+              if (esCorrecta) aciertos++;
+              historial.push({ id: oracion.id, tipo: 'texto', respuestaUsuario: input.value, correcta: oracion.respuestaCorrecta, esCorrecta });
+            });
+          
+          } else if (p.tipo === 'verdadero_falso') {
+            p.afirmaciones.forEach((afirmacion: any) => {
+              totalCalificables++;
+              const input = document.querySelector(`input[name="pregunta_${afirmacion.id}"]`) as HTMLInputElement;
+              const valor = input ? input.value.trim().toUpperCase() : "";
+              const esCorrecta = valor === afirmacion.respuestaCorrecta.toUpperCase();
+              if (esCorrecta) aciertos++;
+              historial.push({ id: afirmacion.id, tipo: 'vf', respuestaUsuario: input.value, correcta: afirmacion.respuestaCorrecta, esCorrecta });
+            });
+
+          } else if (p.tipo === 'ordenamiento') {
+            p.elementos.forEach((elemento: any) => {
+              totalCalificables++;
+              const input = document.querySelector(`input[name="pregunta_${elemento.id}"]`) as HTMLInputElement;
+              const valor = input ? parseInt(input.value) : 0;
+              const esCorrecta = valor === elemento.respuestaCorrecta;
+              if (esCorrecta) aciertos++;
+              historial.push({ id: elemento.id, tipo: 'orden', respuestaUsuario: valor, correcta: elemento.respuestaCorrecta, esCorrecta });
+            });
+          }
+        });
+
+        const btnEnviar = document.getElementById('btn-enviar') as HTMLButtonElement;
+        btnEnviar.textContent = "Guardando...";
+        btnEnviar.disabled = true;
+
+        try {
+          // Guardamos en Firebase dentro de un objeto separado "examen_lenguajes"
+          const alumnoRef = doc(db, "alumnos", alumnoId!);
+          await updateDoc(alumnoRef, {
+            examen_lenguajes: {
+              completado: true,
+              aciertos: aciertos,
+              totalPreguntas: totalCalificables,
+              tiempoSegundos: segundosTardados,
+              historial: historial
+            }
+          });
+
+          // Limpiamos sesión y regresamos al portal
+          alert(`¡Examen enviado con éxito!\nTu tiempo fue de ${Math.floor(segundosTardados / 60)} minutos y ${segundosTardados % 60} segundos.`);
+          window.location.replace('/dashboard');
+        } catch (error) {
+          console.error("Error al guardar:", error);
+          alert("Hubo un error al guardar. Inténtalo de nuevo.");
+          btnEnviar.textContent = "Enviar Examen";
+          btnEnviar.disabled = false;
+        }
+      });
+    </script>
   </body>
 </html>
