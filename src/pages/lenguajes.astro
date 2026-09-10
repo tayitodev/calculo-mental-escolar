@@ -1,0 +1,75 @@
+---
+// src/pages/lenguajes.astro
+import examenData from '../data/lenguajes.json';
+
+const lectura = examenData.lecturas[0];
+const preguntas = examenData.preguntas;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examen - {examenData.materia}</title>
+  </head>
+  <body style="background-color: #f8fafc; font-family: sans-serif; margin: 0; padding-bottom: 80px;">
+
+    <!-- Barra Superior Fija -->
+    <div style="background: white; padding: 15px 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center;">
+      <h2 style="margin: 0; color: #1e293b; font-size: 18px;">Evaluación de {examenData.materia}</h2>
+      <div style="background: #fee2e2; color: #dc2626; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">
+        ⏱️ <span id="reloj-global">60:00</span>
+      </div>
+    </div>
+
+    <div style="max-width: 800px; margin: 30px auto; padding: 0 20px;">
+      
+      <!-- Sección de Lectura -->
+      <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 30px; border-left: 5px solid #3b82f6;">
+        <h3 style="margin-top: 0; color: #2563eb; font-size: 20px;">📖 Lectura: {lectura.titulo}</h3>
+        <p style="color: #334155; line-height: 1.8; font-size: 15px; white-space: pre-wrap;">{lectura.texto}</p>
+      </div>
+
+      <!-- Formulario del Examen -->
+      <form id="form-lenguajes">
+        
+        {preguntas.map((p, index) => (
+          <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px;">
+            <p style="font-weight: bold; color: #1e293b; font-size: 16px; margin-top: 0; margin-bottom: 15px;">
+              {index + 1}. {p.pregunta || p.instruccion}
+            </p>
+
+            {p.tipo === 'opcion_multiple' && (
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                {Object.entries(p.opciones).map(([letra, texto]) => (
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: background 0.2s;">
+                    <input type="radio" name={`pregunta_${p.id}`} value={letra} required style="transform: scale(1.2);" />
+                    <span style="color: #475569; font-size: 15px;"><strong>{letra.toUpperCase()})</strong> {texto}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+
+            {p.tipo === 'abierta' && (
+              <div style="display: flex; flex-direction: column; gap: 15px;">
+                {p.preguntas_abiertas.map((pa) => (
+                  <div>
+                    <p style="margin: 0 0 8px 0; color: #475569; font-size: 14px;">{pa.pregunta}</p>
+                    <textarea name={`abierta_${pa.id}`} rows="3" required placeholder="Escribe tu respuesta aquí..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: sans-serif; font-size: 14px; box-sizing: border-box; resize: vertical;"></textarea>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        <div style="text-align: center; margin-top: 40px;">
+          <button type="submit" style="background-color: #10b981; color: white; border: none; padding: 16px 40px; font-size: 18px; border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.4);">
+            Enviar Examen
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </body>
+</html>
