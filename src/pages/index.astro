@@ -144,11 +144,6 @@
           return;
         }
 
-        if (alumnoData.completado) {
-          mensajeError.textContent = "Este examen ya ha sido enviado anteriormente.";
-          mensajeError.style.display = "block";
-          return;
-        }
 
         if (alumnoData.pin !== pinIngresado) {
           mensajeError.textContent = "PIN incorrecto. Inténtalo de nuevo.";
