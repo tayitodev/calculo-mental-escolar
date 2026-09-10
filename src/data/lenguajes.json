@@ -1,0 +1,394 @@
+{
+  "materia": "Lenguajes",
+  "lecturas": [
+    {
+      "id": "lectura_1",
+      "titulo": "Animales que ayudan",
+      "texto": "Los animales no sólo son mascotas o compañeros, también pueden ayudar a las personas a sentirse mejor. Por ejemplo, los perros de terapia visitan hospitales y asilos para acompañar a los pacientes. Su presencia puede reducir el estrés, la tristeza y la ansiedad. Los perros saben cómo estar cerca de las personas y brindarles cariño. Esto se relaciona con la atención plena, que significa poner atención al momento presente. Los animales lo hacen de forma natural, mientras que las personas necesitan aprenderlo. Sin embargo, científicos investigan si es seguro llevarlos a hospitales, pues podrían transmitir gérmenes.\n\nEn las escuelas también pueden ayudar, por ejemplo a niños que tienen problemas de atención. Algunos niños mejoran su concentración cuando leen en voz alta a un perro de terapia. Otros estudios muestran que los niños con autismo se sienten más tranquilos al convivir con animales pequeños, como las cobayas. Estos animales les brindan confianza y tranquilidad.\n\nIncluso, cuidar mascotas puede enseñar responsabilidad. En un estudio, adolescentes con diabetes mejoraron su salud al cuidar peces, ya que desarrollaron hábitos más constantes. Aunque los animales pueden aportar muchos beneficios, no son adecuados para todos. Algunas personas tienen alergias, por lo que es importante considerar cada caso. Aun así, los animales pueden ser grandes aliados para la salud y el bienestar."
+    }
+  ],
+  "preguntas": [
+    {
+      "id": 1,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Para qué sirven los perros de terapia en los hospitales?",
+      "opciones": {
+        "a": "Para vigilar a algunos pacientes.",
+        "b": "Para reducir el estrés, la tristeza y la ansiedad.",
+        "c": "Para colaborar en la seguridad del hospital.",
+        "d": "Para combatir plagas."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 2,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué es la atención plena?",
+      "opciones": {
+        "a": "Poner atención al tiempo presente.",
+        "b": "Imaginar cómo será el futuro.",
+        "c": "Recordar las cosas del pasado.",
+        "d": "Atender las indicaciones del doctor."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 3,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cómo son los animales que ayudan a tranquilizar a los niños con autismo?",
+      "opciones": {
+        "a": "Grandes, como los caballos.",
+        "b": "Leales, como los perros.",
+        "c": "Pequeños, como las cobayas.",
+        "d": "Lentos, como las tortugas."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 4,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Por qué no todas las personas pueden tener mascotas?",
+      "opciones": {
+        "a": "Porque cuesta mucho dinero mantenerlas.",
+        "b": "Porque ocupan mucho espacio.",
+        "c": "Porque hacen demasiado ruido.",
+        "d": "Porque algunas personas tienen alergias."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": 5,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Para qué sirve un texto monográfico?",
+      "opciones": {
+        "a": "Para contar historias imaginarias y divertidas.",
+        "b": "Para dar instrucciones sobre cómo hacer algo paso a paso.",
+        "c": "Para explicar un tema específico con información investigada.",
+        "d": "Para expresar opiniones sin investigar."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 6,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cuál de las siguientes es una frase adjetiva?",
+      "opciones": {
+        "a": "Muy grande.",
+        "b": "De pronto.",
+        "c": "Desde luego.",
+        "d": "A lo mejor."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 7,
+      "tipo": "opcion_multiple",
+      "pregunta": "Si consultas un libro o una revista para obtener información, ¿qué tipo de fuente estás utilizando?",
+      "opciones": {
+        "a": "Fuente oral.",
+        "b": "Fuente escrita.",
+        "c": "Fuente visual.",
+        "d": "Fuente digital."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 8,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué acción nos ayuda a negociar y llegar a acuerdos que beneficien a todos, escuchando con atención y empatía?",
+      "opciones": {
+        "a": "Dialogar.",
+        "b": "Ignorar.",
+        "c": "Discutir.",
+        "d": "Callar."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 9,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué tipo de textos tienen como objetivo informar al explicar un concepto, un hecho o un tema?",
+      "opciones": {
+        "a": "Textos argumentativos.",
+        "b": "Textos expositivos.",
+        "c": "Textos narrativos.",
+        "d": "Textos instructivos."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 10,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cuál de las siguientes palabras es un ejemplo de nexo que se usa para unir ideas en un texto?",
+      "opciones": {
+        "a": "Casa.",
+        "b": "Fuertemente.",
+        "c": "Grande.",
+        "d": "Después."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": 11,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué nos permite identificar fácilmente el acento gráfico en las palabras interrogativas?",
+      "opciones": {
+        "a": "Que la palabra es un adjetivo.",
+        "b": "Que la oración es negativa.",
+        "c": "Que se trata de una pregunta.",
+        "d": "Que la palabra está en plural."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 12,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué significa parafrasear?",
+      "opciones": {
+        "a": "Copiar exactamente las palabras de un texto.",
+        "b": "Buscar ejemplos de una idea general.",
+        "c": "Explicar un texto con nuestras palabras.",
+        "d": "Consultar los términos desconocidos."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 13,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cuál es la función principal de la coma dentro de una oración?",
+      "opciones": {
+        "a": "Indicar el final de un párrafo.",
+        "b": "Señalar una breve pausa y separar ideas.",
+        "c": "Sustituir al punto y coma.",
+        "d": "Marcar el inicio de una cita textual."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 14,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cuál de las siguientes imágenes representa un instructivo?",
+      "opciones": {
+        "a": "Ilustración de persona leyendo un libro abierto",
+        "b": "Ilustración de mano escribiendo con lápiz",
+        "c": "Ilustración de diagrama de pasos con flechas y figuras",
+        "d": "Ilustración de una carta dentro de un sobre"
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 15,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cómo se llaman las palabras que se pronuncian igual, pero tienen significados diferentes y a veces se escriben distinto?",
+      "opciones": {
+        "a": "Homónimas.",
+        "b": "Antónimas.",
+        "c": "Sinónimas.",
+        "d": "Parónimas."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 16,
+      "tipo": "opcion_multiple",
+      "pregunta": "Es presentar un tema frente a otras personas utilizando recursos visuales y verbales.",
+      "opciones": {
+        "a": "Exponer.",
+        "b": "Leer.",
+        "c": "Dibujar.",
+        "d": "Describir."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 17,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Para qué es importante proteger los datos personales?",
+      "opciones": {
+        "a": "Para hacer más amigos en internet.",
+        "b": "Para que otros los usen libremente.",
+        "c": "Para cuidar nuestra seguridad e integridad.",
+        "d": "Para utilizarlos sólo con familiares."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 18,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué capacidad permite evaluar la publicidad con atención, comprender su propósito y tomar decisiones responsables?",
+      "opciones": {
+        "a": "Atención plena.",
+        "b": "Memoria rápida.",
+        "c": "Creatividad artística.",
+        "d": "Pensamiento crítico."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": 19,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué aspectos explican las noticias?",
+      "opciones": {
+        "a": "Opiniones de diversos críticos.",
+        "b": "Qué pasó, cuándo, dónde y por qué.",
+        "c": "Narración de historias diversas.",
+        "d": "Datos inventados para alarmar."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 20,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿En qué situaciones se utiliza un formulario?",
+      "opciones": {
+        "a": "Viajes familiares y escolares.",
+        "b": "Compras en tiendas departamentales.",
+        "c": "Inscripciones, solicitudes o registros.",
+        "d": "Conversaciones con desconocidos."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 21,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué función cumplen los documentos personales en nuestra vida?",
+      "opciones": {
+        "a": "Son pruebas oficiales de quiénes somos.",
+        "b": "Son recuerdos valiosos de la familia.",
+        "c": "Son materiales básicos de la escuela.",
+        "d": "Son juegos divertidos para los niños."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 22,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué debe hacer el entrevistador antes y durante una entrevista?",
+      "opciones": {
+        "a": "Inventar respuestas y hablar sin pensar.",
+        "b": "Guardar silencio y esperar indicaciones.",
+        "c": "Preparar preguntas y escuchar con atención.",
+        "d": "Leer un cuento y memorizar detalles."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 23,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué elemento principal se comparte en un diálogo entre personas?",
+      "opciones": {
+        "a": "Dibujos.",
+        "b": "Ideas.",
+        "c": "Juegos.",
+        "d": "Canciones."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": 24,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Qué palabra proviene del náhuatl?",
+      "opciones": {
+        "a": "Bocina.",
+        "b": "Martillo.",
+        "c": "Elefante.",
+        "d": "Papalote."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": 25,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Por qué debemos valorar la diversidad cultural y lingüística?",
+      "opciones": {
+        "a": "Porque elimina diferencias entre personas.",
+        "b": "Porque impide la creación de arte.",
+        "c": "Porque enriquece nuestras formas de vida.",
+        "d": "Porque limita la comunicación global."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 26,
+      "tipo": "opcion_multiple",
+      "pregunta": "Es un conjunto o grupo de versos que tienen una unidad de ritmo y sonido en un poema o una canción.",
+      "opciones": {
+        "a": "Estrofa.",
+        "b": "Ritmo.",
+        "c": "Rima.",
+        "d": "Verso."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": 27,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de metáfora?",
+      "opciones": {
+        "a": "Corre como un rayo.",
+        "b": "El perro ladra fuerte.",
+        "c": "Tus ojos son dos luceros.",
+        "d": "¡Qué frío hace hoy!"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 28,
+      "tipo": "opcion_multiple",
+      "pregunta": "¿Por qué el siguiente fragmento sí es un comentario crítico?\n\"Me encantó la película porque los efectos especiales son impresionantes y la historia es emocionante.\"",
+      "opciones": {
+        "a": "Porque solamente dice que le gustó la película, pero no explica claramente las razones de su opinión.",
+        "b": "Porque menciona algunos elementos de la película, pero no da una opinión personal sobre si le gustó o no.",
+        "c": "Porque expresa una opinión sobre la película y además explica las razones por las que le gustó.",
+        "d": "Porque cuenta de qué trata la película, sin decir si es buena o mala."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": 29,
+      "tipo": "completar_texto",
+      "instruccion": "Completa el cuento escribiendo en pretérito o en copretérito los verbos señalados, según corresponda.",
+      "oraciones": [
+        { "id": "29_1", "texto": "Una tarde, Liliana y Antonio jugaban en el patio de su casa. El sol brillaba y los pájaros _____ (cantar) en los árboles.", "respuestaCorrecta": "cantaban" },
+        { "id": "29_2", "texto": "De repente, algo llamó su atención: Antonio _____ (encontrar) una caja vieja debajo de un árbol.", "respuestaCorrecta": "encontró" },
+        { "id": "29_3", "texto": "Los niños _____ (mirar) el mapa con emoción...", "respuestaCorrecta": "miraron" },
+        { "id": "29_4", "texto": "...el viento _____ (soplar) suavemente y las hojas caían al suelo.", "respuestaCorrecta": "soplaba" },
+        { "id": "29_5", "texto": "Liliana _____ (mover) una piedra pequeña y Antonio descubrió otra caja.", "respuestaCorrecta": "movió" }
+      ]
+    },
+    {
+      "id": 30,
+      "tipo": "verdadero_falso",
+      "instruccion": "Escribe V si la oración es verdadera o F si es falsa.",
+      "afirmaciones": [
+        { "id": "30_1", "texto": "Las historietas, los cómics y los mangas también pueden leerse en voz alta.", "respuestaCorrecta": "V" },
+        { "id": "30_2", "texto": "Las viñetas son cuadros que muestran una escena dentro de la historia.", "respuestaCorrecta": "V" },
+        { "id": "30_3", "texto": "Las onomatopeyas son palabras que sirven para describir personas.", "respuestaCorrecta": "F" },
+        { "id": "30_4", "texto": "Los símbolos, como un corazón, pueden representar emociones como el amor.", "respuestaCorrecta": "V" }
+      ]
+    },
+    {
+      "id": 31,
+      "tipo": "ordenamiento",
+      "instruccion": "Numera del 1 al 5 los pasos para escribir un cuento.",
+      "elementos": [
+        { "id": "31_1", "texto": "Escribir el borrador.", "respuestaCorrecta": 4 },
+        { "id": "31_2", "texto": "Crear a los personajes.", "respuestaCorrecta": 2 },
+        { "id": "31_3", "texto": "Revisar y corregir.", "respuestaCorrecta": 5 },
+        { "id": "31_4", "texto": "Definir el lugar y el tiempo.", "respuestaCorrecta": 3 },
+        { "id": "31_5", "texto": "Elegir el tema.", "respuestaCorrecta": 1 }
+      ]
+    },
+    {
+      "id": 32,
+      "tipo": "abierta",
+      "instruccion": "Lee el cuento y contesta las preguntas con tus propias palabras.",
+      "requiere_revision_manual": true,
+      "preguntas_abiertas": [
+        { "id": "32_1", "pregunta": "¿Por qué Lía se sentía sola al inicio del cuento?" },
+        { "id": "32_2", "pregunta": "¿Qué hizo Lía para ayudar al mono?" },
+        { "id": "32_3", "pregunta": "¿Qué cambió en la vida de Lía después de ayudar al mono?" }
+      ]
+    }
+  ]
+}
