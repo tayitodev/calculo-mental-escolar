@@ -1,7 +1,6 @@
 ---
 // src/pages/resultados.astro
 ---
-
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -27,7 +26,7 @@
         <button id="tab-lenguajes" style="background: white; border: none; border-bottom: 3px solid transparent; color: #64748b; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;">📖 Lenguajes</button>
       </div>
 
-      <!-- VISTA: CÁLCULO MENTAL -->
+      <!-- ================= VISTA: CÁLCULO MENTAL ================= -->
       <div id="vista-calculo" style="display: block;">
         <div style="margin-bottom: 40px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
           <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
@@ -35,7 +34,6 @@
             <button id="btn-vista-operaciones" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Rendimiento</button>
             <button id="btn-vista-tiempos" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Tiempos Promedio</button>
           </div>
-          
           <div style="position: relative; height: 250px; width: 100%;">
             <canvas id="graficaCalificaciones"></canvas>
             <canvas id="grafica-operaciones" style="display: none;"></canvas>
@@ -59,8 +57,19 @@
         </div>
       </div>
 
-      <!-- VISTA: LENGUAJES -->
+      <!-- ================= VISTA: LENGUAJES ================= -->
       <div id="vista-lenguajes" style="display: none;">
+        <div style="margin-bottom: 40px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
+            <button id="btn-leng-calif" style="background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Distribución de Calificaciones</button>
+            <button id="btn-leng-tiempo" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Tiempo por Alumno</button>
+          </div>
+          <div style="position: relative; height: 250px; width: 100%;">
+            <canvas id="grafica-leng-calif"></canvas>
+            <canvas id="grafica-leng-tiempo" style="display: none;"></canvas>
+          </div>
+        </div>
+
         <h3 style="color: #334155; font-size: 16px; margin-bottom: 15px;">Listado de Alumnos (Lenguajes)</h3>
         <div style="overflow-x: auto;">
           <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
@@ -81,11 +90,11 @@
     </div>
 
     <!-- Modal Universal para Detalles -->
-    <div id="modal-detalle" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px;">
-      <div style="background: white; padding: 30px; border-radius: 12px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+    <div id="modal-detalle" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; padding: 20px; z-index: 2000;">
+      <div style="background: white; padding: 30px; border-radius: 12px; max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
         <h3 id="modal-titulo" style="margin-top: 0; color: #1e293b; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Desglose</h3>
         <div id="modal-contenido" style="margin: 20px 0;"></div>
-        <button id="btn-cerrar-modal" style="width: 100%; background-color: #2563eb; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer;">Cerrar</button>
+        <button id="btn-cerrar-modal" style="width: 100%; background-color: #2563eb; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer;">Cerrar Panel de Detalles</button>
       </div>
     </div>
 
@@ -93,56 +102,60 @@
       import { collection, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
       import { db } from "../firebase.js";
 
-      // --- Lógica de Pestañas ---
+      // --- Pestañas ---
       const tabCalculo = document.getElementById('tab-calculo')!;
       const tabLenguajes = document.getElementById('tab-lenguajes')!;
       const vistaCalculo = document.getElementById('vista-calculo')!;
       const vistaLenguajes = document.getElementById('vista-lenguajes')!;
 
       tabCalculo.addEventListener('click', () => {
-        vistaCalculo.style.display = 'block';
-        vistaLenguajes.style.display = 'none';
-        tabCalculo.style.borderBottomColor = '#2563eb';
-        tabCalculo.style.color = '#2563eb';
-        tabLenguajes.style.borderBottomColor = 'transparent';
-        tabLenguajes.style.color = '#64748b';
+        vistaCalculo.style.display = 'block'; vistaLenguajes.style.display = 'none';
+        tabCalculo.style.borderBottomColor = '#2563eb'; tabCalculo.style.color = '#2563eb';
+        tabLenguajes.style.borderBottomColor = 'transparent'; tabLenguajes.style.color = '#64748b';
       });
 
       tabLenguajes.addEventListener('click', () => {
-        vistaCalculo.style.display = 'none';
-        vistaLenguajes.style.display = 'block';
-        tabLenguajes.style.borderBottomColor = '#10b981';
-        tabLenguajes.style.color = '#10b981';
-        tabCalculo.style.borderBottomColor = 'transparent';
-        tabCalculo.style.color = '#64748b';
+        vistaCalculo.style.display = 'none'; vistaLenguajes.style.display = 'block';
+        tabLenguajes.style.borderBottomColor = '#10b981'; tabLenguajes.style.color = '#10b981';
+        tabCalculo.style.borderBottomColor = 'transparent'; tabCalculo.style.color = '#64748b';
       });
 
-      // --- Variables Globales ---
-      const tablaCalculo = document.getElementById('tabla-cuerpo-calculo')!;
-      const tablaLenguajes = document.getElementById('tabla-cuerpo-lenguajes')!;
-      
+      // --- Modal ---
       const modalDetalle = document.getElementById('modal-detalle')!;
       const modalTitulo = document.getElementById('modal-titulo')!;
       const modalContenido = document.getElementById('modal-contenido')!;
       document.getElementById('btn-cerrar-modal')!.addEventListener('click', () => modalDetalle.style.display = 'none');
-      
-      // Controles de gráficas (Cálculo)
+
+      // --- Controles Gráficas (Cálculo) ---
       const btnGeneral = document.getElementById('btn-vista-general')!;
       const btnOperaciones = document.getElementById('btn-vista-operaciones')!;
       const btnTiempos = document.getElementById('btn-vista-tiempos')!;
       const canvasGeneral = document.getElementById('graficaCalificaciones') as HTMLCanvasElement;
       const canvasOperaciones = document.getElementById('grafica-operaciones') as HTMLCanvasElement;
       const canvasTiempos = document.getElementById('grafica-tiempos') as HTMLCanvasElement;
-      let miGrafica: any = null, graficaOp: any = null, graficaTiempos: any = null;
+      let miGrafica: any, graficaOp: any, graficaTiempos: any;
 
-      function resetBotones() {
+      function resetBotonesCalc() {
         [btnGeneral, btnOperaciones, btnTiempos].forEach(btn => { btn.style.background = '#e2e8f0'; btn.style.color = '#475569'; });
         [canvasGeneral, canvasOperaciones, canvasTiempos].forEach(canvas => { canvas.style.display = 'none'; });
       }
+      btnGeneral.addEventListener('click', () => { resetBotonesCalc(); canvasGeneral.style.display = 'block'; btnGeneral.style.background = '#2563eb'; btnGeneral.style.color = 'white'; });
+      btnOperaciones.addEventListener('click', () => { resetBotonesCalc(); canvasOperaciones.style.display = 'block'; btnOperaciones.style.background = '#2563eb'; btnOperaciones.style.color = 'white'; });
+      btnTiempos.addEventListener('click', () => { resetBotonesCalc(); canvasTiempos.style.display = 'block'; btnTiempos.style.background = '#2563eb'; btnTiempos.style.color = 'white'; });
 
-      btnGeneral.addEventListener('click', () => { resetBotones(); canvasGeneral.style.display = 'block'; btnGeneral.style.background = '#2563eb'; btnGeneral.style.color = 'white'; });
-      btnOperaciones.addEventListener('click', () => { resetBotones(); canvasOperaciones.style.display = 'block'; btnOperaciones.style.background = '#2563eb'; btnOperaciones.style.color = 'white'; });
-      btnTiempos.addEventListener('click', () => { resetBotones(); canvasTiempos.style.display = 'block'; btnTiempos.style.background = '#2563eb'; btnTiempos.style.color = 'white'; });
+      // --- Controles Gráficas (Lenguajes) ---
+      const btnLengCalif = document.getElementById('btn-leng-calif')!;
+      const btnLengTiempo = document.getElementById('btn-leng-tiempo')!;
+      const canvasLengCalif = document.getElementById('grafica-leng-calif') as HTMLCanvasElement;
+      const canvasLengTiempo = document.getElementById('grafica-leng-tiempo') as HTMLCanvasElement;
+      let grafLengCalif: any, grafLengTiempo: any;
+
+      function resetBotonesLeng() {
+        [btnLengCalif, btnLengTiempo].forEach(btn => { btn.style.background = '#e2e8f0'; btn.style.color = '#475569'; });
+        [canvasLengCalif, canvasLengTiempo].forEach(canvas => { canvas.style.display = 'none'; });
+      }
+      btnLengCalif.addEventListener('click', () => { resetBotonesLeng(); canvasLengCalif.style.display = 'block'; btnLengCalif.style.background = '#10b981'; btnLengCalif.style.color = 'white'; });
+      btnLengTiempo.addEventListener('click', () => { resetBotonesLeng(); canvasLengTiempo.style.display = 'block'; btnLengTiempo.style.background = '#10b981'; btnLengTiempo.style.color = 'white'; });
 
       async function cargarResultados() {
         try {
@@ -151,21 +164,24 @@
           querySnapshot.forEach((docSnap) => lista.push({ id: docSnap.id, ...docSnap.data() }));
           lista.sort((a, b) => a.nombre.localeCompare(b.nombre));
 
-          tablaCalculo.innerHTML = '';
-          tablaLenguajes.innerHTML = '';
+          document.getElementById('tabla-cuerpo-calculo')!.innerHTML = '';
+          document.getElementById('tabla-cuerpo-lenguajes')!.innerHTML = '';
           
+          // Data Calculation
           let conteoCalificaciones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
           let statsOperaciones: any = { 'Sumas (+)': { aciertos: 0, total: 0 }, 'Restas (-)': { aciertos: 0, total: 0 }, 'Multipl. (x)': { aciertos: 0, total: 0 }, 'Divis. (÷)': { aciertos: 0, total: 0 } };
           let statsTiempos: any = { 'Sumas (+)': { suma: 0, conteo: 0 }, 'Restas (-)': { suma: 0, conteo: 0 }, 'Multipl. (x)': { suma: 0, conteo: 0 }, 'Divis. (÷)': { suma: 0, conteo: 0 } };
 
+          // Data Lenguajes
+          let conteoLengCalif = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; 
+          let nombresLeng: string[] = [];
+          let tiemposLeng: number[] = [];
+
           lista.forEach((alumno) => {
-            // ==========================================
-            // LOGICA PARA LA PESTAÑA DE CÁLCULO MENTAL
-            // ==========================================
+            // ================== TABLA CÁLCULO MENTAL ==================
             if (alumno.completado) {
               const nota = alumno.calificacion;
               if (nota >= 0 && nota <= 10) conteoCalificaciones[nota]++;
-              
               if (alumno.historial) {
                 alumno.historial.forEach((h: any) => {
                   let tipo = null;
@@ -190,50 +206,94 @@
             trCalc.style.borderBottom = '1px solid #f1f5f9';
             trCalc.innerHTML = `
               <td style="padding: 12px; color: #1e293b; font-weight: 500;">${alumno.nombre}</td>
-              <td style="padding: 12px; text-align: center;">
-                ${alumno.completado ? '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado</span>' : '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Pendiente</span>'}
-              </td>
-              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${alumno.completado ? '#2563eb' : '#94a3b8'};">
-                ${alumno.completado ? `${alumno.calificacion} / 10` : '—'}
-              </td>
+              <td style="padding: 12px; text-align: center;">${alumno.completado ? '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Completado</span>' : '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Pendiente</span>'}</td>
+              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${alumno.completado ? '#2563eb' : '#94a3b8'};">${alumno.completado ? `${alumno.calificacion} / 10` : '—'}</td>
             `;
 
             const tdAccionesCalc = document.createElement('td');
-            tdAccionesCalc.style.padding = '12px';
-            tdAccionesCalc.style.textAlign = 'center';
+            tdAccionesCalc.style.padding = '12px'; tdAccionesCalc.style.textAlign = 'center'; tdAccionesCalc.style.display = 'flex'; tdAccionesCalc.style.gap = '8px'; tdAccionesCalc.style.justifyContent = 'center';
 
-            if (alumno.completado) {
-              const btnReset = document.createElement('button');
-              btnReset.textContent = 'Reiniciar';
-              btnReset.style.cssText = 'background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
-              btnReset.addEventListener('click', async () => {
-                if (confirm(`¿Reiniciar cálculo a ${alumno.nombre}?`)) {
-                  await updateDoc(doc(db, "alumnos", alumno.id), { completado: false, calificacion: 0, historial: [] });
-                  cargarResultados();
+            if (alumno.completado || (alumno.intentosPrevios && alumno.intentosPrevios.length > 0)) {
+              // Botón Detalles Cálculo
+              const btnDetalleCalc = document.createElement('button');
+              btnDetalleCalc.textContent = 'Detalles';
+              btnDetalleCalc.style.cssText = 'background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+              btnDetalleCalc.addEventListener('click', () => {
+                modalTitulo.textContent = `Cálculo: ${alumno.nombre}`;
+                let htmlDetalle = `<table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                  <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <th style="padding: 8px; text-align: left;">Operación</th>
+                    <th style="padding: 8px; text-align: center;">Respuesta</th>
+                    <th style="padding: 8px; text-align: center;">Correcta</th>
+                    <th style="padding: 8px; text-align: center;">Tiempo</th>
+                  </tr>`;
+                
+                if (alumno.historial && alumno.historial.length > 0) {
+                  alumno.historial.forEach((h: any) => {
+                    htmlDetalle += `<tr style="border-bottom: 1px solid #f1f5f9;">
+                      <td style="padding: 8px;">${h.operacion}</td>
+                      <td style="padding: 8px; text-align: center; color: ${h.esCorrecta ? '#166534' : '#dc2626'}; font-weight:bold;">${h.respuestaUsuario}</td>
+                      <td style="padding: 8px; text-align: center;">${h.respuestaCorrecta}</td>
+                      <td style="padding: 8px; text-align: center;">${h.tiempoUsado !== undefined ? h.tiempoUsado + 's' : '—'}</td>
+                    </tr>`;
+                  });
+                } else {
+                  htmlDetalle += `<tr><td colspan="4" style="text-align:center; padding:10px;">Examen en proceso...</td></tr>`;
                 }
+                htmlDetalle += `</table>`;
+
+                if (alumno.intentosPrevios && alumno.intentosPrevios.length > 0) {
+                  htmlDetalle += `<h4 style="margin-top: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Historial de Reinicios</h4>`;
+                  alumno.intentosPrevios.forEach((intento: any, index: number) => {
+                    const fecha = new Date(intento.fecha).toLocaleString('es-MX');
+                    htmlDetalle += `<div style="background: #f8fafc; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                      <strong>Intento ${index + 1}</strong> (${fecha}) - Calificación: <span style="color:#2563eb; font-weight:bold;">${intento.calificacion} / 10</span>
+                    </div>`;
+                  });
+                }
+                modalContenido.innerHTML = htmlDetalle;
+                modalDetalle.style.display = 'flex';
               });
-              tdAccionesCalc.appendChild(btnReset);
+              tdAccionesCalc.appendChild(btnDetalleCalc);
+
+              if (alumno.completado) {
+                const btnResetCalc = document.createElement('button');
+                btnResetCalc.textContent = 'Reiniciar';
+                btnResetCalc.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+                btnResetCalc.addEventListener('click', async () => {
+                  if (confirm(`¿Reiniciar cálculo a ${alumno.nombre}?`)) {
+                    await updateDoc(doc(db, "alumnos", alumno.id), { 
+                      completado: false, calificacion: 0, historial: [],
+                      intentosPrevios: arrayUnion({ calificacion: alumno.calificacion, historial: alumno.historial, fecha: new Date().toISOString() })
+                    });
+                    cargarResultados();
+                  }
+                });
+                tdAccionesCalc.appendChild(btnResetCalc);
+              }
             } else {
-              tdAccionesCalc.textContent = '—';
-              tdAccionesCalc.style.color = '#94a3b8';
+              tdAccionesCalc.textContent = '—'; tdAccionesCalc.style.color = '#94a3b8';
             }
             trCalc.appendChild(tdAccionesCalc);
-            tablaCalculo.appendChild(trCalc);
+            document.getElementById('tabla-cuerpo-calculo')!.appendChild(trCalc);
 
-            // ==========================================
-            // LOGICA PARA LA PESTAÑA DE LENGUAJES
-            // ==========================================
+            // ================== TABLA LENGUAJES ==================
             const examLeng = alumno.examen_lenguajes;
+            const intentosLeng = alumno.intentosPreviosLenguajes;
+
+            if (examLeng && examLeng.completado) {
+              let notaBase10 = Math.round((examLeng.aciertos / examLeng.totalPreguntas) * 10);
+              if(notaBase10 >= 0 && notaBase10 <= 10) conteoLengCalif[notaBase10]++;
+              
+              nombresLeng.push(alumno.nombre.split(" ")[0]);
+              tiemposLeng.push(Math.round(examLeng.tiempoSegundos / 60)); // En minutos
+            }
+
             const trLeng = document.createElement('tr');
             trLeng.style.borderBottom = '1px solid #f1f5f9';
             
-            let htmlEstatus = '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Pendiente</span>';
-            let htmlCalif = '—';
             let htmlTiempo = '—';
-
             if (examLeng && examLeng.completado) {
-              htmlEstatus = '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado</span>';
-              htmlCalif = `${examLeng.aciertos} / ${examLeng.totalPreguntas}`;
               const mins = Math.floor(examLeng.tiempoSegundos / 60);
               const secs = examLeng.tiempoSegundos % 60;
               htmlTiempo = `<span style="background: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">⏱️ ${mins}m ${secs}s</span>`;
@@ -241,79 +301,109 @@
 
             trLeng.innerHTML = `
               <td style="padding: 12px; color: #1e293b; font-weight: 500;">${alumno.nombre}</td>
-              <td style="padding: 12px; text-align: center;">${htmlEstatus}</td>
-              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${examLeng?.completado ? '#10b981' : '#94a3b8'};">${htmlCalif}</td>
+              <td style="padding: 12px; text-align: center;">${examLeng?.completado ? '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Completado</span>' : '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px;">Pendiente</span>'}</td>
+              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${examLeng?.completado ? '#10b981' : '#94a3b8'};">${examLeng?.completado ? `${examLeng.aciertos} / ${examLeng.totalPreguntas}` : '—'}</td>
               <td style="padding: 12px; text-align: center;">${htmlTiempo}</td>
             `;
 
             const tdAccionesLeng = document.createElement('td');
-            tdAccionesLeng.style.padding = '12px';
-            tdAccionesLeng.style.textAlign = 'center';
+            tdAccionesLeng.style.padding = '12px'; tdAccionesLeng.style.textAlign = 'center'; tdAccionesLeng.style.display = 'flex'; tdAccionesLeng.style.gap = '8px'; tdAccionesLeng.style.justifyContent = 'center';
 
-            if (examLeng && examLeng.completado) {
-              const btnVerLeng = document.createElement('button');
-              btnVerLeng.textContent = 'Revisar Respuestas';
-              btnVerLeng.style.cssText = 'background-color: #ecfdf5; color: #10b981; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;';
+            if ((examLeng && examLeng.completado) || (intentosLeng && intentosLeng.length > 0)) {
               
-              btnVerLeng.addEventListener('click', () => {
+              // Botón Detalles Lenguajes
+              const btnDetalleLeng = document.createElement('button');
+              btnDetalleLeng.textContent = 'Detalles';
+              btnDetalleLeng.style.cssText = 'background: #ecfdf5; color: #10b981; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+              
+              btnDetalleLeng.addEventListener('click', () => {
                 modalTitulo.textContent = `Lenguajes: ${alumno.nombre}`;
                 let detalles = `<div style="display:flex; flex-direction:column; gap:10px;">`;
-                examLeng.historial.forEach((h: any, i: number) => {
-                  const colorResp = h.esCorrecta ? '#10b981' : '#dc2626';
-                  detalles += `
-                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                
+                if (examLeng && examLeng.historial) {
+                  examLeng.historial.forEach((h: any, i: number) => {
+                    const colorResp = h.esCorrecta ? '#10b981' : '#dc2626';
+                    detalles += `<div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
                       <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: bold; color: #334155;">Pregunta #${i + 1}</p>
-                      <p style="margin: 0 0 5px 0; font-size: 13px;">Respuesta Alumno: <span style="color: ${colorResp}; font-weight: bold;">${h.respuestaUsuario || '(En blanco)'}</span></p>
+                      <p style="margin: 0 0 5px 0; font-size: 13px;">Respuesta Alumno: <span style="color: ${colorResp}; font-weight: bold;">${h.respuestaUsuario || '(Vacío)'}</span></p>
                       <p style="margin: 0; font-size: 13px; color: #64748b;">Correcta esperada: ${h.correcta}</p>
                     </div>`;
-                });
+                  });
+                } else {
+                  detalles += `<p style="text-align:center; color:#64748b;">Examen en proceso...</p>`;
+                }
                 detalles += `</div>`;
+
+                if (intentosLeng && intentosLeng.length > 0) {
+                  detalles += `<h4 style="margin-top: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Historial de Reinicios (Lenguajes)</h4>`;
+                  intentosLeng.forEach((intento: any, index: number) => {
+                    const fecha = new Date(intento.fecha).toLocaleString('es-MX');
+                    const m = Math.floor(intento.tiempoSegundos / 60);
+                    const s = intento.tiempoSegundos % 60;
+                    detalles += `<div style="background: #f8fafc; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                      <strong>Intento ${index + 1}</strong> (${fecha}) <br> 
+                      Aciertos: <span style="color:#10b981; font-weight:bold;">${intento.aciertos} / ${intento.totalPreguntas}</span> | Tiempo: ${m}m ${s}s
+                    </div>`;
+                  });
+                }
                 modalContenido.innerHTML = detalles;
                 modalDetalle.style.display = 'flex';
               });
-              tdAccionesLeng.appendChild(btnVerLeng);
+              tdAccionesLeng.appendChild(btnDetalleLeng);
+
+              // Botón Reiniciar Lenguajes
+              if (examLeng && examLeng.completado) {
+                const btnResetLeng = document.createElement('button');
+                btnResetLeng.textContent = 'Reiniciar';
+                btnResetLeng.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+                btnResetLeng.addEventListener('click', async () => {
+                  if (confirm(`¿Reiniciar Lenguajes a ${alumno.nombre}?`)) {
+                    await updateDoc(doc(db, "alumnos", alumno.id), { 
+                      examen_lenguajes: { completado: false, aciertos: 0, totalPreguntas: 0, tiempoSegundos: 0, historial: [] },
+                      intentosPreviosLenguajes: arrayUnion({ aciertos: examLeng.aciertos, totalPreguntas: examLeng.totalPreguntas, tiempoSegundos: examLeng.tiempoSegundos, historial: examLeng.historial, fecha: new Date().toISOString() })
+                    });
+                    cargarResultados();
+                  }
+                });
+                tdAccionesLeng.appendChild(btnResetLeng);
+              }
             } else {
-              tdAccionesLeng.textContent = '—';
-              tdAccionesLeng.style.color = '#94a3b8';
+              tdAccionesLeng.textContent = '—'; tdAccionesLeng.style.color = '#94a3b8';
             }
-            
+
             trLeng.appendChild(tdAccionesLeng);
-            tablaLenguajes.appendChild(trLeng);
+            document.getElementById('tabla-cuerpo-lenguajes')!.appendChild(trLeng);
           });
 
-          // RENDERIZAR GRÁFICAS (CÁLCULO)
+          // ================== RENDER GRÁFICAS CÁLCULO ==================
           const ctxGen = canvasGeneral.getContext('2d');
           if (miGrafica) miGrafica.destroy();
-          miGrafica = new Chart(ctxGen!, {
-            type: 'bar',
-            data: { labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], datasets: [{ label: 'Alumnos', data: conteoCalificaciones, backgroundColor: '#2563eb', borderRadius: 6 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
-          });
+          miGrafica = new Chart(ctxGen!, { type: 'bar', data: { labels: ['0','1','2','3','4','5','6','7','8','9','10'], datasets: [{ label: 'Alumnos', data: conteoCalificaciones, backgroundColor: '#2563eb', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
 
           const ctxOp = canvasOperaciones.getContext('2d');
           if (graficaOp) graficaOp.destroy();
           const etiquetasOp = Object.keys(statsOperaciones);
-          const porcentajesOp = etiquetasOp.map(tipo => { const { aciertos, total } = statsOperaciones[tipo]; return total > 0 ? Math.round((aciertos / total) * 100) : 0; });
-          graficaOp = new Chart(ctxOp!, {
-            type: 'bar',
-            data: { labels: etiquetasOp, datasets: [{ label: 'Efectividad (%)', data: porcentajesOp, backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#8b5cf6'], borderRadius: 6 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { display: false } } }
-          });
+          const porcentajesOp = etiquetasOp.map(t => statsOperaciones[t].total > 0 ? Math.round((statsOperaciones[t].aciertos / statsOperaciones[t].total) * 100) : 0);
+          graficaOp = new Chart(ctxOp!, { type: 'bar', data: { labels: etiquetasOp, datasets: [{ label: 'Efectividad (%)', data: porcentajesOp, backgroundColor: ['#10b981', '#f59e0b', '#3b82f6', '#8b5cf6'], borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { display: false } } } });
 
           const ctxTiempos = canvasTiempos.getContext('2d');
           if (graficaTiempos) graficaTiempos.destroy();
-          const promediosTiempos = etiquetasOp.map(tipo => { const { suma, conteo } = statsTiempos[tipo]; return conteo > 0 ? Number((suma / conteo).toFixed(1)) : 0; });
-          graficaTiempos = new Chart(ctxTiempos!, {
-            type: 'bar',
-            data: { labels: etiquetasOp, datasets: [{ label: 'Segundos Promedio', data: promediosTiempos, backgroundColor: '#0ea5e9', borderRadius: 6 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
-          });
+          const promediosTiempos = etiquetasOp.map(t => statsTiempos[t].conteo > 0 ? Number((statsTiempos[t].suma / statsTiempos[t].conteo).toFixed(1)) : 0);
+          graficaTiempos = new Chart(ctxTiempos!, { type: 'bar', data: { labels: etiquetasOp, datasets: [{ label: 'Segundos Promedio', data: promediosTiempos, backgroundColor: '#0ea5e9', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } } });
+
+          // ================== RENDER GRÁFICAS LENGUAJES ==================
+          const ctxLengCalif = canvasLengCalif.getContext('2d');
+          if (grafLengCalif) grafLengCalif.destroy();
+          grafLengCalif = new Chart(ctxLengCalif!, { type: 'bar', data: { labels: ['0','1','2','3','4','5','6','7','8','9','10'], datasets: [{ label: 'Alumnos (Calificación base 10)', data: conteoLengCalif, backgroundColor: '#10b981', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } });
+
+          const ctxLengTiempo = canvasLengTiempo.getContext('2d');
+          if (grafLengTiempo) grafLengTiempo.destroy();
+          grafLengTiempo = new Chart(ctxLengTiempo!, { type: 'bar', data: { labels: nombresLeng, datasets: [{ label: 'Minutos Tardados', data: tiemposLeng, backgroundColor: '#f59e0b', borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Minutos' } } }, plugins: { legend: { display: false } } } });
 
         } catch (error) {
           console.error("Error cargando DB:", error);
         }
       }
-
       cargarResultados();
     </script>
   </body>
