@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portal del Alumno</title>
   </head>
-  <body style="background-color: #f8fafc; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;">
+  <body style="background-color: #f8fafc; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0;">
 
-    <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 500px;">
+    <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 520px; box-sizing: border-box;">
       <div style="text-align: center; margin-bottom: 30px;">
         <h2 style="color: #1e293b; margin: 0 0 10px 0; font-size: 24px;">¡Hola, <span id="nombre-alumno"></span>! 👋</h2>
         <p style="color: #64748b; font-size: 15px; margin: 0;">Selecciona la evaluación que vas a realizar hoy.</p>
@@ -20,7 +20,7 @@
         <div style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
           <div>
             <h3 style="margin: 0 0 5px 0; color: #0f172a;">Cálculo Mental</h3>
-            <p style="margin: 0; color: #64748b; font-size: 14px;">10 operaciones matemáticas con tiempo límite.</p>
+            <p style="margin: 0; color: #64748b; font-size: 14px;">10 operaciones con tiempo límite.</p>
           </div>
           <div id="accion-calculo">Cargando...</div>
         </div>
@@ -29,27 +29,20 @@
         <div style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
           <div>
             <h3 style="margin: 0 0 5px 0; color: #0f172a;">Examen Lenguajes</h3>
-            <p style="margin: 0; color: #64748b; font-size: 14px;">Evaluación de opción múltiple y respuesta abierta.</p>
+            <p style="margin: 0; color: #64748b; font-size: 14px;">Evaluación de opción múltiple y abierta.</p>
           </div>
           <div id="accion-lenguajes">Cargando...</div>
         </div>
-      </div>
 
-      <!-- TARJETA DE SABERES Y PENSAMIENTO CIENTÍFICO -->
-        <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: center; border-top: 4px solid #8b5cf6;">
-        <h3 style="color: #1e293b; margin-top: 0;">Saberes y Pensamiento Científico</h3>
-        <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Matemáticas y Ciencias Naturales</p>
-        
-        {alumno.examen_saberes?.completado ? (
-            <div style="background: #f1f5f9; color: #64748b; padding: 12px; border-radius: 8px; font-weight: bold;">
-            ✅ Examen Completado
-            </div>
-        ) : (
-            <a href="/saberes" style="display: block; background: #8b5cf6; color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.4);">
-            Comenzar Examen
-            </a>
-        )}
+        <!-- Tarjeta: Saberes y Pensamiento Científico -->
+        <div style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3 style="margin: 0 0 5px 0; color: #0f172a;">Saberes y Pensamiento</h3>
+            <p style="margin: 0; color: #64748b; font-size: 14px;">Matemáticas y Ciencias Naturales.</p>
+          </div>
+          <div id="accion-saberes">Cargando...</div>
         </div>
+      </div>
 
       <div style="text-align: center; margin-top: 30px;">
         <button id="btn-cerrar-sesion" style="background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; font-size: 15px; text-decoration: underline;">
@@ -89,12 +82,20 @@
               accionCalculo.innerHTML = '<a href="/examen" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
             }
 
-            // Lógica Lenguajes (Aquí está el candado que faltaba)
+            // Lógica Lenguajes
             const accionLenguajes = document.getElementById('accion-lenguajes')!;
             if (data.examen_lenguajes && data.examen_lenguajes.completado) {
               accionLenguajes.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
             } else {
-              accionLenguajes.innerHTML = '<a href="/lenguajes" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
+              accionLenguajes.innerHTML = '<a href="/lenguajes" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
+            }
+
+            // Lógica Saberes y Pensamiento Científico
+            const accionSaberes = document.getElementById('accion-saberes')!;
+            if (data.examen_saberes && data.examen_saberes.completado) {
+              accionSaberes.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
+            } else {
+              accionSaberes.innerHTML = '<a href="/saberes" style="background: #8b5cf6; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
             }
           }
         } catch (error) {
