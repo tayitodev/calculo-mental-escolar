@@ -1,0 +1,152 @@
+---
+import examenData from '../data/saberes.json';
+const preguntas = examenData.preguntas;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Examen - {examenData.materia}</title>
+  </head>
+  <body style="background-color: #f8fafc; font-family: sans-serif; margin: 0; padding-bottom: 80px;">
+
+    <div style="background: white; padding: 15px 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center;">
+      <h2 style="margin: 0; color: #1e293b; font-size: 18px;">Evaluación: {examenData.materia}</h2>
+      <span style="color: #64748b; font-size: 14px; font-weight: bold;" id="nombre-alumno-display">Cargando...</span>
+    </div>
+
+    <div style="max-width: 800px; margin: 30px auto; padding: 0 20px;">
+      <form id="form-saberes">
+        {preguntas.map((p) => (
+          <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px;">
+            <p style="font-weight: bold; color: #1e293b; font-size: 16px; margin-top: 0; margin-bottom: 15px;">
+              {p.pregunta || p.instruccion}
+            </p>
+
+            {p.imagen && (
+              <div style="margin-bottom: 20px; text-align: center;">
+                <img src={p.imagen} alt="Gráfico de apoyo" style="max-width: 100%; border-radius: 8px; border: 1px solid #e2e8f0;" />
+              </div>
+            )}
+
+            {p.tipo === 'opcion_multiple' && (
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                {Object.entries(p.opciones).map(([letra, texto]) => (
+                  <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; cursor: pointer;">
+                    <input type="radio" name={`pregunta_${p.id}`} value={letra} required style="transform: scale(1.2);" />
+                    <span style="color: #475569; font-size: 15px;"><strong>{letra.toUpperCase()})</strong> {texto}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+
+            {p.tipo === 'completar_texto' && (
+              <div style="display: flex; flex-direction: column; gap: 15px;">
+                {p.oraciones.map((oracion) => {
+                  const partes = oracion.texto.split('_____');
+                  return (
+                    <div style="color: #334155; font-size: 15px;">
+                      {partes[0]}
+                      <input type="text" name={`pregunta_${oracion.id}`} required style="padding: 6px; border: 1px solid #cbd5e1; border-radius: 6px; width: 50px; text-align: center; text-transform: lowercase;" autocomplete="off" />
+                      {partes[1]}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {p.tipo === 'abierta' && (
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <textarea name={`pregunta_${p.id}`} rows="3" required placeholder="Escribe tu respuesta..." style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; width: 100%; box-sizing: border-box;"></textarea>
+              </div>
+            )}
+          </div>
+        ))}
+
+        <div style="text-align: center; margin-top: 40px;">
+          <button type="submit" id="btn-enviar" style="background-color: #10b981; color: white; border: none; padding: 16px 40px; font-size: 18px; border-radius: 8px; font-weight: bold; cursor: pointer;">
+            Enviar Examen
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script id="data-preguntas" type="application/json" set:html={JSON.stringify(preguntas)}></script>
+
+    <script>
+      import { doc, updateDoc } from "firebase/firestore";
+      import { db } from "../firebase.js";
+
+      const alumnoId = sessionStorage.getItem('alumnoActivo');
+      const alumnoNombre = sessionStorage.getItem('nombreActivo');
+      if (!alumnoId) window.location.replace('/');
+      document.getElementById('nombre-alumno-display').textContent = alumnoNombre;
+
+      let tiempoInicio = Date.now();
+      const form = document.getElementById('form-saberes');
+      const STORAGE_KEY = `respuestas_saberes_${alumnoId}`;
+
+      form.addEventListener('input', () => {
+        const dataObj = {};
+        new FormData(form).forEach((value, key) => dataObj[key] = value);
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(dataObj));
+      });
+
+      const guardado = sessionStorage.getItem(STORAGE_KEY);
+      if (guardado) {
+        const dataObj = JSON.parse(guardado);
+        Object.keys(dataObj).forEach(key => {
+          document.getElementsByName(key).forEach(el => {
+            if (el.type === 'radio') { if (el.value === dataObj[key]) el.checked = true; }
+            else el.value = dataObj[key];
+          });
+        });
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const segundosTardados = Math.floor((Date.now() - tiempoInicio) / 1000);
+        const preguntasJSON = JSON.parse(document.getElementById('data-preguntas').textContent);
+        
+        let aciertos = 0, totalCalificables = 0;
+        let historial = [];
+
+        preguntasJSON.forEach(p => {
+          if (p.tipo === 'opcion_multiple') {
+            totalCalificables++;
+            const input = document.querySelector(`input[name="pregunta_${p.id}"]:checked`);
+            const valor = input ? input.value : "";
+            const esCorrecta = valor === p.respuestaCorrecta;
+            if (esCorrecta) aciertos++;
+            historial.push({ id: p.id, tipo: p.tipo, respuestaUsuario: valor, correcta: p.respuestaCorrecta, esCorrecta });
+          } else if (p.tipo === 'completar_texto') {
+            p.oraciones.forEach(oracion => {
+              totalCalificables++;
+              const input = document.querySelector(`input[name="pregunta_${oracion.id}"]`);
+              const valor = input ? input.value.trim().toLowerCase() : "";
+              const esCorrecta = valor === oracion.respuestaCorrecta.toLowerCase();
+              if (esCorrecta) aciertos++;
+              historial.push({ id: oracion.id, tipo: 'texto', respuestaUsuario: valor, correcta: oracion.respuestaCorrecta, esCorrecta });
+            });
+          } else if (p.tipo === 'abierta') {
+            const input = document.querySelector(`textarea[name="pregunta_${p.id}"]`);
+            historial.push({ id: p.id, tipo: 'abierta', respuestaUsuario: input ? input.value.trim() : "", correcta: "Revisión manual", esCorrecta: true });
+          }
+        });
+
+        document.getElementById('btn-enviar').disabled = true;
+        document.getElementById('btn-enviar').textContent = "Guardando...";
+
+        try {
+          await updateDoc(doc(db, "alumnos", alumnoId), {
+            examen_saberes: { completado: true, aciertos, totalPreguntas: totalCalificables, tiempoSegundos: segundosTardados, historial }
+          });
+          sessionStorage.removeItem(STORAGE_KEY);
+          alert("¡Guardado correctamente!");
+          window.location.replace('/dashboard');
+        } catch (error) { alert("Error al guardar."); }
+      });
+    </script>
+  </body>
+</html>
