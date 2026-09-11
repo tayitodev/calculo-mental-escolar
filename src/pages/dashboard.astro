@@ -35,6 +35,22 @@
         </div>
       </div>
 
+      <!-- TARJETA DE SABERES Y PENSAMIENTO CIENTÍFICO -->
+        <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: center; border-top: 4px solid #8b5cf6;">
+        <h3 style="color: #1e293b; margin-top: 0;">Saberes y Pensamiento Científico</h3>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Matemáticas y Ciencias Naturales</p>
+        
+        {alumno.examen_saberes?.completado ? (
+            <div style="background: #f1f5f9; color: #64748b; padding: 12px; border-radius: 8px; font-weight: bold;">
+            ✅ Examen Completado
+            </div>
+        ) : (
+            <a href="/saberes" style="display: block; background: #8b5cf6; color: white; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.4);">
+            Comenzar Examen
+            </a>
+        )}
+        </div>
+
       <div style="text-align: center; margin-top: 30px;">
         <button id="btn-cerrar-sesion" style="background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; font-size: 15px; text-decoration: underline;">
           Cerrar Sesión

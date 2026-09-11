@@ -14,14 +14,38 @@
       "respuestaCorrecta": "b"
     },
     {
+      "id": "mat_2",
+      "tipo": "opcion_multiple",
+      "pregunta": "2. ¿Cuántas unidades de millar tiene el siguiente número? 73 456",
+      "opciones": {
+        "a": "7 unidades de millar.",
+        "b": "6 unidades de millar.",
+        "c": "3 unidades de millar.",
+        "d": "4 unidades de millar."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_3",
+      "tipo": "opcion_multiple",
+      "pregunta": "3. ¿Cómo se escribe el siguiente número? 67 834",
+      "opciones": {
+        "a": "Sesenta y siete mil ochocientos treinta y cuatro.",
+        "b": "Setenta y siete mil ochocientos treinta y cuatro.",
+        "c": "Sesenta y siete millones ochocientos treinta y cuatro.",
+        "d": "Sesenta y siete mil treinta y cuatro."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
       "id": "mat_4",
       "tipo": "opcion_multiple",
       "pregunta": "4. ¿Cuál de las siguientes sucesiones es ascendente?",
       "opciones": {
-        "a": "45 689, 45 688, 45 687, 45 686...",
-        "b": "23 170, 23 160, 23 150, 23 140...",
-        "c": "87 175, 87 170, 87 165, 87 160...",
-        "d": "54 132, 54 134, 54 136, 54 138..."
+        "a": "45 689, 45 688, 45 687, 45 686, 45 685.",
+        "b": "23 170, 23 160, 23 150, 23 140, 23 130.",
+        "c": "87 175, 87 170, 87 165, 87 160, 87 155.",
+        "d": "54 132, 54 134, 54 136, 54 138, 54 140."
       },
       "respuestaCorrecta": "d"
     },
@@ -39,33 +63,655 @@
       "respuestaCorrecta": "b"
     },
     {
+      "id": "mat_6",
+      "tipo": "opcion_multiple",
+      "pregunta": "6. ¿En cuál de las opciones están ordenadas de mayor a menor las siguientes cantidades? 15.76, 15.98, 15.09, 15.91, 15.1.",
+      "opciones": {
+        "a": "15.98, 15.1, 15.76, 15.09, 15.91.",
+        "b": "15.09, 15.1, 15.76, 15.91, 15.98.",
+        "c": "15.98, 15.91, 15.76, 15.1, 15.09.",
+        "d": "15.98, 15.91, 15.76, 15.09, 15.1."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_7",
+      "tipo": "opcion_multiple",
+      "pregunta": "7. ¿Qué fracción está representada en la siguiente figura?",
+      "imagen": "/img/mat_q7.jpg",
+      "opciones": {
+        "a": "4/4",
+        "b": "5/7",
+        "c": "4/8",
+        "d": "4/6"
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "mat_8",
+      "tipo": "opcion_multiple",
+      "pregunta": "8. ¿Cuál de las siguientes fracciones es mayor que 3/7?",
+      "opciones": {
+        "a": "2/7",
+        "b": "1/7",
+        "c": "6/7",
+        "d": "3/7"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_9",
+      "tipo": "opcion_multiple",
+      "pregunta": "9. Si 1/4 de masa equivalen a 250 g, ¿cuánto pesa el total de la masa?",
+      "opciones": {
+        "a": "1 000 g",
+        "b": "500 g",
+        "c": "750 g",
+        "d": "250 g"
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "mat_10",
+      "tipo": "opcion_multiple",
+      "pregunta": "10. ¿Cuál es el resultado de la siguiente suma? 4 127 + 3 238 =",
+      "opciones": {
+        "a": "7 265",
+        "b": "6 355",
+        "c": "7 365",
+        "d": "6 275"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_11",
+      "tipo": "opcion_multiple",
+      "pregunta": "11. Jesús compró una tableta en $7 539 y unos audífonos en $1 279. Si pagó con $9 000, ¿cuánto dinero le sobró?",
+      "opciones": {
+        "a": "$8 818",
+        "b": "$182",
+        "c": "$162",
+        "d": "$202"
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "mat_12",
+      "tipo": "opcion_multiple",
+      "pregunta": "12. ¿Cuál es el resultado de la siguiente resta? 245.16 - 167.38 =",
+      "opciones": {
+        "a": "87.98",
+        "b": "28.28",
+        "c": "77.78",
+        "d": "17.18"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_13",
+      "tipo": "opcion_multiple",
+      "pregunta": "13. Édgar compró una playera en $216.39 y un pantalón corto en $125.58. Si pagó con un billete de $500, ¿cuánto dinero le sobró?",
+      "opciones": {
+        "a": "$341.97",
+        "b": "$235.98",
+        "c": "$98.03",
+        "d": "$158.03"
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "mat_14",
+      "tipo": "opcion_multiple",
+      "pregunta": "14. ¿Cuál es el resultado de la siguiente suma de fracciones? 2/10 + 3/5 =",
+      "opciones": {
+        "a": "4/5",
+        "b": "10/10",
+        "c": "5/15",
+        "d": "3/2"
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "mat_15",
+      "tipo": "opcion_multiple",
+      "pregunta": "15. Miriam compró 5/12 de resorte y Ángel, 2/4. ¿Cuánto compraron entre los dos?",
+      "opciones": {
+        "a": "5/12 de resorte.",
+        "b": "4/12 de resorte.",
+        "c": "11/12 de resorte.",
+        "d": "8/12 de resorte."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_16",
+      "tipo": "opcion_multiple",
+      "pregunta": "16. ¿Cuál es el resultado de la siguiente multiplicación? 487 × 13 =",
+      "opciones": {
+        "a": "5 371",
+        "b": "6 731",
+        "c": "6 331",
+        "d": "5 381"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_17",
+      "tipo": "opcion_multiple",
+      "pregunta": "17. Luis comprará 376 cajas de colores de 17 piezas cada una. ¿Cuántos colores comprará en total?",
+      "opciones": {
+        "a": "5 398 colores.",
+        "b": "2 309 colores.",
+        "c": "3 378 colores.",
+        "d": "6 392 colores."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "mat_18",
+      "tipo": "opcion_multiple",
+      "pregunta": "18. ¿Cuál es el cociente de la siguiente división? 552 ÷ 46 =",
+      "opciones": {
+        "a": "15",
+        "b": "12",
+        "c": "13",
+        "d": "17"
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "mat_19",
+      "tipo": "opcion_multiple",
+      "pregunta": "19. Sofía quiere repartir equitativamente 756 monedas en 28 botes diferentes. ¿Cuántas monedas pondrá en cada uno?",
+      "opciones": {
+        "a": "23 monedas.",
+        "b": "25 monedas.",
+        "c": "27 monedas.",
+        "d": "26 monedas."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_20",
+      "tipo": "opcion_multiple",
+      "pregunta": "20. ¿Cuál es el doble de 37?",
+      "opciones": {
+        "a": "64",
+        "b": "74",
+        "c": "57",
+        "d": "77"
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "mat_21",
+      "tipo": "opcion_multiple",
+      "pregunta": "21. ¿Cuál de las siguientes figuras geométricas es un cuadrilátero?",
+      "imagen": "/img/mat_q21.jpg",
+      "opciones": {
+        "a": "El pentágono (verde).",
+        "b": "El triángulo (rosa).",
+        "c": "El hexágono (azul).",
+        "d": "El rectángulo (morado)."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "mat_22",
+      "tipo": "opcion_multiple",
+      "pregunta": "22. ¿Cuántos ejes de simetría tiene la siguiente figura?",
+      "imagen": "/img/mat_q22.jpg",
+      "opciones": {
+        "a": "1 eje.",
+        "b": "2 ejes.",
+        "c": "3 ejes.",
+        "d": "4 ejes."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "mat_23",
+      "tipo": "opcion_multiple",
+      "pregunta": "23. ¿Cuántas unidades mide el perímetro de la siguiente figura?",
+      "imagen": "/img/mat_q23.jpg",
+      "opciones": {
+        "a": "25 unidades.",
+        "b": "28 unidades.",
+        "c": "32 unidades.",
+        "d": "30 unidades."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "mat_24",
+      "tipo": "opcion_multiple",
+      "pregunta": "24. ¿Cuánto mide el área de la siguiente figura?",
+      "imagen": "/img/mat_q24.jpg",
+      "opciones": {
+        "a": "28 u²",
+        "b": "25 u²",
+        "c": "30 u²",
+        "d": "31 u²"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_25",
+      "tipo": "opcion_multiple",
+      "pregunta": "25. ¿Cuántos minutos hay en siete horas?",
+      "opciones": {
+        "a": "320 minutos.",
+        "b": "420 minutos.",
+        "c": "350 minutos.",
+        "d": "430 minutos."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "mat_26",
+      "tipo": "opcion_multiple",
+      "pregunta": "26. ¿Cuántos segundos hay en 8 horas?",
+      "opciones": {
+        "a": "28 800 segundos.",
+        "b": "15 349 segundos.",
+        "c": "26 300 segundos.",
+        "d": "30 800 segundos."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "mat_27",
+      "tipo": "opcion_multiple",
+      "pregunta": "27. ¿A cuántos meses equivale un semestre?",
+      "opciones": {
+        "a": "2 meses.",
+        "b": "6 meses.",
+        "c": "15 meses.",
+        "d": "3 meses."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "mat_28",
+      "tipo": "opcion_multiple",
+      "pregunta": "28. ¿Cuántos años tiene un siglo?",
+      "opciones": {
+        "a": "10 años.",
+        "b": "1 000 años.",
+        "c": "100 años.",
+        "d": "5 años."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_29",
+      "tipo": "opcion_multiple",
+      "pregunta": "29. ¿Qué son las tablas de frecuencia?",
+      "opciones": {
+        "a": "Son unidades que usamos para medir cómo pasa el tiempo.",
+        "b": "Son objetos para medir la duración de los eventos.",
+        "c": "Son herramientas que se utilizan para organizar y resumir datos.",
+        "d": "Son ejercicios visuales para comparar características de los objetos."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_30",
+      "tipo": "opcion_multiple",
+      "pregunta": "30. ¿Qué es la moda?",
+      "opciones": {
+        "a": "Es el dato que más se repite en un conjunto de datos.",
+        "b": "Es una herramienta para medir magnitudes.",
+        "c": "Es un dato constante en todas las situaciones matemáticas.",
+        "d": "Es una herramienta para representar los datos obtenidos."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "mat_31",
+      "tipo": "opcion_multiple",
+      "pregunta": "31. Gaby caminó 3 metros de 12 que debe recorrer. ¿Cómo se escribe la fracción de la distancia que le falta por recorrer?",
+      "opciones": {
+        "a": "3/12",
+        "b": "12/3",
+        "c": "9/12",
+        "d": "5/12"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "mat_32",
+      "tipo": "opcion_multiple",
+      "pregunta": "32. Si 3/5 de una sandía pesan 900 g, ¿cuánto pesa la sandía completa?",
+      "opciones": {
+        "a": "1 200 g",
+        "b": "1 000 g",
+        "c": "1 300 g",
+        "d": "1 500 g"
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "mat_33",
+      "tipo": "opcion_multiple",
+      "pregunta": "33. Jorge y su hermano recorrieron 5 metros de los 14 que van a recorrer en total, ¿cómo se escribe la fracción del camino que no les falta?",
+      "opciones": {
+        "a": "9/14",
+        "b": "5/7",
+        "c": "12/14",
+        "d": "4/7"
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
       "id": "mat_34",
       "tipo": "completar_texto",
       "instruccion": "34. Une con una línea cada prisma con su desarrollo plano. (Escribe la letra de la figura que corresponde a cada plano, de arriba hacia abajo).",
       "imagen": "/img/mat_q34.jpg",
       "oraciones": [
-        { "id": "34_1", "texto": "Primer desarrollo plano (arriba): _____", "respuestaCorrecta": "c" },
+        { "id": "34_1", "texto": "Primer desarrollo plano (el de hasta arriba): _____", "respuestaCorrecta": "c" },
         { "id": "34_2", "texto": "Segundo desarrollo plano: _____", "respuestaCorrecta": "b" },
         { "id": "34_3", "texto": "Tercer desarrollo plano: _____", "respuestaCorrecta": "a" },
-        { "id": "34_4", "texto": "Cuarto desarrollo plano (abajo): _____", "respuestaCorrecta": "d" }
+        { "id": "34_4", "texto": "Cuarto desarrollo plano (el de hasta abajo): _____", "respuestaCorrecta": "d" }
       ]
+    },
+    {
+      "id": "mat_35",
+      "tipo": "abierta",
+      "pregunta": "35. Escribe el nombre de cada uno de los prismas del ejercicio anterior (Figuras A, B, C y D)."
+    },
+    {
+      "id": "cn_1",
+      "tipo": "opcion_multiple",
+      "pregunta": "1. ¿Cuál es el orden en el que los alimentos transitan por el sistema digestivo?",
+      "opciones": {
+        "a": "Boca, estómago y esófago.",
+        "b": "Boca, intestino delgado y esófago.",
+        "c": "Boca, estómago e intestino delgado.",
+        "d": "Boca, intestino grueso e intestino delgado."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_2",
+      "tipo": "opcion_multiple",
+      "pregunta": "2. ¿Qué hábitos nos ayudan a mantener sano el sistema digestivo?",
+      "opciones": {
+        "a": "Beber leche y lavarse las manos.",
+        "b": "Consumir fibra y lavarse las manos.",
+        "c": "Consumir guayabas y bañarse.",
+        "d": "Consumir jengibre y perejil."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "cn_3",
+      "tipo": "opcion_multiple",
+      "pregunta": "3. ¿En qué alimentos podemos encontrar proteínas?",
+      "opciones": {
+        "a": "En alimentos de origen animal.",
+        "b": "En los ultraprocesados.",
+        "c": "En las frutas y verduras.",
+        "d": "En las grasas y los aceites saludables."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_4",
+      "tipo": "opcion_multiple",
+      "pregunta": "4. ¿Qué alimentos contienen altos niveles de azúcar y grasa?",
+      "opciones": {
+        "a": "Arroz, jitomate y legumbres.",
+        "b": "Salchicha, sopa instantánea y papas fritas.",
+        "c": "Manzana, brócoli y zanahoria.",
+        "d": "Refresco, dona y chocolate."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "cn_5",
+      "tipo": "opcion_multiple",
+      "pregunta": "5. ¿Cuáles son ejemplos de los elementos que requieren las plantas para crecer?",
+      "opciones": {
+        "a": "Carbohidratos, grasas y vitaminas.",
+        "b": "Agua, minerales y proteínas.",
+        "c": "Tierra, luz solar y agua.",
+        "d": "Aire, nutrientes y fibra."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_6",
+      "tipo": "opcion_multiple",
+      "pregunta": "6. ¿Cuáles son los síntomas físicos normales del ciclo menstrual?",
+      "opciones": {
+        "a": "Dolor en el vientre y sangrado.",
+        "b": "Sensación de frío sin razón aparente.",
+        "c": "Dolor muscular.",
+        "d": "Sensación de hormigueo en los pies."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_7",
+      "tipo": "opcion_multiple",
+      "pregunta": "7. ¿Por qué es importante cuidar la higiene de los órganos sexuales?",
+      "opciones": {
+        "a": "Porque nos protege contra el embarazo.",
+        "b": "Porque nos protege de infecciones.",
+        "c": "Porque evita revisiones médicas.",
+        "d": "Porque así no se necesitan cuidados adicionales."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "cn_8",
+      "tipo": "opcion_multiple",
+      "pregunta": "8. Es uno de los cambios físicos que ocurren durante la pubertad y la adolescencia.",
+      "opciones": {
+        "a": "Ensanchamiento de los pómulos.",
+        "b": "Caída de cabello.",
+        "c": "Encogimiento de los huesos.",
+        "d": "Aparición de vello en axilas, pubis y rostro."
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "cn_9",
+      "tipo": "opcion_multiple",
+      "pregunta": "9. ¿En qué sustancia se degradan más rápido los alimentos?",
+      "opciones": {
+        "a": "En vinagre.",
+        "b": "En agua.",
+        "c": "En jugo de manzana.",
+        "d": "En leche."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_10",
+      "tipo": "opcion_multiple",
+      "pregunta": "10. ¿Cuál es el proceso que sufre el agua líquida cuando baja la temperatura?",
+      "opciones": {
+        "a": "La condensación.",
+        "b": "La sublimación.",
+        "c": "La solidificación.",
+        "d": "La evaporación."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_11",
+      "tipo": "opcion_multiple",
+      "pregunta": "11. ¿Cuál es el orden de los estados físicos del agua del más caliente al más frío?",
+      "opciones": {
+        "a": "Sólido, líquido y gaseoso.",
+        "b": "Gaseoso, sólido y líquido.",
+        "c": "Gaseoso, líquido y sólido.",
+        "d": "Líquido, sólido y gaseoso."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_12",
+      "tipo": "opcion_multiple",
+      "pregunta": "12. ¿Cómo son los componentes de una mezcla homogénea?",
+      "opciones": {
+        "a": "No se distinguen a simple vista.",
+        "b": "Son todos iguales.",
+        "c": "Se distinguen a simple vista.",
+        "d": "No se disuelven."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_13",
+      "tipo": "opcion_multiple",
+      "pregunta": "13. ¿A qué se debe el aumento de color y sabor en una mezcla?",
+      "opciones": {
+        "a": "Al aumento de la temperatura.",
+        "b": "Al aumento de la concentración.",
+        "c": "A la separación de la sustancia.",
+        "d": "A la disminución de la concentración."
+      },
+      "respuestaCorrecta": "b"
+    },
+    {
+      "id": "cn_14",
+      "tipo": "opcion_multiple",
+      "pregunta": "14. Selecciona el ejemplo de calor por fricción.",
+      "imagen": "/img/cn_q14.jpg",
+      "opciones": {
+        "a": "Opción A (Fogata)",
+        "b": "Opción B (Sol)",
+        "c": "Opción C (Frotar las manos)",
+        "d": "Opción D (Meteorito)"
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_15",
+      "tipo": "opcion_multiple",
+      "pregunta": "15. ¿Cómo se llama el proceso en el que el calor fluye de un cuerpo caliente a uno frío?",
+      "opciones": {
+        "a": "Equilibrio térmico.",
+        "b": "Flujo de calor.",
+        "c": "Enfriamiento.",
+        "d": "Calentamiento."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_16",
+      "tipo": "opcion_multiple",
+      "pregunta": "16. ¿Qué es la contaminación?",
+      "opciones": {
+        "a": "Tirar basura en un bote.",
+        "b": "El desperdicio del agua.",
+        "c": "El daño que afecta al medioambiente y a los seres vivos.",
+        "d": "La reforestación de los bosques."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_17",
+      "tipo": "opcion_multiple",
+      "pregunta": "17. Es la acción que muestra un consumo responsable del agua.",
+      "imagen": "/img/cn_q17.jpg",
+      "opciones": {
+        "a": "Opción A (Niño dejando el grifo abierto)",
+        "b": "Opción B (Niño lavando el coche con manguera)",
+        "c": "Opción C (Niños jugando con globos de agua)",
+        "d": "Opción D (Niño lavando el coche con cubeta)"
+      },
+      "respuestaCorrecta": "d"
+    },
+    {
+      "id": "cn_18",
+      "tipo": "opcion_multiple",
+      "pregunta": "18. ¿Cuál es un residuo orgánico?",
+      "imagen": "/img/cn_q18.jpg",
+      "opciones": {
+        "a": "Opción A (Bolsa de basura)",
+        "b": "Opción B (Botella de plástico)",
+        "c": "Opción C (Pila o Foco)",
+        "d": "Opción D (Esqueleto de pescado)"
+      },
+      "respuestaCorrecta": "d"
     },
     {
       "id": "cn_19",
       "tipo": "opcion_multiple",
       "pregunta": "19. ¿Cuál de los siguientes animales es herbívoro?",
+      "imagen": "/img/cn_q19.jpg",
       "opciones": {
-        "a": "Tigre 🐯",
-        "b": "Oso Panda 🐼",
-        "c": "Oso Polar 🐻‍❄️",
-        "d": "Tiburón 🦈"
+        "a": "Opción A (Tigre)",
+        "b": "Opción B (Oso Panda)",
+        "c": "Opción C (Oso Polar)",
+        "d": "Opción D (Tiburón)"
       },
       "respuestaCorrecta": "b"
+    },
+    {
+      "id": "cn_20",
+      "tipo": "opcion_multiple",
+      "pregunta": "20. ¿En qué parte de la planta ocurre la fotosíntesis?",
+      "opciones": {
+        "a": "En las hojas.",
+        "b": "En el tallo.",
+        "c": "En las raíces.",
+        "d": "En las flores."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_21",
+      "tipo": "opcion_multiple",
+      "pregunta": "21. ¿Cuál de los siguientes seres vivos es un consumidor primario?",
+      "opciones": {
+        "a": "Un conejo.",
+        "b": "Un zorro.",
+        "c": "Una bacteria.",
+        "d": "Un hongo."
+      },
+      "respuestaCorrecta": "a"
+    },
+    {
+      "id": "cn_22",
+      "tipo": "opcion_multiple",
+      "pregunta": "22. ¿Cuáles son ejemplos de factores físicos de un ecosistema?",
+      "opciones": {
+        "a": "Los animales y las plantas.",
+        "b": "Los peces y los insectos.",
+        "c": "El aire y el agua.",
+        "d": "Los humanos y las bacterias."
+      },
+      "respuestaCorrecta": "c"
+    },
+    {
+      "id": "cn_23",
+      "tipo": "abierta",
+      "pregunta": "23. Escribe tres factores biológicos de un ecosistema."
     },
     {
       "id": "cn_24",
       "tipo": "abierta",
       "pregunta": "24. Menciona un ejemplo de la fauna de tu localidad y un ejemplo de la flora local."
+    },
+    {
+      "id": "cn_25",
+      "tipo": "abierta",
+      "pregunta": "25. Describe brevemente los elementos que conforman el sistema solar."
+    },
+    {
+      "id": "cn_26",
+      "tipo": "abierta",
+      "pregunta": "26. Describe brevemente qué es la Luna."
+    },
+    {
+      "id": "cn_27",
+      "tipo": "abierta",
+      "pregunta": "27. Escribe los nombres de un animal carnívoro, de uno herbívoro y de uno omnívoro."
     }
   ]
 }
