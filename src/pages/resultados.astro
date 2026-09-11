@@ -151,7 +151,7 @@
     </div>
 
     <script>
-      import { collection, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
+      import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
       import { db } from "../firebase.js";
 
       // --- Pestañas ---
@@ -685,6 +685,36 @@
           console.error("Error cargando DB:", error);
         }
       }
+      // Función global para calificar respuestas abiertas desde el modal
+      (window as any).toggleRespuestaAbierta = async (alumnoId: string, reactivoIndex: number) => {
+        try {
+          const docRef = doc(db, "alumnos", alumnoId);
+          const docSnap = await getDoc(docRef);
+          if (!docSnap.exists()) return;
+
+          const alumnoData = docSnap.data();
+          const saberes = alumnoData.examen_saberes;
+
+          // Invertir estatus (de incorrecta a correcta, o viceversa)
+          const estadoActual = saberes.historial[reactivoIndex].esCorrecta;
+          saberes.historial[reactivoIndex].esCorrecta = !estadoActual;
+
+          // Recalcular total de aciertos
+          saberes.aciertos = saberes.historial.filter((h: any) => h.esCorrecta).length;
+
+          // Actualizar en Firestore
+          await updateDoc(docRef, { examen_saberes: saberes });
+
+          // Cerrar modal y refrescar la tabla y gráficas
+          document.getElementById('modal-detalle')!.style.display = 'none';
+          await cargarResultados();
+          alert("¡Calificación actualizada con éxito!");
+        } catch (err) {
+          console.error("Error al actualizar respuesta abierta:", err);
+          alert("Hubo un problema al guardar la calificación.");
+        }
+      };
+
       cargarResultados();
     </script>
   </body>
