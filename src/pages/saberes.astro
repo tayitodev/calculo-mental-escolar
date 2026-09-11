@@ -74,6 +74,27 @@ const preguntas = examenData.preguntas;
 
     <script id="data-preguntas" type="application/json" set:html={JSON.stringify(preguntas)}></script>
 
+    <!-- Modal de Advertencia Flotante -->
+    <div id="modal-instrucciones" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); justify-content: center; align-items: center; padding: 20px; z-index: 1000;">
+    <div style="background: white; padding: 35px; border-radius: 16px; max-width: 480px; width: 100%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); text-align: left; box-sizing: border-box;">
+        <h2 style="color: #b45309; margin-top: 0; text-align: center; font-size: 22px;">⚠️ Aviso Importante</h2>
+        <ul style="color: #334155; font-size: 14px; line-height: 1.6; padding-left: 20px; margin-bottom: 25px;">
+        <li style="margin-bottom: 10px;">
+            <strong>NO cierres ni recargues esta página por ningún motivo.</strong> Si lo haces, tus respuestas se borrarán y perderás tu oportunidad.
+        </li>
+        <li style="margin-bottom: 10px;">
+            Lee con atención cada planteamiento y revisa bien los gráficos de apoyo antes de responder.
+        </li>
+        <li style="margin-bottom: 10px;">
+            Al finalizar, debes hacer clic en el botón verde de <strong>"Enviar Examen"</strong> al fondo de la página.
+        </li>
+        </ul>
+        <button id="btn-comenzar" style="width: 100%; background-color: #8b5cf6; color: white; border: none; padding: 14px; font-size: 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
+        ¡Entendido, Comenzar Examen!
+        </button>
+    </div>
+    </div>
+
     <script>
       import { doc, updateDoc } from "firebase/firestore";
       import { db } from "../firebase.js";
@@ -83,16 +104,32 @@ const preguntas = examenData.preguntas;
       if (!alumnoId) window.location.replace('/');
       document.getElementById('nombre-alumno-display').textContent = alumnoNombre;
 
-      let tiempoInicio = Date.now();
+      const modal = document.getElementById('modal-instrucciones');
+      const btnComenzar = document.getElementById('btn-comenzar');
       const form = document.getElementById('form-saberes');
       const STORAGE_KEY = `respuestas_saberes_${alumnoId}`;
+      let tiempoInicio = Date.now();
 
+      const advertenciaSalida = (e) => {
+        e.preventDefault();
+        return '';
+      };
+
+      // Modal de inicio
+      btnComenzar.addEventListener('click', () => {
+        modal.style.display = 'none';
+        tiempoInicio = Date.now();
+        window.addEventListener('beforeunload', advertenciaSalida);
+      });
+
+      // Autoguardado local
       form.addEventListener('input', () => {
         const dataObj = {};
         new FormData(form).forEach((value, key) => dataObj[key] = value);
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(dataObj));
       });
 
+      // Restaurar respuestas guardadas
       const guardado = sessionStorage.getItem(STORAGE_KEY);
       if (guardado) {
         const dataObj = JSON.parse(guardado);
@@ -104,8 +141,11 @@ const preguntas = examenData.preguntas;
         });
       }
 
+      // Envío de examen
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        window.removeEventListener('beforeunload', advertenciaSalida);
+
         const segundosTardados = Math.floor((Date.now() - tiempoInicio) / 1000);
         const preguntasJSON = JSON.parse(document.getElementById('data-preguntas').textContent);
         
@@ -145,7 +185,11 @@ const preguntas = examenData.preguntas;
           sessionStorage.removeItem(STORAGE_KEY);
           alert("¡Guardado correctamente!");
           window.location.replace('/dashboard');
-        } catch (error) { alert("Error al guardar."); }
+        } catch (error) { 
+          alert("Error al guardar."); 
+          document.getElementById('btn-enviar').disabled = false;
+          document.getElementById('btn-enviar').textContent = "Enviar Examen";
+        }
       });
     </script>
   </body>
