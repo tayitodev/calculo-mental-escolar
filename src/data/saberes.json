@@ -80,10 +80,10 @@
       "pregunta": "7. ¿Qué fracción está representada en la siguiente figura?",
       "imagen": "/img/mat_q7.jpg",
       "opciones": {
-        "a": "4/4",
+        "a": "4/7",
         "b": "5/7",
         "c": "4/8",
-        "d": "4/6"
+        "d": "5/8"
       },
       "respuestaCorrecta": "d"
     },
@@ -249,10 +249,10 @@
       "pregunta": "21. ¿Cuál de las siguientes figuras geométricas es un cuadrilátero?",
       "imagen": "/img/mat_q21.jpg",
       "opciones": {
-        "a": "El decágono rosa.",
-        "b": "El triángulo morado.",
-        "c": "El pentágono verde.",
-        "d": "El rectángulo azul."
+        "a": " ",
+        "b": " ",
+        "c": " ",
+        "d": " "
       },
       "respuestaCorrecta": "d"
     },
@@ -401,7 +401,7 @@
         "c": "9/14",
         "d": "4/5"
       },
-      "respuestaCorrecta": "a"
+      "respuestaCorrecta": "c"
     },
     {
       "id": "mat_34",
@@ -409,10 +409,10 @@
       "instruccion": "34. Une con una línea cada prisma con su desarrollo plano. (Escribe la letra de la figura que corresponde a cada plano, de arriba hacia abajo).",
       "imagen": "/img/mat_q34.jpg",
       "oraciones": [
-        { "id": "34_1", "texto": "Primer desarrollo plano (el de hasta arriba): _____", "respuestaCorrecta": "c" },
-        { "id": "34_2", "texto": "Segundo desarrollo plano: _____", "respuestaCorrecta": "b" },
+        { "id": "34_1", "texto": "Primer desarrollo plano (el de hasta arriba): _____", "respuestaCorrecta": "b" },
+        { "id": "34_2", "texto": "Segundo desarrollo plano: _____", "respuestaCorrecta": "d" },
         { "id": "34_3", "texto": "Tercer desarrollo plano: _____", "respuestaCorrecta": "a" },
-        { "id": "34_4", "texto": "Cuarto desarrollo plano (el de hasta abajo): _____", "respuestaCorrecta": "d" }
+        { "id": "34_4", "texto": "Cuarto desarrollo plano (el de hasta abajo): _____", "respuestaCorrecta": "c" }
       ]
     },
     {
@@ -584,8 +584,8 @@
       "opciones": {
         "a": "Opción A (Fogata)",
         "b": "Opción B (Sol)",
-        "c": "Opción C (Frotar las manos)",
-        "d": "Opción D (Meteorito)"
+        "c": "Opción C (Meteorito)",
+        "d": "Opción D (Vela)"
       },
       "respuestaCorrecta": "c"
     },
@@ -599,7 +599,7 @@
         "c": "Enfriamiento.",
         "d": "Calentamiento."
       },
-      "respuestaCorrecta": "b"
+      "respuestaCorrecta": "a"
     },
     {
       "id": "cn_16",
@@ -620,11 +620,11 @@
       "imagen": "/img/cn_q17.jpg",
       "opciones": {
         "a": "Opción A (Niño dejando el grifo abierto)",
-        "b": "Opción B (Niño lavando el coche con manguera)",
-        "c": "Opción C (Niños jugando con globos de agua)",
-        "d": "Opción D (Niño lavando el coche con cubeta)"
+        "b": "Opción B (Hombre lavando el coche con cubeta)",
+        "c": "Opción C (Hombre lavando el coche con manguera)",
+        "d": "Opción D (Niños jugando con manguera)"
       },
-      "respuestaCorrecta": "d"
+      "respuestaCorrecta": "b"
     },
     {
       "id": "cn_18",
@@ -632,10 +632,10 @@
       "pregunta": "18. ¿Cuál es un residuo orgánico?",
       "imagen": "/img/cn_q18.jpg",
       "opciones": {
-        "a": "Opción A (Bolsa de basura)",
-        "b": "Opción B (Botella de plástico)",
-        "c": "Opción C (Pila o Foco)",
-        "d": "Opción D (Esqueleto de pescado)"
+        "a": "Lata vacia",
+        "b": "Botella de plástico",
+        "c": "Pila",
+        "d": "Esqueleto de pescado"
       },
       "respuestaCorrecta": "d"
     },
@@ -645,10 +645,10 @@
       "pregunta": "19. ¿Cuál de los siguientes animales es herbívoro?",
       "imagen": "/img/cn_q19.jpg",
       "opciones": {
-        "a": "Opción A (Tigre)",
-        "b": "Opción B (Oso Panda)",
-        "c": "Opción C (Oso Polar)",
-        "d": "Opción D (Tiburón)"
+        "a": "Tigre",
+        "b": "Oso Panda",
+        "c": "Oso Polar",
+        "d": "Tiburón"
       },
       "respuestaCorrecta": "b"
     },
