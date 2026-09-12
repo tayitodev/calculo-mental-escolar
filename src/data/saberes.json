@@ -90,22 +90,22 @@
     {
       "id": "mat_8",
       "tipo": "opcion_multiple",
-      "pregunta": "8. ¿Cuál de las siguientes fracciones es mayor que 3/7?",
+      "pregunta": "8. ¿Cuál de las siguientes fracciones es mayor que 3/8?",
       "opciones": {
-        "a": "2/7",
-        "b": "1/7",
-        "c": "6/7",
-        "d": "3/7"
+        "a": "3/9",
+        "b": "3/10",
+        "c": "3/5",
+        "d": "3/12"
       },
       "respuestaCorrecta": "c"
     },
     {
       "id": "mat_9",
       "tipo": "opcion_multiple",
-      "pregunta": "9. Si 1/4 de masa equivalen a 250 g, ¿cuánto pesa el total de la masa?",
+      "pregunta": "9. Si 5/10 de masa equivalen a 250 g, ¿cuánto pesa el total de la masa?",
       "opciones": {
-        "a": "1 000 g",
-        "b": "500 g",
+        "a": "500 g",
+        "b": "2 500 g",
         "c": "750 g",
         "d": "250 g"
       },
@@ -165,8 +165,8 @@
       "pregunta": "14. ¿Cuál es el resultado de la siguiente suma de fracciones? 2/10 + 3/5 =",
       "opciones": {
         "a": "4/5",
-        "b": "10/10",
-        "c": "5/15",
+        "b": "5/15",
+        "c": "10/30",
         "d": "3/2"
       },
       "respuestaCorrecta": "a"
@@ -174,14 +174,14 @@
     {
       "id": "mat_15",
       "tipo": "opcion_multiple",
-      "pregunta": "15. Miriam compró 5/12 de resorte y Ángel, 2/4. ¿Cuánto compraron entre los dos?",
+      "pregunta": "15. Miriam compró 3/8 de resorte y Ángel, 2/4. ¿Cuánto compraron entre los dos?",
       "opciones": {
         "a": "5/12 de resorte.",
-        "b": "4/12 de resorte.",
-        "c": "11/12 de resorte.",
-        "d": "8/12 de resorte."
+        "b": "7/8 de resorte.",
+        "c": "1/8 de resorte.",
+        "d": "5/8 de resorte."
       },
-      "respuestaCorrecta": "c"
+      "respuestaCorrecta": "b"
     },
     {
       "id": "mat_16",
@@ -249,10 +249,10 @@
       "pregunta": "21. ¿Cuál de las siguientes figuras geométricas es un cuadrilátero?",
       "imagen": "/img/mat_q21.jpg",
       "opciones": {
-        "a": "El pentágono (verde).",
-        "b": "El triángulo (rosa).",
-        "c": "El hexágono (azul).",
-        "d": "El rectángulo (morado)."
+        "a": "El decágono rosa.",
+        "b": "El triángulo morado.",
+        "c": "El pentágono verde.",
+        "d": "El rectángulo azul."
       },
       "respuestaCorrecta": "d"
     },
@@ -325,11 +325,11 @@
       "pregunta": "27. ¿A cuántos meses equivale un semestre?",
       "opciones": {
         "a": "2 meses.",
-        "b": "6 meses.",
-        "c": "15 meses.",
+        "b": "15 meses.",
+        "c": "6 meses.",
         "d": "3 meses."
       },
-      "respuestaCorrecta": "b"
+      "respuestaCorrecta": "c"
     },
     {
       "id": "mat_28",
@@ -337,11 +337,11 @@
       "pregunta": "28. ¿Cuántos años tiene un siglo?",
       "opciones": {
         "a": "10 años.",
-        "b": "1 000 años.",
-        "c": "100 años.",
+        "b": "100 años.",
+        "c": "1 000 años.",
         "d": "5 años."
       },
-      "respuestaCorrecta": "c"
+      "respuestaCorrecta": "b"
     },
     {
       "id": "mat_29",
@@ -396,10 +396,10 @@
       "tipo": "opcion_multiple",
       "pregunta": "33. Jorge y su hermano recorrieron 5 metros de los 14 que van a recorrer en total, ¿cómo se escribe la fracción del camino que no les falta?",
       "opciones": {
-        "a": "9/14",
-        "b": "5/7",
-        "c": "12/14",
-        "d": "4/7"
+        "a": "5/14",
+        "b": "7/5",
+        "c": "9/14",
+        "d": "4/5"
       },
       "respuestaCorrecta": "a"
     },
@@ -599,7 +599,7 @@
         "c": "Enfriamiento.",
         "d": "Calentamiento."
       },
-      "respuestaCorrecta": "a"
+      "respuestaCorrecta": "b"
     },
     {
       "id": "cn_16",
