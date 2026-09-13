@@ -485,7 +485,7 @@
             if (examSab && examSab.completado) {
               htmlEstatusSab = '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado</span>';
               
-              const califBase10 = (examSab.aciertos / examSab.totalPreguntas) * 10;
+              const califBase10 = (examSab.aciertos / examSab.historial.length) * 10;
               sumaSaberes += califBase10;
               totalSaberes++;
 
@@ -525,11 +525,11 @@
                 let detalles = ``;
 
                 if (examSab && examSab.completado) {
-                  const base10 = ((examSab.aciertos / examSab.totalPreguntas) * 10).toFixed(1);
+                  const base10 = ((examSab.aciertos / examSab.historial.length) * 10).toFixed(1);
                   detalles += `
                     <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                       <h4 style="margin: 0 0 5px 0; color: #166534; font-size: 16px;">Resumen de Resultados</h4>
-                      <p style="margin: 0 0 5px 0; font-size: 14px; color: #15803d;"><strong>Aciertos:</strong> ${examSab.aciertos} de ${examSab.totalPreguntas}</p>
+                      <p style="..."><strong>Aciertos:</strong> ${examSab.aciertos} de ${examSab.historial.length}</p>
                       <p style="margin: 0; font-size: 14px; color: #15803d;"><strong>Calificación Escolar:</strong> ${base10} / 10</p>
                     </div>`;
                 }
@@ -711,6 +711,9 @@
 
           // Recalcular total de aciertos
           saberes.aciertos = saberes.historial.filter((h: any) => h.esCorrecta).length;
+
+          // CURA DEFINITIVA: Forzar a que el total de preguntas en la base de datos sea el real (65)
+          saberes.totalPreguntas = saberes.historial.length;
 
           // Guardar en Firebase
           await updateDoc(docRef, { examen_saberes: saberes });
