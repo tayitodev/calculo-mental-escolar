@@ -10,6 +10,25 @@
   </head>
   <body style="background-color: #f4f6f9; font-family: sans-serif; padding: 40px 20px; margin: 0;">
 
+    <!-- PANEL DE CONFIGURACIÓN DE LÍMITES -->
+    <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; display: inline-block;">
+      <h3 style="margin-top: 0; color: #1e293b; font-size: 16px;">⏱️ Configurar cierre de exámenes</h3>
+      <div style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap;">
+        <div>
+          <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 5px;">Límite Saberes:</label>
+          <input type="datetime-local" id="limite-saberes" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; color: #334155;">
+        </div>
+        <div>
+          <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 5px;">Límite Lenguajes:</label>
+          <input type="datetime-local" id="limite-lenguajes" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; color: #334155;">
+        </div>
+        <button id="btn-guardar-limites" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">
+          Guardar Fechas
+        </button>
+      </div>
+      <p style="margin: 10px 0 0 0; font-size: 12px; color: #94a3b8;">Deja el campo vacío si el examen estará siempre abierto.</p>
+    </div>
+
     <div style="max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);">
       
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px;">
@@ -151,7 +170,7 @@
     </div>
 
     <script>
-      import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+      import { collection, getDocs, doc, getDoc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
       import { db } from "../firebase.js";
 
       // --- Pestañas ---
@@ -733,6 +752,52 @@
           btn.disabled = false;
         }
       };
+
+      // ==========================================
+      // LÓGICA PARA LÍMITES DE TIEMPO
+      // ==========================================
+      const inputSaberes = document.getElementById('limite-saberes') as HTMLInputElement;
+      const inputLenguajes = document.getElementById('limite-lenguajes') as HTMLInputElement;
+      const btnGuardarLimites = document.getElementById('btn-guardar-limites') as HTMLButtonElement;
+
+      async function cargarLimites() {
+        try {
+          const docRef = doc(db, "configuracion", "examenes");
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.saberes) inputSaberes.value = data.saberes;
+            if (data.lenguajes) inputLenguajes.value = data.lenguajes;
+          }
+        } catch (error) {
+          console.error("Error al cargar límites:", error);
+        }
+      }
+
+      btnGuardarLimites.addEventListener('click', async () => {
+        btnGuardarLimites.textContent = "Guardando...";
+        btnGuardarLimites.style.background = "#94a3b8";
+        
+        try {
+          const docRef = doc(db, "configuracion", "examenes");
+          // setDoc con merge:true crea el documento si no existe, o lo actualiza si ya existe
+          await setDoc(docRef, {
+            saberes: inputSaberes.value,
+            lenguajes: inputLenguajes.value
+          }, { merge: true });
+          
+          alert("Fechas límite guardadas correctamente.");
+        } catch (error) {
+          console.error("Error al guardar:", error);
+          alert("Hubo un error al guardar las fechas.");
+        } finally {
+          btnGuardarLimites.textContent = "Guardar Fechas";
+          btnGuardarLimites.style.background = "#3b82f6";
+        }
+      });
+
+      // Cargar límites al iniciar la página
+      cargarLimites();
 
       cargarResultados();
     </script>
