@@ -479,26 +479,66 @@
               });
               tdAccionesCalc.appendChild(btnDetalleCalc);
 
-                    // ==========================================
-                    // DIBUJAR FILA DE LENGUAJES SEMANA 1
-                    // ==========================================
-                    if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.completado) {
-                      let notaSem1 = (alumno.lenguajes_sem1.aciertos / alumno.lenguajes_sem1.totalPreguntas) * 10;
-                      sumaLengSem1 += notaSem1;
-                      totalLengSem1++;
+                // ============== LÓGICA LENGUAJES SEMANA 1 ==============
+                let trLeng1 = document.createElement('tr');
+                trLeng1.style.borderBottom = '1px solid #f1f5f9';
 
-                      document.getElementById('tabla-cuerpo-lenguajes-sem1').innerHTML += `
-                        <tr style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;">
-                          <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
-                          <td style="padding: 15px; text-align: center;">
-                            <span style="background: ${notaSem1 >= 6 ? '#dcfce7' : '#fee2e2'}; color: ${notaSem1 >= 6 ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 6px; font-weight: bold;">
-                              ${notaSem1.toFixed(1)}
-                            </span>
-                          </td>
-                          <td style="padding: 15px; text-align: center; color: #64748b;">${alumno.lenguajes_sem1.aciertos} / ${alumno.lenguajes_sem1.totalPreguntas}</td>
-                        </tr>
-                      `;
+                if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.completado) {
+                  let notaSem1 = (alumno.lenguajes_sem1.aciertos / alumno.lenguajes_sem1.totalPreguntas) * 10;
+                  sumaLengSem1 += notaSem1;
+                  totalLengSem1++;
+
+                  let tiempoMin = alumno.lenguajes_sem1.tiempoSegundos ? Math.floor(alumno.lenguajes_sem1.tiempoSegundos / 60) : 0;
+                  let tiempoSec = alumno.lenguajes_sem1.tiempoSegundos ? alumno.lenguajes_sem1.tiempoSegundos % 60 : 0;
+                  let tiempoFormateado = `${tiempoMin}m ${tiempoSec}s`;
+
+                  trLeng1.innerHTML = `
+                    <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
+                    <td style="padding: 15px; text-align: center;">
+                      <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-weight: bold;">Completado</span>
+                    </td>
+                    <td style="padding: 15px; text-align: center;">
+                      <span style="background: ${notaSem1 >= 6 ? '#dcfce7' : '#fee2e2'}; color: ${notaSem1 >= 6 ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 6px; font-weight: bold;">
+                        ${notaSem1.toFixed(1)} / 10
+                      </span>
+                    </td>
+                    <td style="padding: 15px; text-align: center; color: #64748b;">${tiempoFormateado}</td>
+                  `;
+
+                  let tdAcciones = document.createElement('td');
+                  tdAcciones.style.padding = '15px';
+                  tdAcciones.style.textAlign = 'center';
+
+                  let btnReiniciar = document.createElement('button');
+                  btnReiniciar.textContent = 'Reiniciar';
+                  btnReiniciar.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+                  
+                  btnReiniciar.addEventListener('click', async () => {
+                    if (confirm(`¿Reiniciar el examen de Lenguajes Sem 1 para ${alumno.nombre}?`)) {
+                      await updateDoc(doc(db, "alumnos", alumno.id), {
+                        lenguajes_sem1: null
+                      });
+                      cargarResultados();
                     }
+                  });
+
+                  tdAcciones.appendChild(btnReiniciar);
+                  trLeng1.appendChild(tdAcciones);
+
+                } else {
+                  trLeng1.innerHTML = `
+                    <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
+                    <td style="padding: 15px; text-align: center;">
+                      <span style="background: #f1f5f9; color: #64748b; padding: 4px 10px; border-radius: 6px; font-size: 13px;">Pendiente</span>
+                    </td>
+                    <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
+                    <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
+                    <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
+                  `;
+                }
+
+                document.getElementById('tabla-cuerpo-lenguajes-sem1').appendChild(trLeng1);
+
 
 
               if (alumno.completado) {
