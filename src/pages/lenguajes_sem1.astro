@@ -116,10 +116,11 @@ const preguntas = examenData;
     <script id="data-preguntas" type="application/json" set:html={JSON.stringify(preguntas)}></script>
 
     <script>
-                    // ==========================================
-                    // CANDADO DE SEGURIDAD TOTAL
-                    // ==========================================
-                    import { doc, getDoc, updateDoc } from "firebase/firestore";
+      // ==========================================
+      // CANDADO DE SEGURIDAD TOTAL
+      // ==========================================
+      import { doc, getDoc, updateDoc } from "firebase/firestore";
+      import { db } from "../firebase.js";
 
 
 
@@ -302,16 +303,16 @@ const preguntas = examenData;
         btnEnviar.disabled = true;
 
         try {
-              const alumnoRef = fs.doc(db, "alumnos", alumnoId!);
-                await fs.updateDoc(alumnoRef, {
-                lenguajes_sem1: {
-                    completado: true,
-                    aciertos: aciertos,
-                    totalPreguntas: totalCalificables,
-                    tiempoSegundos: segundosTardados,
-                    historial: historial
-                }
-                });
+          const alumnoRef = doc(db, "alumnos", alumnoId!);
+          await updateDoc(alumnoRef, {
+            lenguajes_sem1: {
+              completado: true,
+              aciertos: aciertos,
+              totalPreguntas: totalCalificables,
+              tiempoSegundos: segundosTardados,
+              historial: historial
+            }
+          });
 
 
           // Limpiamos el borrador local ya que se envió con éxito
