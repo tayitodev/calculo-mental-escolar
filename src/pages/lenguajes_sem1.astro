@@ -302,16 +302,17 @@ const preguntas = examenData;
         btnEnviar.disabled = true;
 
         try {
-          const alumnoRef = fs.doc(db, "alumnos", alumnoId!);
-          await .fsupdateDoc(alumnoRef, {
-            lenguajes_sem1: {
-              completado: true,
-              aciertos: aciertos,
-              totalPreguntas: totalCalificables,
-              tiempoSegundos: segundosTardados,
-              historial: historial
-            }
-          });
+              const alumnoRef = fs.doc(db, "alumnos", alumnoId!);
+                await fs.updateDoc(alumnoRef, {
+                lenguajes_sem1: {
+                    completado: true,
+                    aciertos: aciertos,
+                    totalPreguntas: totalCalificables,
+                    tiempoSegundos: segundosTardados,
+                    historial: historial
+                }
+                });
+
 
           // Limpiamos el borrador local ya que se envió con éxito
           sessionStorage.removeItem(STORAGE_KEY);
