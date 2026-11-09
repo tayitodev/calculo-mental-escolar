@@ -335,6 +335,12 @@
           let tiemposSab: number[] = [];
           let coloresTiemposSab: string[] = [];
 
+          // Data Lenguajes Sem 1
+          let conteoCalifLeng1 = new Array(11).fill(0); 
+          let nombresLeng1 = [];
+          let tiemposLeng1 = [];
+
+
           lista.forEach((alumno) => {
             // ================== LÓGICA CÁLCULO MENTAL ==================
             if (alumno.completado) {
@@ -367,8 +373,14 @@
 
                       if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.completado) {
                         let notaSem1 = (alumno.lenguajes_sem1.aciertos / alumno.lenguajes_sem1.totalPreguntas) * 10;
-                        sumaLengSem1 += notaSem1;
-                        totalLengSem1++;
+                                sumaLengSem1 += notaSem1;
+                                totalLengSem1++;
+
+                                // Datos para las gráficas 
+                                conteoCalifLeng1[Math.round(notaSem1)]++;
+                                nombresLeng1.push(alumno.nombre);
+                                tiemposLeng1.push(Math.round(alumno.lenguajes_sem1.tiempoSegundos / 60));
+
 
                         let tiempoMin = alumno.lenguajes_sem1.tiempoSegundos ? Math.floor(alumno.lenguajes_sem1.tiempoSegundos / 60) : 0;
                         let tiempoSec = alumno.lenguajes_sem1.tiempoSegundos ? alumno.lenguajes_sem1.tiempoSegundos % 60 : 0;
@@ -832,6 +844,74 @@
             document.getElementById('tabla-cuerpo-saberes')!.appendChild(trSab);
 
           });
+
+              // ==========================================
+    // RENDERIZAR GRÁFICAS LENGUAJES SEMANA 1
+    // ==========================================
+    
+    // Destruir gráficas previas si existen para que no se encimen
+    if (window.chartLeng1Calif) window.chartLeng1Calif.destroy();
+    if (window.chartLeng1Tiempo) window.chartLeng1Tiempo.destroy();
+
+    // 1. Gráfica de Distribución de Calificaciones
+    const ctxCalifLeng1 = document.getElementById('grafica-leng1-calif').getContext('2d');
+    window.chartLeng1Calif = new Chart(ctxCalifLeng1, {
+      type: 'bar',
+      data: {
+        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+        datasets: [{
+          label: 'Alumnos (Calificación base 10)',
+          data: conteoCalifLeng1,
+          backgroundColor: '#10b981', // Verde esmeralda
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      }
+    });
+
+    // 2. Gráfica de Tiempos por Alumno
+    const ctxTiempoLeng1 = document.getElementById('grafica-leng1-tiempo').getContext('2d');
+    window.chartLeng1Tiempo = new Chart(ctxTiempoLeng1, {
+      type: 'bar',
+      data: {
+        labels: nombresLeng1,
+        datasets: [{
+          label: 'Tiempo Usado (Minutos)',
+          data: tiemposLeng1,
+          backgroundColor: '#3b82f6', // Azul
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+          // 3. Lógica de los botones para alternar entre gráficas
+          document.getElementById('btn-leng1-calif').addEventListener('click', () => {
+            document.getElementById('grafica-leng1-calif').style.display = 'block';
+            document.getElementById('grafica-leng1-tiempo').style.display = 'none';
+            document.getElementById('btn-leng1-calif').style.background = '#10b981';
+            document.getElementById('btn-leng1-calif').style.color = 'white';
+            document.getElementById('btn-leng1-tiempo').style.background = '#e2e8f0';
+            document.getElementById('btn-leng1-tiempo').style.color = '#475569';
+          });
+
+          document.getElementById('btn-leng1-tiempo').addEventListener('click', () => {
+            document.getElementById('grafica-leng1-calif').style.display = 'none';
+            document.getElementById('grafica-leng1-tiempo').style.display = 'block';
+            document.getElementById('btn-leng1-tiempo').style.background = '#3b82f6';
+            document.getElementById('btn-leng1-tiempo').style.color = 'white';
+            document.getElementById('btn-leng1-calif').style.background = '#e2e8f0';
+            document.getElementById('btn-leng1-calif').style.color = '#475569';
+          });
+
 
           // ================== PINTAR PROMEDIOS GENERALES ==================
           if(totalCalculo > 0) document.getElementById('txt-promedio-calculo')!.innerText = (sumaCalculo / totalCalculo).toFixed(1);
