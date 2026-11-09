@@ -119,8 +119,9 @@ const preguntas = examenData;
                     // ==========================================
                     // CANDADO DE SEGURIDAD TOTAL
                     // ==========================================
-                      import { db } from "../firebase.js";
-                         import { doc, getDoc, updateDoc } from "firebase/firestore";
+                        import { db } from "../firebase.js";
+                          import * as fs from "firebase/firestore";
+
 
                     // 1. Destruir el truco del botón "Atrás" del navegador
                     window.addEventListener('pageshow', function(event) {
@@ -135,7 +136,7 @@ const preguntas = examenData;
                         if (!alumnoId) return;
 
                         // 2. Bloquear si ya resolvió este examen antes
-                        const docAlumno = await getDoc(doc(db, "alumnos", alumnoId));
+                        const docAlumno = await fs.getDoc(fs.doc(db, "alumnos", alumnoId));
                         if (docAlumno.exists() && docAlumno.data().lenguajes_sem1) {
                             alert("Ya completaste este examen. No puedes volver a ingresar.");
                             window.location.replace("/dashboard");
@@ -143,7 +144,7 @@ const preguntas = examenData;
                         }
 
                         // 3. Validar el límite de tiempo con zona horaria segura
-                        const docSnap = await getDoc(doc(db, "configuracion", "examenes"));
+                        const docSnap = await fs.getDoc(fs.doc(db, "configuracion", "examenes"));
                         if (docSnap.exists()) {
                             const config = docSnap.data();
                             const limite = config.lenguajes_sem1; 
@@ -299,8 +300,8 @@ const preguntas = examenData;
         btnEnviar.disabled = true;
 
         try {
-          const alumnoRef = doc(db, "alumnos", alumnoId!);
-          await updateDoc(alumnoRef, {
+          const alumnoRef = fs.doc(db, "alumnos", alumnoId!);
+          await .fsupdateDoc(alumnoRef, {
             lenguajes_sem1: {
               completado: true,
               aciertos: aciertos,
