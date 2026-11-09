@@ -217,13 +217,28 @@
       const vistaSaberes = document.getElementById('vista-saberes')!;
 
       function resetTabs() {
-        [tabCalculo, tabLenguajes, tabSaberes].forEach(t => { t.style.borderBottomColor = 'transparent'; t.style.color = '#64748b'; });
-        [vistaCalculo, vistaLenguajes, vistaSaberes].forEach(v => { v.style.display = 'none'; });
+        [tabCalculo, tabLenguajes, tabSaberes, tabLenguajesSem1].forEach(t => { t.style.borderBottom = 'transparent'; t.style.color = '#64748b'; });
+        [vistaCalculo, vistaLenguajes, vistaSaberes, vistaLenguajesSem1].forEach(v => { v.style.display = 'none'; });
       }
+
 
       tabCalculo.addEventListener('click', () => { resetTabs(); vistaCalculo.style.display = 'block'; tabCalculo.style.borderBottomColor = '#2563eb'; tabCalculo.style.color = '#2563eb'; });
       tabLenguajes.addEventListener('click', () => { resetTabs(); vistaLenguajes.style.display = 'block'; tabLenguajes.style.borderBottomColor = '#10b981'; tabLenguajes.style.color = '#10b981'; });
       tabSaberes.addEventListener('click', () => { resetTabs(); vistaSaberes.style.display = 'block'; tabSaberes.style.borderBottomColor = '#8b5cf6'; tabSaberes.style.color = '#8b5cf6'; });
+
+          const tabLenguajesSem1 = document.getElementById('tab-lenguajes-sem1') as HTMLButtonElement;
+          const vistaLenguajesSem1 = document.getElementById('vista-lenguajes-sem1') as HTMLElement;
+
+          tabLenguajesSem1.addEventListener('click', () => {
+            resetTabs(); // Resetea y oculta las demás automáticamente
+            vistaLenguajesSem1.style.display = 'block';
+
+            // Activa esta pestaña con su color verdecito distintivo
+            tabLenguajesSem1.style.borderBottom = '3px solid #10b981';
+            tabLenguajesSem1.style.color = '#10b981';
+          });
+          
+
 
       // --- Modal ---
       const modalDetalle = document.getElementById('modal-detalle')!;
@@ -340,6 +355,8 @@
                 });
               }
             }
+            let promLengSem1 = totalLengSem1 > 0 ? (sumaLengSem1 / totalLengSem1).toFixed(1) : '-';
+            document.getElementById('txt-promedio-lenguajes-sem1').textContent = promLengSem1;
 
             const trCalc = document.createElement('tr');
             trCalc.style.borderBottom = '1px solid #f1f5f9';
@@ -393,6 +410,28 @@
                 modalDetalle.style.display = 'flex';
               });
               tdAccionesCalc.appendChild(btnDetalleCalc);
+
+                    // ==========================================
+                    // DIBUJAR FILA DE LENGUAJES SEMANA 1
+                    // ==========================================
+                    if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.completado) {
+                      let notaSem1 = (alumno.lenguajes_sem1.aciertos / alumno.lenguajes_sem1.totalPreguntas) * 10;
+                      sumaLengSem1 += notaSem1;
+                      totalLengSem1++;
+
+                      document.getElementById('tabla-cuerpo-lenguajes-sem1').innerHTML += `
+                        <tr style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;">
+                          <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
+                          <td style="padding: 15px; text-align: center;">
+                            <span style="background: ${notaSem1 >= 6 ? '#dcfce7' : '#fee2e2'}; color: ${notaSem1 >= 6 ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 6px; font-weight: bold;">
+                              ${notaSem1.toFixed(1)}
+                            </span>
+                          </td>
+                          <td style="padding: 15px; text-align: center; color: #64748b;">${alumno.lenguajes_sem1.aciertos} / ${alumno.lenguajes_sem1.totalPreguntas}</td>
+                        </tr>
+                      `;
+                    }
+
 
               if (alumno.completado) {
                 const btnResetCalc = document.createElement('button');
