@@ -2,15 +2,15 @@
 // src/pages/lenguajes.astro
 import examenData from '../data/lenguajes_sem1.json';
 
-const lectura = examenData.lecturas[0];
-const preguntas = examenData.preguntas;
+const preguntas = examenData;
+
 ---
 
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Examen - {examenData.materia}</title>
+    <title>Examen - Lenguajes</title>
   </head>
   <body style="background-color: #f8fafc; font-family: sans-serif; margin: 0; padding-bottom: 80px;">
 
@@ -21,12 +21,6 @@ const preguntas = examenData.preguntas;
     </div>
 
     <div style="max-width: 800px; margin: 30px auto; padding: 0 20px;">
-      
-      <!-- Sección de Lectura -->
-      <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 30px; border-left: 5px solid #3b82f6;">
-        <h3 style="margin-top: 0; color: #2563eb; font-size: 20px;">📖 Lectura: {lectura.titulo}</h3>
-        <p style="color: #334155; line-height: 1.8; font-size: 15px; white-space: pre-wrap;">{lectura.texto}</p>
-      </div>
 
       <!-- Formulario del Examen -->
       <form id="form-lenguajes">
