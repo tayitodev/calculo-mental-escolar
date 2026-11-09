@@ -116,13 +116,11 @@ const preguntas = examenData;
     <script id="data-preguntas" type="application/json" set:html={JSON.stringify(preguntas)}></script>
 
     <script>
-      import { doc, updateDoc, getDoc } from "firebase/firestore";
-      import { db } from "../firebase.js";
-
                     // ==========================================
                     // CANDADO DE SEGURIDAD TOTAL
                     // ==========================================
-                    import { doc, getDoc } from "firebase/firestore";
+                      import { db } from "../firebase.js";
+                         import { doc, getDoc, updateDoc } from "firebase/firestore";
 
                     // 1. Destruir el truco del botón "Atrás" del navegador
                     window.addEventListener('pageshow', function(event) {
@@ -151,10 +149,15 @@ const preguntas = examenData;
                             const limite = config.lenguajes_sem1; 
                             
                             if (limite) {
-                            // Convierte "2026-11-08T23:50" a un formato estándar para evitar desfases
-                            const fechaLimite = new Date(limite.replace("T", " ")).getTime();
-                            const ahora = new Date().getTime();
+                            // Desglosamos la fecha y hora localmente para evitar el error de UTC de JavaScript
+                            const [datePart, timePart] = limite.split('T');
+                            const [year, month, day] = datePart.split('-').map(Number);
+                            const [hours, minutes] = timePart.split(':').map(Number);
                             
+                            // Creamos el objeto Date usando la zona horaria local exacta
+                            const fechaLimite = new Date(year, month - 1, day, hours, minutes).getTime();
+                            const ahora = new Date().getTime();
+
                             if (ahora > fechaLimite) {
                                 alert("⏳ El tiempo límite para este examen ha expirado.");
                                 window.location.replace("/dashboard");
