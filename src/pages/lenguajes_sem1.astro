@@ -139,7 +139,7 @@ const preguntas = examenData;
 
                             // 2. Bloquear si ya resolvió este examen antes
                             const docAlumno = await getDoc(doc(db, "alumnos", alumnoId));
-                            if (docAlumno.exists() && docAlumno.data().lenguajes_sem1) {
+                            if (docAlumno.exists() && docAlumno.data().lenguajes_sem1 && docAlumno.data().lenguajes_sem1.completado) {
                             alert("Ya completaste este examen. No puedes volver a ingresar.");
                             window.location.replace("/dashboard");
                             return;

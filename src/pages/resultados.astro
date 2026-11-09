@@ -14,10 +14,10 @@
     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; display: inline-block;">
       <h3 style="margin-top: 0; color: #1e293b; font-size: 16px;">⏱️ Configurar cierre de exámenes</h3>
       <div style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap;">
-            <div>
-              <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 5px;">Límite Lenguajes (Semana 1):</label>
-              <input type="datetime-local" id="limite-lenguajes-sem1" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; color: #334155;">
-            </div>
+        <div>
+          <label style="display: block; font-size: 13px; color: #64748b; margin-bottom: 5px;">Límite Lenguajes (Semana 1):</label>
+          <input type="datetime-local" id="limite-lenguajes-sem1" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; color: #334155;">
+        </div>
 
         <button id="btn-guardar-limites" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s;">
           Guardar Fechas
@@ -37,11 +37,11 @@
       </div>
 
       <!-- Menú de Pestañas -->
-      <div style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0;">
+      <div style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; flex-wrap: wrap;">
         <button id="tab-calculo" style="background: white; border: none; border-bottom: 3px solid #2563eb; color: #2563eb; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;">🧮 Cálculo Mental</button>
         <button id="tab-lenguajes" style="background: white; border: none; border-bottom: 3px solid transparent; color: #64748b; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;">📖 Lenguajes</button>
         <button id="tab-saberes" style="background: white; border: none; border-bottom: 3px solid transparent; color: #64748b; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;">🔬 Saberes</button>
-        <button id="tab-lenguajes-sem1" style="background: white; border: none; border-bottom: 3px solid transparent; color: #64748b; padding: 10px 20px; font-size: 16px; cursor: pointer; transition: 0.3s;">Lenguajes Sem 1</button>
+        <button id="tab-lenguajes-sem1" style="background: white; border: none; border-bottom: 3px solid transparent; color: #64748b; padding: 10px 20px; font-size: 16px; font-weight: bold; cursor: pointer;">📚 Lenguajes (Sem 1)</button>
       </div>
 
       <!-- ================= VISTA: CÁLCULO MENTAL ================= -->
@@ -119,49 +119,6 @@
         </div>
       </div>
 
-            <!-- ================= VISTA: LENGUAJES SEM 1 ================= -->
-              <div id="vista-lenguajes-sem1" style="display: none;">
-                
-                <!-- Promedio General -->
-                <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 30px;">
-                  <h3 style="margin: 0; font-size: 16px; color: #15803d;">Promedio General del Grupo (Lenguajes Sem 1)</h3>
-                  <p style="margin: 5px 0 0 0; font-size: 28px; font-weight: bold;" id="txt-promedio-lenguajes-sem1">--</p>
-                </div>
-
-                <!-- Sección de Gráficas y Controles -->
-                <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                  <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
-                    <button id="btn-leng1-calif" style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">Distribución de Calificaciones</button>
-                    <button id="btn-leng1-tiempo" style="background: #e2e8f0; color: #475569; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer;">Tiempo por Alumno</button>
-                  </div>
-                  <div style="position: relative; height: 300px; width: 100%;">
-                    <canvas id="grafica-leng1-calif"></canvas>
-                    <canvas id="grafica-leng1-tiempo" style="display: none;"></canvas>
-                  </div>
-                </div>
-
-                <!-- Tabla de Alumnos Completa -->
-                <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                  <h3 style="margin-top: 0; color: #1e293b; font-size: 18px; margin-bottom: 20px;">Listado de Alumnos (Lenguajes Sem 1)</h3>
-                  <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <thead>
-                      <tr style="border-bottom: 2px solid #f1f5f9; color: #64748b; font-size: 14px;">
-                        <th style="padding: 12px;">Nombre</th>
-                        <th style="padding: 12px; text-align: center;">Estatus</th>
-                        <th style="padding: 12px; text-align: center;">Calificación</th>
-                        <th style="padding: 12px; text-align: center;">Tiempo Usado</th>
-                        <th style="padding: 12px; text-align: center;">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tabla-cuerpo-lenguajes-sem1">
-                      <!-- Se llena dinámicamente -->
-                    </tbody>
-                  </table>
-                </div>
-
-              </div>
-
-
       <!-- ================= VISTA: SABERES ================= -->
       <div id="vista-saberes" style="display: none;">
         
@@ -199,6 +156,43 @@
         </div>
       </div>
 
+      <!-- ================= VISTA: LENGUAJES SEM 1 ================= -->
+      <div id="vista-lenguajes-sem1" style="display: none;">
+        
+        <!-- Promedio General Lenguajes Sem 1 -->
+        <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+          <h3 style="margin: 0; font-size: 16px; color: #15803d;">Promedio General del Grupo (Lenguajes - Semana 1)</h3>
+          <p style="margin: 5px 0 0 0; font-size: 28px; font-weight: bold;" id="txt-promedio-lenguajes-sem1">--</p>
+        </div>
+
+        <div style="margin-bottom: 40px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: center;">
+            <button id="btn-leng1-calif" style="background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Distribución de Calificaciones</button>
+            <button id="btn-leng1-tiempo" style="background: #e2e8f0; color: #475569; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Tiempo por Alumno</button>
+          </div>
+          <div style="position: relative; height: 250px; width: 100%;">
+            <canvas id="grafica-leng1-calif"></canvas>
+            <canvas id="grafica-leng1-tiempo" style="display: none;"></canvas>
+          </div>
+        </div>
+
+        <h3 style="color: #334155; font-size: 16px; margin-bottom: 15px;">Listado de Alumnos (Lenguajes - Semana 1)</h3>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+            <thead>
+              <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; text-align: left;">
+                <th style="padding: 10px;">Nombre</th>
+                <th style="padding: 10px; text-align: center;">Estatus</th>
+                <th style="padding: 10px; text-align: center;">Calificación</th>
+                <th style="padding: 10px; text-align: center;">Tiempo Usado</th>
+                <th style="padding: 10px; text-align: center;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-cuerpo-lenguajes-sem1"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
     <!-- Modal Universal para Detalles -->
@@ -218,33 +212,50 @@
       const tabCalculo = document.getElementById('tab-calculo')!;
       const tabLenguajes = document.getElementById('tab-lenguajes')!;
       const tabSaberes = document.getElementById('tab-saberes')!;
+      const tabLenguajesSem1 = document.getElementById('tab-lenguajes-sem1')!;
+
       const vistaCalculo = document.getElementById('vista-calculo')!;
       const vistaLenguajes = document.getElementById('vista-lenguajes')!;
       const vistaSaberes = document.getElementById('vista-saberes')!;
+      const vistaLenguajesSem1 = document.getElementById('vista-lenguajes-sem1')!;
 
       function resetTabs() {
-        [tabCalculo, tabLenguajes, tabSaberes, tabLenguajesSem1].forEach(t => { t.style.borderBottom = 'transparent'; t.style.color = '#64748b'; });
-        [vistaCalculo, vistaLenguajes, vistaSaberes, vistaLenguajesSem1].forEach(v => { v.style.display = 'none'; });
+        [tabCalculo, tabLenguajes, tabSaberes, tabLenguajesSem1].forEach(t => { 
+          t.style.borderBottomColor = 'transparent'; 
+          t.style.color = '#64748b'; 
+        });
+        [vistaCalculo, vistaLenguajes, vistaSaberes, vistaLenguajesSem1].forEach(v => { 
+          v.style.display = 'none'; 
+        });
       }
 
+      tabCalculo.addEventListener('click', () => { 
+        resetTabs(); 
+        vistaCalculo.style.display = 'block'; 
+        tabCalculo.style.borderBottomColor = '#2563eb'; 
+        tabCalculo.style.color = '#2563eb'; 
+      });
 
-      tabCalculo.addEventListener('click', () => { resetTabs(); vistaCalculo.style.display = 'block'; tabCalculo.style.borderBottomColor = '#2563eb'; tabCalculo.style.color = '#2563eb'; });
-      tabLenguajes.addEventListener('click', () => { resetTabs(); vistaLenguajes.style.display = 'block'; tabLenguajes.style.borderBottomColor = '#10b981'; tabLenguajes.style.color = '#10b981'; });
-      tabSaberes.addEventListener('click', () => { resetTabs(); vistaSaberes.style.display = 'block'; tabSaberes.style.borderBottomColor = '#8b5cf6'; tabSaberes.style.color = '#8b5cf6'; });
+      tabLenguajes.addEventListener('click', () => { 
+        resetTabs(); 
+        vistaLenguajes.style.display = 'block'; 
+        tabLenguajes.style.borderBottomColor = '#10b981'; 
+        tabLenguajes.style.color = '#10b981'; 
+      });
 
-          const tabLenguajesSem1 = document.getElementById('tab-lenguajes-sem1') as HTMLButtonElement;
-          const vistaLenguajesSem1 = document.getElementById('vista-lenguajes-sem1') as HTMLElement;
+      tabSaberes.addEventListener('click', () => { 
+        resetTabs(); 
+        vistaSaberes.style.display = 'block'; 
+        tabSaberes.style.borderBottomColor = '#8b5cf6'; 
+        tabSaberes.style.color = '#8b5cf6'; 
+      });
 
-          tabLenguajesSem1.addEventListener('click', () => {
-            resetTabs(); // Resetea y oculta las demás automáticamente
-            vistaLenguajesSem1.style.display = 'block';
-
-            // Activa esta pestaña con su color verdecito distintivo
-            tabLenguajesSem1.style.borderBottom = '3px solid #10b981';
-            tabLenguajesSem1.style.color = '#10b981';
-          });
-
-
+      tabLenguajesSem1.addEventListener('click', () => {
+        resetTabs();
+        vistaLenguajesSem1.style.display = 'block';
+        tabLenguajesSem1.style.borderBottomColor = '#10b981';
+        tabLenguajesSem1.style.color = '#10b981';
+      });
 
       // --- Modal ---
       const modalDetalle = document.getElementById('modal-detalle')!;
@@ -297,6 +308,20 @@
       btnSabCalif.addEventListener('click', () => { resetBotonesSab(); canvasSabCalif.style.display = 'block'; btnSabCalif.style.background = '#8b5cf6'; btnSabCalif.style.color = 'white'; });
       btnSabTiempo.addEventListener('click', () => { resetBotonesSab(); canvasSabTiempo.style.display = 'block'; btnSabTiempo.style.background = '#8b5cf6'; btnSabTiempo.style.color = 'white'; });
 
+      // --- Controles Gráficas (Lenguajes Sem 1) ---
+      const btnLeng1Calif = document.getElementById('btn-leng1-calif')!;
+      const btnLeng1Tiempo = document.getElementById('btn-leng1-tiempo')!;
+      const canvasLeng1Calif = document.getElementById('grafica-leng1-calif') as HTMLCanvasElement;
+      const canvasLeng1Tiempo = document.getElementById('grafica-leng1-tiempo') as HTMLCanvasElement;
+      let grafLeng1Calif: any, grafLeng1Tiempo: any;
+
+      function resetBotonesLeng1() {
+        [btnLeng1Calif, btnLeng1Tiempo].forEach(btn => { btn.style.background = '#e2e8f0'; btn.style.color = '#475569'; });
+        [canvasLeng1Calif, canvasLeng1Tiempo].forEach(canvas => { canvas.style.display = 'none'; });
+      }
+      btnLeng1Calif.addEventListener('click', () => { resetBotonesLeng1(); canvasLeng1Calif.style.display = 'block'; btnLeng1Calif.style.background = '#10b981'; btnLeng1Calif.style.color = 'white'; });
+      btnLeng1Tiempo.addEventListener('click', () => { resetBotonesLeng1(); canvasLeng1Tiempo.style.display = 'block'; btnLeng1Tiempo.style.background = '#10b981'; btnLeng1Tiempo.style.color = 'white'; });
+
 
       async function cargarResultados() {
         try {
@@ -308,15 +333,13 @@
           document.getElementById('tabla-cuerpo-calculo')!.innerHTML = '';
           document.getElementById('tabla-cuerpo-lenguajes')!.innerHTML = '';
           document.getElementById('tabla-cuerpo-saberes')!.innerHTML = '';
-          document.getElementById('tabla-cuerpo-lenguajes-sem1').innerHTML = '';
+          document.getElementById('tabla-cuerpo-lenguajes-sem1')!.innerHTML = '';
 
-          
           // Variables Promedios Generales
           let sumaCalculo = 0, totalCalculo = 0;
           let sumaLenguajes = 0, totalLenguajes = 0;
           let sumaSaberes = 0, totalSaberes = 0;
           let sumaLengSem1 = 0, totalLengSem1 = 0;
-
 
           // Data Cálculo
           let conteoCalificaciones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -336,10 +359,10 @@
           let coloresTiemposSab: string[] = [];
 
           // Data Lenguajes Sem 1
-          let conteoCalifLeng1 = new Array(11).fill(0); 
-          let nombresLeng1 = [];
-          let tiemposLeng1 = [];
-
+          let conteoCalifLeng1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; 
+          let nombresLeng1: string[] = [];
+          let tiemposLeng1: number[] = [];
+          let coloresTiemposLeng1: string[] = [];
 
           lista.forEach((alumno) => {
             // ================== LÓGICA CÁLCULO MENTAL ==================
@@ -365,112 +388,8 @@
                     }
                   }
                 });
-                      // ==========================================
-                      // LÓGICA LENGUAJES SEMANA 1 (FILA Y ACCIONES)
-                      // ==========================================
-                      let trLeng1 = document.createElement('tr');
-                      trLeng1.style.borderBottom = '1px solid #f1f5f9';
-
-                      if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.completado) {
-                        let notaSem1 = (alumno.lenguajes_sem1.aciertos / alumno.lenguajes_sem1.totalPreguntas) * 10;
-                                sumaLengSem1 += notaSem1;
-                                totalLengSem1++;
-
-                                // Datos para las gráficas 
-                                conteoCalifLeng1[Math.round(notaSem1)]++;
-                                nombresLeng1.push(alumno.nombre);
-                                tiemposLeng1.push(Math.round(alumno.lenguajes_sem1.tiempoSegundos / 60));
-
-
-                        let tiempoMin = alumno.lenguajes_sem1.tiempoSegundos ? Math.floor(alumno.lenguajes_sem1.tiempoSegundos / 60) : 0;
-                        let tiempoSec = alumno.lenguajes_sem1.tiempoSegundos ? alumno.lenguajes_sem1.tiempoSegundos % 60 : 0;
-                        let tiempoFormateado = `${tiempoMin}m ${tiempoSec}s`;
-
-                        trLeng1.innerHTML = `
-                          <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
-                          <td style="padding: 15px; text-align: center;">
-                            <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-weight: bold;">Completado</span>
-                          </td>
-                          <td style="padding: 15px; text-align: center;">
-                            <span style="background: ${notaSem1 >= 6 ? '#dcfce7' : '#fee2e2'}; color: ${notaSem1 >= 6 ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 6px; font-weight: bold;">
-                              ${notaSem1.toFixed(1)} / 10
-                            </span>
-                          </td>
-                          <td style="padding: 15px; text-align: center; color: #64748b;">${tiempoFormateado}</td>
-                        `;
-
-                        let tdAcciones = document.createElement('td');
-                        tdAcciones.style.padding = '15px';
-                        tdAcciones.style.textAlign = 'center';
-
-                                // ======= CREAR BOTÓN DETALLES =======
-                              let btnDetalles = document.createElement('button');
-                              btnDetalles.textContent = 'Detalles';
-                              btnDetalles.style.cssText = 'background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; margin-right: 8px;';
-                              
-                              btnDetalles.addEventListener('click', () => {
-                                let htmlDetalle = `<table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
-                                  <tr style="background: #f1f5f9;"><th style="padding: 10px;">Pregunta</th><th style="padding: 10px;">Tu Respuesta</th><th style="padding: 10px;">Correcta</th><th style="padding: 10px; text-align: center;">Eval</th></tr>`;
-                                
-                                if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.historial) {
-                                  alumno.lenguajes_sem1.historial.forEach((h, i) => {
-                                    let color = h.esCorrecta ? '#166534' : '#991b1b';
-                                    let bg = h.esCorrecta ? '#dcfce7' : '#fee2e2';
-                                    let icono = h.esCorrecta ? '✅' : '❌';
-                                    htmlDetalle += `<tr style="border-bottom: 1px solid #e2e8f0;">
-                                      <td style="padding: 10px;">${i + 1}</td>
-                                      <td style="padding: 10px;">${h.respuestaUsuario || '-'}</td>
-                                      <td style="padding: 10px;">${h.correcta || h.respuestaCorrecta || '-'}</td>
-                                      <td style="padding: 10px; background: ${bg}; color: ${color}; text-align: center;">${icono}</td>
-                                    </tr>`;
-                                  });
-                                }
-                                htmlDetalle += `</table>`;
-                                
-                                document.getElementById('modal-titulo-detalle').textContent = `Detalles: ${alumno.nombre} (Lenguajes)`;
-                                document.getElementById('modal-contenido-detalle').innerHTML = htmlDetalle;
-                                document.getElementById('modal-detalle').style.display = 'flex';
-                              });
-
-                              // Limpiamos y agregamos ambos botones a la celda
-                              tdAcciones.innerHTML = '';
-                              tdAcciones.appendChild(btnDetalles);
-
-
-                        let btnReiniciar = document.createElement('button');
-                        btnReiniciar.textContent = 'Reiniciar';
-                        btnReiniciar.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
-                        
-                        btnReiniciar.addEventListener('click', async () => {
-                          if (confirm(`¿Reiniciar el examen de Lenguajes Sem 1 para ${alumno.nombre}?`)) {
-                            await updateDoc(doc(db, "alumnos", alumno.id), {
-                              lenguajes_sem1: null
-                            });
-                            cargarResultados();
-                          }
-                        });
-
-                        tdAcciones.appendChild(btnReiniciar);
-                        trLeng1.appendChild(tdAcciones);
-
-                      } else {
-                        trLeng1.innerHTML = `
-                          <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
-                          <td style="padding: 15px; text-align: center;">
-                            <span style="background: #f1f5f9; color: #64748b; padding: 4px 10px; border-radius: 6px; font-size: 13px;">Pendiente</span>
-                          </td>
-                          <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
-                          <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
-                          <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
-                        `;
-                      }
-
-                      document.getElementById('tabla-cuerpo-lenguajes-sem1').appendChild(trLeng1);
-
               }
             }
-            let promLengSem1 = totalLengSem1 > 0 ? (sumaLengSem1 / totalLengSem1).toFixed(1) : '-';
-            document.getElementById('txt-promedio-lenguajes-sem1').textContent = promLengSem1;
 
             const trCalc = document.createElement('tr');
             trCalc.style.borderBottom = '1px solid #f1f5f9';
@@ -525,68 +444,6 @@
               });
               tdAccionesCalc.appendChild(btnDetalleCalc);
 
-                // ============== LÓGICA LENGUAJES SEMANA 1 ==============
-                let trLeng1 = document.createElement('tr');
-                trLeng1.style.borderBottom = '1px solid #f1f5f9';
-
-                if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.completado) {
-                  let notaSem1 = (alumno.lenguajes_sem1.aciertos / alumno.lenguajes_sem1.totalPreguntas) * 10;
-                  sumaLengSem1 += notaSem1;
-                  totalLengSem1++;
-
-                  let tiempoMin = alumno.lenguajes_sem1.tiempoSegundos ? Math.floor(alumno.lenguajes_sem1.tiempoSegundos / 60) : 0;
-                  let tiempoSec = alumno.lenguajes_sem1.tiempoSegundos ? alumno.lenguajes_sem1.tiempoSegundos % 60 : 0;
-                  let tiempoFormateado = `${tiempoMin}m ${tiempoSec}s`;
-
-                  trLeng1.innerHTML = `
-                    <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
-                    <td style="padding: 15px; text-align: center;">
-                      <span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 6px; font-weight: bold;">Completado</span>
-                    </td>
-                    <td style="padding: 15px; text-align: center;">
-                      <span style="background: ${notaSem1 >= 6 ? '#dcfce7' : '#fee2e2'}; color: ${notaSem1 >= 6 ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 6px; font-weight: bold;">
-                        ${notaSem1.toFixed(1)} / 10
-                      </span>
-                    </td>
-                    <td style="padding: 15px; text-align: center; color: #64748b;">${tiempoFormateado}</td>
-                  `;
-
-                  let tdAcciones = document.createElement('td');
-                  tdAcciones.style.padding = '15px';
-                  tdAcciones.style.textAlign = 'center';
-
-                  let btnReiniciar = document.createElement('button');
-                  btnReiniciar.textContent = 'Reiniciar';
-                  btnReiniciar.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
-                  
-                  btnReiniciar.addEventListener('click', async () => {
-                    if (confirm(`¿Reiniciar el examen de Lenguajes Sem 1 para ${alumno.nombre}?`)) {
-                      await updateDoc(doc(db, "alumnos", alumno.id), {
-                        lenguajes_sem1: null
-                      });
-                      cargarResultados();
-                    }
-                  });
-
-                  tdAcciones.appendChild(btnReiniciar);
-                  trLeng1.appendChild(tdAcciones);
-
-                } else {
-                  trLeng1.innerHTML = `
-                    <td style="padding: 15px; font-weight: 600; color: #334155;">${alumno.nombre}</td>
-                    <td style="padding: 15px; text-align: center;">
-                      <span style="background: #f1f5f9; color: #64748b; padding: 4px 10px; border-radius: 6px; font-size: 13px;">Pendiente</span>
-                    </td>
-                    <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
-                    <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
-                    <td style="padding: 15px; text-align: center; color: #94a3b8;">-</td>
-                  `;
-                }
-
-                document.getElementById('tabla-cuerpo-lenguajes-sem1').appendChild(trLeng1);
-
-
-
               if (alumno.completado) {
                 const btnResetCalc = document.createElement('button');
                 btnResetCalc.textContent = 'Reiniciar';
@@ -630,11 +487,11 @@
               if(notaBase10Entera >= 0 && notaBase10Entera <= 10) conteoLengCalif[notaBase10Entera]++;
               
               nombresLeng.push(alumno.nombre.split(" ")[0]);
-              tiemposLeng.push(Number((examLeng.tiempoSegundos / 60).toFixed(2))); 
-              coloresTiemposLeng.push('#f59e0b');
+              tiemposLeng.push(Number(((examLeng.tiempoSegundos || 0) / 60).toFixed(2))); 
+              coloresTiemposLeng.push('#10b981');
 
-              const mins = Math.floor(examLeng.tiempoSegundos / 60);
-              const secs = examLeng.tiempoSegundos % 60;
+              const mins = Math.floor((examLeng.tiempoSegundos || 0) / 60);
+              const secs = (examLeng.tiempoSegundos || 0) % 60;
               htmlTiempoLeng = `<span style="background: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">⏱️ ${mins}m ${secs}s</span>`;
             }
 
@@ -675,7 +532,10 @@
                   examLeng.historial.forEach((h: any, i: number) => {
                     const colorResp = h.esCorrecta ? '#10b981' : '#dc2626';
                     detalles += `<div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                      <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: bold; color: #334155;">Pregunta #${i + 1}</p>
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <p style="margin: 0; font-size: 14px; font-weight: bold; color: #334155;">Pregunta #${i + 1}</p>
+                        <span>${h.esCorrecta ? '✅' : '❌'}</span>
+                      </div>
                       <p style="margin: 0 0 5px 0; font-size: 13px;">Respuesta Alumno: <span style="color: ${colorResp}; font-weight: bold;">${h.respuestaUsuario || '(Vacío)'}</span></p>
                       <p style="margin: 0; font-size: 13px; color: #64748b;">Correcta esperada: ${h.correcta}</p>
                     </div>`;
@@ -689,8 +549,8 @@
                   detalles += `<h4 style="margin-top: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Historial de Reinicios (Lenguajes)</h4>`;
                   intentosLeng.forEach((intento: any, index: number) => {
                     const fecha = new Date(intento.fecha).toLocaleString('es-MX');
-                    const m = Math.floor(intento.tiempoSegundos / 60);
-                    const s = intento.tiempoSegundos % 60;
+                    const m = Math.floor((intento.tiempoSegundos || 0) / 60);
+                    const s = (intento.tiempoSegundos || 0) % 60;
                     detalles += `<div style="background: #f8fafc; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
                       <strong>Intento ${index + 1}</strong> (${fecha}) <br> 
                       Aciertos: <span style="color:#10b981; font-weight:bold;">${intento.aciertos} / ${intento.totalPreguntas}</span> | Tiempo: ${m}m ${s}s
@@ -736,7 +596,8 @@
             if (examSab && examSab.completado) {
               htmlEstatusSab = '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado</span>';
               
-              const califBase10 = (examSab.aciertos / examSab.historial.length) * 10;
+              const totalPregSab = examSab.historial ? examSab.historial.length : (examSab.totalPreguntas || 1);
+              const califBase10 = (examSab.aciertos / totalPregSab) * 10;
               sumaSaberes += califBase10;
               totalSaberes++;
 
@@ -746,11 +607,11 @@
               if(notaBase10Entera >= 0 && notaBase10Entera <= 10) conteoSabCalif[notaBase10Entera]++;
               
               nombresSab.push(alumno.nombre.split(" ")[0]);
-              tiemposSab.push(Number((examSab.tiempoSegundos / 60).toFixed(2))); 
+              tiemposSab.push(Number(((examSab.tiempoSegundos || 0) / 60).toFixed(2))); 
               coloresTiemposSab.push('#8b5cf6');
 
-              const mins = Math.floor(examSab.tiempoSegundos / 60);
-              const secs = examSab.tiempoSegundos % 60;
+              const mins = Math.floor((examSab.tiempoSegundos || 0) / 60);
+              const secs = (examSab.tiempoSegundos || 0) % 60;
               htmlTiempoSab = `<span style="background: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">⏱️ ${mins}m ${secs}s</span>`;
             }
 
@@ -776,11 +637,12 @@
                 let detalles = ``;
 
                 if (examSab && examSab.completado) {
-                  const base10 = ((examSab.aciertos / examSab.historial.length) * 10).toFixed(1);
+                  const totalPregSab = examSab.historial ? examSab.historial.length : (examSab.totalPreguntas || 1);
+                  const base10 = ((examSab.aciertos / totalPregSab) * 10).toFixed(1);
                   detalles += `
                     <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                       <h4 style="margin: 0 0 5px 0; color: #166534; font-size: 16px;">Resumen de Resultados</h4>
-                      <p style="..."><strong>Aciertos:</strong> ${examSab.aciertos} de ${examSab.historial.length}</p>
+                      <p style="margin: 0 0 5px 0; font-size: 14px; color: #15803d;"><strong>Aciertos:</strong> ${examSab.aciertos} de ${totalPregSab}</p>
                       <p style="margin: 0; font-size: 14px; color: #15803d;"><strong>Calificación Escolar:</strong> ${base10} / 10</p>
                     </div>`;
                 }
@@ -789,50 +651,50 @@
                 
                 if (examSab && examSab.historial) {
                   examSab.historial.forEach((h: any, i: number) => {
-                  let etiqueta = `Pregunta #${i + 1}`;
+                    let etiqueta = `Pregunta #${i + 1}`;
 
-                  if (h.id) {
-                    if (h.id.startsWith('mat_')) {
-                      const num = h.id.replace('mat_', '');
-                      etiqueta = `📐 Mat - Pregunta #${num}`;
-                    } else if (h.id.startsWith('34_')) {
-                      const sub = h.id.replace('34_', '');
-                      etiqueta = `📐 Mat - Pregunta #34.${sub} (Prismas)`;
-                    } else if (h.id.startsWith('cn_')) {
-                      const num = h.id.replace('cn_', '');
-                      etiqueta = `🌿 CN - Pregunta #${num}`;
-                    }
-                  } else {
-                    if (i < 33) {
-                      etiqueta = `📐 Mat - Pregunta #${i + 1}`;
-                    } else if (i >= 33 && i <= 36) {
-                      etiqueta = `📐 Mat - Pregunta #34.${i - 32} (Desarrollo plano)`;
-                    } else if (i === 37) {
-                      etiqueta = `📐 Mat - Pregunta #35 (Nombre de prismas)`;
+                    if (h.id) {
+                      if (h.id.startsWith('mat_')) {
+                        const num = h.id.replace('mat_', '');
+                        etiqueta = `📐 Mat - Pregunta #${num}`;
+                      } else if (h.id.startsWith('34_')) {
+                        const sub = h.id.replace('34_', '');
+                        etiqueta = `📐 Mat - Pregunta #34.${sub} (Prismas)`;
+                      } else if (h.id.startsWith('cn_')) {
+                        const num = h.id.replace('cn_', '');
+                        etiqueta = `🌿 CN - Pregunta #${num}`;
+                      }
                     } else {
-                      etiqueta = `🌿 CN - Pregunta #${i - 37}`;
+                      if (i < 33) {
+                        etiqueta = `📐 Mat - Pregunta #${i + 1}`;
+                      } else if (i >= 33 && i <= 36) {
+                        etiqueta = `📐 Mat - Pregunta #34.${i - 32} (Desarrollo plano)`;
+                      } else if (i === 37) {
+                        etiqueta = `📐 Mat - Pregunta #35 (Nombre de prismas)`;
+                      } else {
+                        etiqueta = `🌿 CN - Pregunta #${i - 37}`;
+                      }
                     }
-                  }
 
-                  const esAbierta = h.tipo === 'abierta' || h.correcta === 'Revisión manual';
-                  const colorResp = h.esCorrecta ? '#10b981' : '#dc2626';
-                  const colorManual = esAbierta ? '#2563eb' : colorResp;
+                    const esAbierta = h.tipo === 'abierta' || h.correcta === 'Revisión manual';
+                    const colorResp = h.esCorrecta ? '#10b981' : '#dc2626';
+                    const colorManual = esAbierta ? '#2563eb' : colorResp;
 
-                  detalles += `
-                    <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 10px;">
-                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
-                        <strong style="color: #1e293b; font-size: 14px;">${etiqueta}</strong>
-                        ${esAbierta ? `
-                          <button onclick="window.toggleRespuestaAbierta(event, '${alumno.id}', ${i})" style="background: ${h.esCorrecta ? '#16a34a' : '#e2e8f0'}; color: ${h.esCorrecta ? 'white' : '#475569'}; border: none; padding: 5px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px;">
-                            ${h.esCorrecta ? '✓ Correcta (+1)' : 'Marcar Correcta'}
-                          </button>
-                        ` : ''}
+                    detalles += `
+                      <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 10px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                          <strong style="color: #1e293b; font-size: 14px;">${etiqueta}</strong>
+                          ${esAbierta ? `
+                            <button onclick="window.toggleRespuestaAbierta(event, '${alumno.id}', ${i})" style="background: ${h.esCorrecta ? '#16a34a' : '#e2e8f0'}; color: ${h.esCorrecta ? 'white' : '#475569'}; border: none; padding: 5px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px;">
+                              ${h.esCorrecta ? '✓ Correcta (+1)' : 'Marcar Correcta'}
+                            </button>
+                          ` : `<span>${h.esCorrecta ? '✅' : '❌'}</span>`}
+                        </div>
+                        <p style="margin: 0 0 5px 0; font-size: 13px;">Respuesta Alumno: <span style="color: ${colorManual}; font-weight: bold;">${h.respuestaUsuario || '(Sin respuesta)'}</span></p>
+                        <p style="margin: 0; font-size: 13px; color: #64748b;">Esperada: ${h.correcta}</p>
                       </div>
-                      <p style="margin: 0 0 5px 0; font-size: 13px;">Respuesta Alumno: <span style="color: ${colorManual}; font-weight: bold;">${h.respuestaUsuario || '(Sin respuesta)'}</span></p>
-                      <p style="margin: 0; font-size: 13px; color: #64748b;">Esperada: ${h.correcta}</p>
-                    </div>
-                  `;
-                });
+                    `;
+                  });
                 } else {
                   detalles += `<p style="text-align:center; color:#64748b;">Examen en proceso...</p>`;
                 }
@@ -842,8 +704,8 @@
                   detalles += `<h4 style="margin-top: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Historial de Reinicios (Saberes)</h4>`;
                   intentosSab.forEach((intento: any, index: number) => {
                     const fecha = new Date(intento.fecha).toLocaleString('es-MX');
-                    const m = Math.floor(intento.tiempoSegundos / 60);
-                    const s = intento.tiempoSegundos % 60;
+                    const m = Math.floor((intento.tiempoSegundos || 0) / 60);
+                    const s = (intento.tiempoSegundos || 0) % 60;
                     detalles += `<div style="background: #f8fafc; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
                       <strong>Intento ${index + 1}</strong> (${fecha}) <br> 
                       Aciertos: <span style="color:#8b5cf6; font-weight:bold;">${intento.aciertos} / ${intento.totalPreguntas}</span> | Tiempo: ${m}m ${s}s
@@ -877,81 +739,148 @@
             trSab.appendChild(tdAccionesSab);
             document.getElementById('tabla-cuerpo-saberes')!.appendChild(trSab);
 
-          });
 
-              // ==========================================
-              // RENDERIZAR GRÁFICAS LENGUAJES SEMANA 1 (VERSIÓN BLINDADA)
-              // ==========================================
-              setTimeout(() => {
-                const canvasCalif = document.getElementById('grafica-leng1-calif');
-                const canvasTiempo = document.getElementById('grafica-leng1-tiempo');
+            // ================== LÓGICA LENGUAJES SEM 1 ==================
+            const examLeng1 = alumno.lenguajes_sem1;
+            const intentosLeng1 = alumno.intentosPreviosLenguajesSem1;
 
-                if (canvasCalif && canvasTiempo) {
-                  if (window.chartLeng1Calif) window.chartLeng1Calif.destroy();
-                  if (window.chartLeng1Tiempo) window.chartLeng1Tiempo.destroy();
+            let htmlEstatusLeng1 = '<span style="background: #fef9c3; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Pendiente</span>';
+            let htmlCalifLeng1 = '—';
+            let htmlTiempoLeng1 = '—';
 
-                  window.chartLeng1Calif = new Chart(canvasCalif.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                      labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-                      datasets: [{
-                        label: 'Alumnos (Calificación base 10)',
-                        data: [...conteoCalifLeng1], // Clonamos el arreglo para forzar lectura
-                        backgroundColor: '#10b981',
-                        borderRadius: 4
-                      }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            if (examLeng1 && examLeng1.completado) {
+              htmlEstatusLeng1 = '<span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Completado</span>';
+              
+              const totalPLeng1 = examLeng1.totalPreguntas || (examLeng1.historial ? examLeng1.historial.length : 1);
+              const califBase10 = (examLeng1.aciertos / totalPLeng1) * 10;
+              sumaLengSem1 += califBase10;
+              totalLengSem1++;
+
+              htmlCalifLeng1 = `${califBase10.toFixed(1)} / 10`;
+
+              let notaBase10Entera = Math.round(califBase10);
+              if (notaBase10Entera >= 0 && notaBase10Entera <= 10) conteoCalifLeng1[notaBase10Entera]++;
+
+              nombresLeng1.push(alumno.nombre.split(" ")[0]);
+              tiemposLeng1.push(Number(((examLeng1.tiempoSegundos || 0) / 60).toFixed(2))); 
+              coloresTiemposLeng1.push('#10b981');
+
+              const mins = Math.floor((examLeng1.tiempoSegundos || 0) / 60);
+              const secs = (examLeng1.tiempoSegundos || 0) % 60;
+              htmlTiempoLeng1 = `<span style="background: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold;">⏱️ ${mins}m ${secs}s</span>`;
+            }
+
+            const trLeng1 = document.createElement('tr');
+            trLeng1.style.borderBottom = '1px solid #f1f5f9';
+            trLeng1.innerHTML = `
+              <td style="padding: 12px; color: #1e293b; font-weight: 500;">${alumno.nombre}</td>
+              <td style="padding: 12px; text-align: center;">${htmlEstatusLeng1}</td>
+              <td style="padding: 12px; text-align: center; font-weight: bold; color: ${examLeng1?.completado ? '#10b981' : '#94a3b8'};">${htmlCalifLeng1}</td>
+              <td style="padding: 12px; text-align: center;">${htmlTiempoLeng1}</td>
+            `;
+
+            const tdAccionesLeng1 = document.createElement('td');
+            tdAccionesLeng1.style.padding = '12px'; tdAccionesLeng1.style.textAlign = 'center'; tdAccionesLeng1.style.display = 'flex'; tdAccionesLeng1.style.gap = '8px'; tdAccionesLeng1.style.justifyContent = 'center';
+
+            if ((examLeng1 && examLeng1.completado) || (intentosLeng1 && intentosLeng1.length > 0)) {
+              const btnDetalleLeng1 = document.createElement('button');
+              btnDetalleLeng1.textContent = 'Detalles';
+              btnDetalleLeng1.style.cssText = 'background: #ecfdf5; color: #10b981; border: 1px solid #a7f3d0; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+
+              btnDetalleLeng1.addEventListener('click', () => {
+                modalTitulo.textContent = `Lenguajes (Semana 1): ${alumno.nombre}`;
+                let detalles = ``;
+
+                if (examLeng1 && examLeng1.completado) {
+                  const totalPLeng1 = examLeng1.totalPreguntas || (examLeng1.historial ? examLeng1.historial.length : 1);
+                  const base10 = ((examLeng1.aciertos / totalPLeng1) * 10).toFixed(1);
+                  detalles += `
+                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                      <h4 style="margin: 0 0 5px 0; color: #166534; font-size: 16px;">Resumen de Resultados</h4>
+                      <p style="margin: 0 0 5px 0; font-size: 14px; color: #15803d;"><strong>Aciertos:</strong> ${examLeng1.aciertos} de ${totalPLeng1}</p>
+                      <p style="margin: 0; font-size: 14px; color: #15803d;"><strong>Calificación Escolar:</strong> ${base10} / 10</p>
+                    </div>`;
+                }
+
+                detalles += `<div style="display:flex; flex-direction:column; gap:10px;">`;
+
+                if (examLeng1 && examLeng1.historial) {
+                  examLeng1.historial.forEach((h: any, i: number) => {
+                    const colorResp = h.esCorrecta ? '#10b981' : '#dc2626';
+                    let tipoBadge = '';
+                    if (h.tipo === 'opcion_multiple') tipoBadge = 'Opción Múltiple';
+                    else if (h.tipo === 'texto') tipoBadge = 'Completar Texto';
+                    else if (h.tipo === 'vf') tipoBadge = 'Verdadero / Falso';
+                    else if (h.tipo === 'orden') tipoBadge = 'Ordenamiento';
+                    else if (h.tipo) tipoBadge = h.tipo;
+
+                    const respCorrecta = h.correcta ?? h.respuestaCorrecta ?? '—';
+                    detalles += `<div style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <p style="margin: 0; font-size: 14px; font-weight: bold; color: #334155;">Pregunta #${i + 1} ${tipoBadge ? `<span style="font-size: 11px; color: #64748b; font-weight: normal; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">${tipoBadge}</span>` : ''}</p>
+                        <span>${h.esCorrecta ? '✅' : '❌'}</span>
+                      </div>
+                      <p style="margin: 0 0 5px 0; font-size: 13px;">Respuesta Alumno: <span style="color: ${colorResp}; font-weight: bold;">${h.respuestaUsuario !== undefined && h.respuestaUsuario !== '' ? h.respuestaUsuario : '(Vacío)'}</span></p>
+                      <p style="margin: 0; font-size: 13px; color: #64748b;">Correcta esperada: ${respCorrecta}</p>
+                    </div>`;
                   });
+                } else {
+                  detalles += `<p style="text-align:center; color:#64748b;">Examen en proceso...</p>`;
+                }
+                detalles += `</div>`;
 
-                  window.chartLeng1Tiempo = new Chart(canvasTiempo.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                      labels: [...nombresLeng1],
-                      datasets: [{
-                        label: 'Tiempo Usado (Minutos)',
-                        data: [...tiemposLeng1],
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 4
-                      }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                if (intentosLeng1 && intentosLeng1.length > 0) {
+                  detalles += `<h4 style="margin-top: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Historial de Reinicios (Lenguajes Sem 1)</h4>`;
+                  intentosLeng1.forEach((intento: any, index: number) => {
+                    const fecha = new Date(intento.fecha).toLocaleString('es-MX');
+                    const m = Math.floor((intento.tiempoSegundos || 0) / 60);
+                    const s = (intento.tiempoSegundos || 0) % 60;
+                    detalles += `<div style="background: #f8fafc; padding: 12px; margin-top: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                      <strong>Intento ${index + 1}</strong> (${fecha}) <br> 
+                      Aciertos: <span style="color:#10b981; font-weight:bold;">${intento.aciertos} / ${intento.totalPreguntas}</span> | Tiempo: ${m}m ${s}s
+                    </div>`;
                   });
                 }
-              }, 100);
+                modalContenido.innerHTML = detalles;
+                modalDetalle.style.display = 'flex';
+              });
+              tdAccionesLeng1.appendChild(btnDetalleLeng1);
 
-              // 3. Lógica de los botones para alternar entre gráficas
-              const btnCalif = document.getElementById('btn-leng1-calif');
-              const btnTiempo = document.getElementById('btn-leng1-tiempo');
-              
-              if (btnCalif && btnTiempo) {
-                btnCalif.addEventListener('click', () => {
-                  document.getElementById('grafica-leng1-calif').style.display = 'block';
-                  document.getElementById('grafica-leng1-tiempo').style.display = 'none';
-                  btnCalif.style.background = '#10b981';
-                  btnCalif.style.color = 'white';
-                  btnTiempo.style.background = '#e2e8f0';
-                  btnTiempo.style.color = '#475569';
+              if (examLeng1 && examLeng1.completado) {
+                const btnResetLeng1 = document.createElement('button');
+                btnResetLeng1.textContent = 'Reiniciar';
+                btnResetLeng1.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
+                btnResetLeng1.addEventListener('click', async () => {
+                  if (confirm(`¿Reiniciar Lenguajes (Semana 1) a ${alumno.nombre}?`)) {
+                    await updateDoc(doc(db, "alumnos", alumno.id), { 
+                      lenguajes_sem1: null,
+                      intentosPreviosLenguajesSem1: arrayUnion({
+                        aciertos: examLeng1.aciertos,
+                        totalPreguntas: examLeng1.totalPreguntas,
+                        tiempoSegundos: examLeng1.tiempoSegundos,
+                        historial: examLeng1.historial,
+                        fecha: new Date().toISOString()
+                      })
+                    });
+                    cargarResultados();
+                  }
                 });
-
-                btnTiempo.addEventListener('click', () => {
-                  document.getElementById('grafica-leng1-calif').style.display = 'none';
-                  document.getElementById('grafica-leng1-tiempo').style.display = 'block';
-                  btnTiempo.style.background = '#3b82f6';
-                  btnTiempo.style.color = 'white';
-                  btnCalif.style.background = '#e2e8f0';
-                  btnCalif.style.color = '#475569';
-                });
+                tdAccionesLeng1.appendChild(btnResetLeng1);
               }
+            } else {
+              tdAccionesLeng1.textContent = '—'; tdAccionesLeng1.style.color = '#94a3b8';
+            }
 
+            trLeng1.appendChild(tdAccionesLeng1);
+            document.getElementById('tabla-cuerpo-lenguajes-sem1')!.appendChild(trLeng1);
 
-
-
+          });
 
           // ================== PINTAR PROMEDIOS GENERALES ==================
           if(totalCalculo > 0) document.getElementById('txt-promedio-calculo')!.innerText = (sumaCalculo / totalCalculo).toFixed(1);
           if(totalLenguajes > 0) document.getElementById('txt-promedio-lenguajes')!.innerText = (sumaLenguajes / totalLenguajes).toFixed(1);
           if(totalSaberes > 0) document.getElementById('txt-promedio-saberes')!.innerText = (sumaSaberes / totalSaberes).toFixed(1);
+          if(totalLengSem1 > 0) document.getElementById('txt-promedio-lenguajes-sem1')!.innerText = (sumaLengSem1 / totalLengSem1).toFixed(1);
 
           // ================== RENDER GRÁFICAS CÁLCULO ==================
           const ctxGen = canvasGeneral.getContext('2d');
@@ -1001,18 +930,46 @@
           if (grafSabTiempo) grafSabTiempo.destroy();
           grafSabTiempo = new Chart(ctxSabTiempo!, { type: 'bar', data: { labels: nombresSab, datasets: [{ label: 'Minutos Tardados', data: tiemposSab, backgroundColor: coloresTiemposSab, borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Minutos' } } }, plugins: { legend: { display: false } } } });
 
+          // ================== RENDER GRÁFICAS LENGUAJES SEM 1 ==================
+          const ctxLeng1Calif = canvasLeng1Calif.getContext('2d');
+          if (grafLeng1Calif) grafLeng1Calif.destroy();
+          grafLeng1Calif = new Chart(ctxLeng1Calif!, { 
+            type: 'bar', 
+            data: { 
+              labels: ['0','1','2','3','4','5','6','7','8','9','10'], 
+              datasets: [{ label: 'Alumnos (Calificación base 10)', data: conteoCalifLeng1, backgroundColor: '#10b981', borderRadius: 6 }] 
+            }, 
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } } 
+          });
+
+          if (tiemposLeng1.length > 0) {
+            const sumaTotalTiempos = tiemposLeng1.reduce((a, b) => a + b, 0);
+            nombresLeng1.push('PROMEDIO GRUPAL');
+            tiemposLeng1.push(Number((sumaTotalTiempos / (tiemposLeng1.length)).toFixed(2)));
+            coloresTiemposLeng1.push('#2563eb'); 
+          }
+
+          const ctxLeng1Tiempo = canvasLeng1Tiempo.getContext('2d');
+          if (grafLeng1Tiempo) grafLeng1Tiempo.destroy();
+          grafLeng1Tiempo = new Chart(ctxLeng1Tiempo!, { 
+            type: 'bar', 
+            data: { 
+              labels: nombresLeng1, 
+              datasets: [{ label: 'Minutos Tardados', data: tiemposLeng1, backgroundColor: coloresTiemposLeng1, borderRadius: 6 }] 
+            }, 
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Minutos' } } }, plugins: { legend: { display: false } } } 
+          });
+
         } catch (error) {
           console.error("Error cargando DB:", error);
         }
       }
-      // Función global para calificar respuestas abiertas desde el modal
-      // Función global para calificar respuestas abiertas de manera silenciosa
+
+      // Función global para calificar respuestas abiertas desde el modal (Saberes)
       (window as any).toggleRespuestaAbierta = async (event: Event, alumnoId: string, reactivoIndex: number) => {
-        // Capturar el botón exacto al que se le hizo clic
         const btn = event.target as HTMLButtonElement;
         const textoOriginal = btn.textContent;
         
-        // Efecto visual de carga instantáneo
         btn.textContent = '...';
         btn.disabled = true;
 
@@ -1024,29 +981,21 @@
           const alumnoData = docSnap.data();
           const saberes = alumnoData.examen_saberes;
 
-          // Invertir estatus (de incorrecta a correcta, o viceversa)
           const estadoActual = saberes.historial[reactivoIndex].esCorrecta;
           const nuevoEstado = !estadoActual;
           saberes.historial[reactivoIndex].esCorrecta = nuevoEstado;
 
-          // Recalcular total de aciertos
           saberes.aciertos = saberes.historial.filter((h: any) => h.esCorrecta).length;
-
-          // CURA DEFINITIVA: Forzar a que el total de preguntas en la base de datos sea el real (65)
           saberes.totalPreguntas = saberes.historial.length;
 
-          // Guardar en Firebase
           await updateDoc(docRef, { examen_saberes: saberes });
 
-          // ACTUALIZAR EL BOTÓN VISUALMENTE (Sin cerrar el modal)
           btn.style.background = nuevoEstado ? '#16a34a' : '#e2e8f0';
           btn.style.color = nuevoEstado ? 'white' : '#475569';
           btn.textContent = nuevoEstado ? '✓ Correcta (+1)' : 'Marcar Correcta';
           btn.disabled = false;
 
-          // Actualizar la tabla general del fondo silenciosamente
           cargarResultados();
-          
         } catch (err) {
           console.error("Error al actualizar respuesta:", err);
           btn.textContent = textoOriginal;
@@ -1054,50 +1003,46 @@
         }
       };
 
-            // ==========================================
-            // LÓGICA PARA LÍMITES DE TIEMPO
-            // ==========================================
-            const inputLenguajesSem1 = document.getElementById('limite-lenguajes-sem1') as HTMLInputElement;
-            const btnGuardarLimites = document.getElementById('btn-guardar-limites') as HTMLButtonElement;
+      // ==========================================
+      // LÓGICA PARA LÍMITES DE TIEMPO
+      // ==========================================
+      const inputLenguajesSem1 = document.getElementById('limite-lenguajes-sem1') as HTMLInputElement;
+      const btnGuardarLimites = document.getElementById('btn-guardar-limites') as HTMLButtonElement;
 
-            async function cargarLimites() {
-              try {
-                const docRef = doc(db, "configuracion", "examenes");
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                  const data = docSnap.data();
-                  // Cargar el límite de la semana 1 si existe
-                  if (data.lenguajes_sem1) inputLenguajesSem1.value = data.lenguajes_sem1; 
-                }
-              } catch (error) {
-                console.error("Error al cargar límites:", error);
-              }
-            }
+      async function cargarLimites() {
+        try {
+          const docRef = doc(db, "configuracion", "examenes");
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            if (data.lenguajes_sem1) inputLenguajesSem1.value = data.lenguajes_sem1; 
+          }
+        } catch (error) {
+          console.error("Error al cargar límites:", error);
+        }
+      }
 
-            btnGuardarLimites.addEventListener('click', async () => {
-              btnGuardarLimites.textContent = "Guardando...";
-              btnGuardarLimites.style.background = "#94a3b8";
-              
-              try {
-                const docRef = doc(db, "configuracion", "examenes");
-                await setDoc(docRef, {
-                  // Guardar solo el límite nuevo (usando merge: true para no borrar los viejos de la base de datos)
-                  lenguajes_sem1: inputLenguajesSem1.value 
-                }, { merge: true });
-                
-                alert("Fecha límite guardada correctamente.");
-              } catch (error) {
-                console.error("Error al guardar:", error);
-                alert("Hubo un error al guardar la fecha.");
-              } finally {
-                btnGuardarLimites.textContent = "Guardar Fechas";
-                btnGuardarLimites.style.background = "#3b82f6";
-              }
-            });
+      btnGuardarLimites.addEventListener('click', async () => {
+        btnGuardarLimites.textContent = "Guardando...";
+        btnGuardarLimites.style.background = "#94a3b8";
+        
+        try {
+          const docRef = doc(db, "configuracion", "examenes");
+          await setDoc(docRef, {
+            lenguajes_sem1: inputLenguajesSem1.value 
+          }, { merge: true });
+          
+          alert("Fecha límite guardada correctamente.");
+        } catch (error) {
+          console.error("Error al guardar:", error);
+          alert("Hubo un error al guardar la fecha.");
+        } finally {
+          btnGuardarLimites.textContent = "Guardar Fechas";
+          btnGuardarLimites.style.background = "#3b82f6";
+        }
+      });
 
-            cargarLimites();
-
-
+      cargarLimites();
       cargarResultados();
     </script>
   </body>
