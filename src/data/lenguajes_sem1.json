@@ -1,185 +1,182 @@
-{
-  "materia": "Lenguajes",
-  "preguntas": [
-    {
-      "id": "len_1",
-      "tipo": "opcion_multiple",
-      "pregunta": "1. Es un texto en el que una persona narra su propia vida, contando hechos, experiencias y aprendizajes significativos:",
-      "opciones": {
-        "a": "Biografía",
-        "b": "Autobiografía",
-        "c": "Cita textual",
-        "d": "Reportaje"
-      },
-      "respuestaCorrecta": "b"
+[
+  {
+    "id": "len_1",
+    "tipo": "opcion_multiple",
+    "pregunta": "1. Es un texto en el que una persona narra su propia vida, contando hechos, experiencias y aprendizajes significativos:",
+    "opciones": {
+      "a": "Biografía",
+      "b": "Autobiografía",
+      "c": "Cita textual",
+      "d": "Reportaje"
     },
-    {
-      "id": "len_2",
-      "tipo": "opcion_multiple",
-      "pregunta": "2. ¿Cuál de los siguientes ejemplos corresponde a una frase adjetiva?",
-      "opciones": {
-        "a": "Es fuerte como un león.",
-        "b": "Sus ojos son dos estrellas.",
-        "c": "La casa vieja y grande.",
-        "d": "Primero, después, finalmente."
-      },
-      "respuestaCorrecta": "c"
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "len_2",
+    "tipo": "opcion_multiple",
+    "pregunta": "2. ¿Cuál de los siguientes ejemplos corresponde a una frase adjetiva?",
+    "opciones": {
+      "a": "Es fuerte como un león.",
+      "b": "Sus ojos son dos estrellas.",
+      "c": "La casa vieja y grande.",
+      "d": "Primero, después, finalmente."
     },
-    {
-      "id": "len_3",
-      "tipo": "opcion_multiple",
-      "pregunta": "3. Figura retórica que consiste en la comparación entre dos elementos utilizando palabras como \"como\", \"parece\" o \"igual que\":",
-      "opciones": {
-        "a": "Metáfora",
-        "b": "Nexo",
-        "c": "Símil",
-        "d": "Paráfrasis"
-      },
-      "respuestaCorrecta": "c"
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "len_3",
+    "tipo": "opcion_multiple",
+    "pregunta": "3. Figura retórica que consiste en la comparación entre dos elementos utilizando palabras como \"como\", \"parece\" o \"igual que\":",
+    "opciones": {
+      "a": "Metáfora",
+      "b": "Nexo",
+      "c": "Símil",
+      "d": "Paráfrasis"
     },
-    {
-      "id": "len_4",
-      "tipo": "opcion_multiple",
-      "pregunta": "4. ¿Qué signo de puntuación une ideas relacionadas dentro de un texto?",
-      "opciones": {
-        "a": "Punto",
-        "b": "Coma",
-        "c": "Punto y coma",
-        "d": "Dos puntos"
-      },
-      "respuestaCorrecta": "c"
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "len_4",
+    "tipo": "opcion_multiple",
+    "pregunta": "4. ¿Qué signo de puntuación une ideas relacionadas dentro de un texto?",
+    "opciones": {
+      "a": "Punto",
+      "b": "Coma",
+      "c": "Punto y coma",
+      "d": "Dos puntos"
     },
-    {
-      "id": "len_5",
-      "tipo": "opcion_multiple",
-      "pregunta": "5. Los textos explicativos tienen como propósito principal:",
-      "opciones": {
-        "a": "Convencer al lector sobre una postura personal.",
-        "b": "Explicar un tema de forma clara y ordenada.",
-        "c": "Expresar emociones como alegría, sorpresa o enojo.",
-        "d": "Contar una historia ficticia en primera persona."
-      },
-      "respuestaCorrecta": "b"
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "len_5",
+    "tipo": "opcion_multiple",
+    "pregunta": "5. Los textos explicativos tienen como propósito principal:",
+    "opciones": {
+      "a": "Convencer al lector sobre una postura personal.",
+      "b": "Explicar un tema de forma clara y ordenada.",
+      "c": "Expresar emociones como alegría, sorpresa o enojo.",
+      "d": "Contar una historia ficticia en primera persona."
     },
-    {
-      "id": "len_6",
-      "tipo": "opcion_multiple",
-      "pregunta": "6. ¿Qué tipo de conector del discurso se utiliza para expresar contraste?",
-      "opciones": {
-        "a": "Además, también, igualmente.",
-        "b": "Porque, ya que, debido a.",
-        "c": "Pero, sin embargo, en cambio.",
-        "d": "Por eso, por lo tanto, así que."
-      },
-      "respuestaCorrecta": "c"
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "len_6",
+    "tipo": "opcion_multiple",
+    "pregunta": "6. ¿Qué tipo de conector del discurso se utiliza para expresar contraste?",
+    "opciones": {
+      "a": "Además, también, igualmente.",
+      "b": "Porque, ya que, debido a.",
+      "c": "Pero, sin embargo, en cambio.",
+      "d": "Por eso, por lo tanto, así que."
     },
-    {
-      "id": "len_7",
-      "tipo": "opcion_multiple",
-      "pregunta": "7. ¿Qué es una cita textual?",
-      "opciones": {
-        "a": "La explicación de una idea con tus propias palabras sin copiarla.",
-        "b": "La reproducción exacta de las palabras de un autor, entre comillas.",
-        "c": "Un conjunto de razones para defender una opinión.",
-        "d": "Una pregunta que se responde únicamente con un \"sí\" o \"no\"."
-      },
-      "respuestaCorrecta": "b"
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "len_7",
+    "tipo": "opcion_multiple",
+    "pregunta": "7. ¿Qué es una cita textual?",
+    "opciones": {
+      "a": "La explicación de una idea con tus propias palabras sin copiarla.",
+      "b": "La reproducción exacta de las palabras de un autor, entre comillas.",
+      "c": "Un conjunto de razones para defender una opinión.",
+      "d": "Una pregunta que se responde únicamente con un \"sí\" o \"no\"."
     },
-    {
-      "id": "len_8",
-      "tipo": "opcion_multiple",
-      "pregunta": "8. Es la explicación de una idea utilizando tus propias palabras, sin copiar el texto original:",
-      "opciones": {
-        "a": "Cita textual",
-        "b": "Paráfrasis",
-        "c": "Argumento",
-        "d": "Reportaje"
-      },
-      "respuestaCorrecta": "b"
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "len_8",
+    "tipo": "opcion_multiple",
+    "pregunta": "8. Es la explicación de una idea utilizando tus propias palabras, sin copiar el texto original:",
+    "opciones": {
+      "a": "Cita textual",
+      "b": "Paráfrasis",
+      "c": "Argumento",
+      "d": "Reportaje"
     },
-    {
-      "id": "len_9",
-      "tipo": "opcion_multiple",
-      "pregunta": "9. ¿Cuál es una característica principal del argumento?",
-      "opciones": {
-        "a": "Se basa en información y evidencias para sustentar una opinión.",
-        "b": "Está escrito en primera persona y narra eventos del pasado.",
-        "c": "Utiliza únicamente lenguaje figurado como las metáforas.",
-        "d": "Combina únicamente texto e imágenes de forma breve y visual."
-      },
-      "respuestaCorrecta": "a"
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "len_9",
+    "tipo": "opcion_multiple",
+    "pregunta": "9. ¿Cuál es una característica principal del argumento?",
+    "opciones": {
+      "a": "Se basa en información y evidencias para sustentar una opinión.",
+      "b": "Está escrito en primera persona y narra eventos del pasado.",
+      "c": "Utiliza únicamente lenguaje figurado como las metáforas.",
+      "d": "Combina únicamente texto e imágenes de forma breve y visual."
     },
-    {
-      "id": "len_10",
-      "tipo": "opcion_multiple",
-      "pregunta": "10. Los nexos \"o\" y \"u\" se utilizan para indicar:",
-      "opciones": {
-        "a": "Unión",
-        "b": "Elección",
-        "c": "Causa",
-        "d": "Condición"
-      },
-      "respuestaCorrecta": "b"
+    "respuestaCorrecta": "a"
+  },
+  {
+    "id": "len_10",
+    "tipo": "opcion_multiple",
+    "pregunta": "10. Los nexos \"o\" y \"u\" se utilizan para indicar:",
+    "opciones": {
+      "a": "Unión",
+      "b": "Elección",
+      "c": "Causa",
+      "d": "Condición"
     },
-    {
-      "id": "len_11",
-      "tipo": "opcion_multiple",
-      "pregunta": "11. ¿Cuál de los siguientes nexos expresa una condición?",
-      "opciones": {
-        "a": "y",
-        "b": "porque",
-        "c": "si",
-        "d": "que"
-      },
-      "respuestaCorrecta": "c"
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "len_11",
+    "tipo": "opcion_multiple",
+    "pregunta": "11. ¿Cuál de los siguientes nexos expresa una condición?",
+    "opciones": {
+      "a": "y",
+      "b": "porque",
+      "c": "si",
+      "d": "que"
     },
-    {
-      "id": "len_12",
-      "tipo": "opcion_multiple",
-      "pregunta": "12. Las preguntas que permiten respuestas amplias (por ejemplo: ¿Qué es la biodiversidad?) se clasifican como:",
-      "opciones": {
-        "a": "Cerradas",
-        "b": "Expositivas",
-        "c": "Abiertas",
-        "d": "Argumentativas"
-      },
-      "respuestaCorrecta": "c"
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "len_12",
+    "tipo": "opcion_multiple",
+    "pregunta": "12. Las preguntas que permiten respuestas amplias (por ejemplo: ¿Qué es la biodiversidad?) se clasifican como:",
+    "opciones": {
+      "a": "Cerradas",
+      "b": "Expositivas",
+      "c": "Abiertas",
+      "d": "Argumentativas"
     },
-    {
-      "id": "len_13",
-      "tipo": "opcion_multiple",
-      "pregunta": "13. Tipo de texto informativo que profundiza en un tema con más información que una noticia:",
-      "opciones": {
-        "a": "Noticia",
-        "b": "Reportaje",
-        "c": "Entrevista",
-        "d": "Infografía"
-      },
-      "respuestaCorrecta": "b"
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "len_13",
+    "tipo": "opcion_multiple",
+    "pregunta": "13. Tipo de texto informativo que profundiza en un tema con más información que una noticia:",
+    "opciones": {
+      "a": "Noticia",
+      "b": "Reportaje",
+      "c": "Entrevista",
+      "d": "Infografía"
     },
-    {
-      "id": "len_14",
-      "tipo": "opcion_multiple",
-      "pregunta": "14. ¿Qué tipo de texto informativo combina texto e imágenes para brindar información de forma breve y visual?",
-      "opciones": {
-        "a": "Artículo de divulgación",
-        "b": "Entrevista",
-        "c": "Noticia",
-        "d": "Infografía"
-      },
-      "respuestaCorrecta": "d"
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "len_14",
+    "tipo": "opcion_multiple",
+    "pregunta": "14. ¿Qué tipo de texto informativo combina texto e imágenes para brindar información de forma breve y visual?",
+    "opciones": {
+      "a": "Artículo de divulgación",
+      "b": "Entrevista",
+      "c": "Noticia",
+      "d": "Infografía"
     },
-    {
-      "id": "len_15",
-      "tipo": "opcion_multiple",
-      "pregunta": "15. ¿Qué signo de puntuación se utiliza para expresar emociones como sorpresa, alegría o enojo?",
-      "opciones": {
-        "a": "Signos de interrogación (¿ ?)",
-        "b": "Dos puntos (:)",
-        "c": "Signos de admiración (¡ !)",
-        "d": "Coma (,)"
-      },
-      "respuestaCorrecta": "c"
-    }
-  ]
-}
+    "respuestaCorrecta": "d"
+  },
+  {
+    "id": "len_15",
+    "tipo": "opcion_multiple",
+    "pregunta": "15. ¿Qué signo de puntuación se utiliza para expresar emociones como sorpresa, alegría o enojo?",
+    "opciones": {
+      "a": "Signos de interrogación (¿ ?)",
+      "b": "Dos puntos (:)",
+      "c": "Signos de admiración (¡ !)",
+      "d": "Coma (,)"
+    },
+    "respuestaCorrecta": "c"
+  }
+]
