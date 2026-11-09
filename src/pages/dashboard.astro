@@ -49,11 +49,12 @@
             <p style="margin: 0; color: #475569; font-size: 14px;">Evaluación de opción múltiple.</p>
           </div>
             
-            <div id="accion-lenguajes">
+            <div id="accion-lenguajes-sem1">
               <a href="/lenguajes_sem1" style="background-color: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; cursor: pointer;">
                 Ingresar
               </a>
             </div>
+
 
 
         </div>
@@ -82,50 +83,50 @@
         window.location.replace('/');
       });
 
-      async function revisarEstatus() {
-        try {
-          const docRef = doc(db, "alumnos", alumnoId!);
-          const docSnap = await getDoc(docRef);
-          
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            
+        async function revisarEstatus() {
+            try {
+              const docRef = doc(db, "alumnos", alumnoId!);
+              const docSnap = await getDoc(docRef);
+
+              if (docSnap.exists()) {
+                const data = docSnap.data();
+
                 // Lógica Cálculo Mental
-                  const accionCalculo = document.getElementById('accion-calculo');
-                  if (accionCalculo) {
-                    if (data.completado) {
-                      accionCalculo.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
-                    } else {
-                      accionCalculo.innerHTML = '<a href="/examen" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
-                    }
+                const accionCalculo = document.getElementById('accion-calculo');
+                if (accionCalculo) {
+                  if (data.completado) {
+                    accionCalculo.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
+                  } else {
+                    accionCalculo.innerHTML = '<a href="/examen" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
                   }
+                }
 
-                  // Lógica Lenguajes
-                  const accionLenguajes = document.getElementById('accion-lenguajes');
-                  if (accionLenguajes) {
-                    if (data.lenguajes_sem1 && data.lenguajes_sem1.completado) {
-                      const nota = ((data.lenguajes_sem1.aciertos / data.lenguajes_sem1.totalPreguntas) * 10).toFixed(1);
-                      accionLenguajes.innerHTML = `<span style="background: #dcfce7; color: #166534; padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 15px;">Calificación: ${nota} / 10</span>`;
-                    } else {
-                      accionLenguajes.innerHTML = '<a href="/lenguajes_sem1" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
-                    }
+                // Lógica Lenguajes Semana 1
+                const accionLenguajes = document.getElementById('accion-lenguajes-sem1') || document.getElementById('accion-lenguajes');
+                if (accionLenguajes) {
+                  if (data.lenguajes_sem1 && data.lenguajes_sem1.completado) {
+                    const nota = ((data.lenguajes_sem1.aciertos / data.lenguajes_sem1.totalPreguntas) * 10).toFixed(1);
+                    accionLenguajes.innerHTML = `<span style="background: #dcfce7; color: #166534; padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 15px;">Calificación: ${nota} / 10</span>`;
+                  } else {
+                    accionLenguajes.innerHTML = '<a href="/lenguajes_sem1" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
                   }
+                }
 
-                  // Lógica Saberes y Pensamiento Científico
-                  const accionSaberes = document.getElementById('accion-saberes');
-                  if (accionSaberes) {
-                    if (data.examen_saberes && data.examen_saberes.completado) {
-                      accionSaberes.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
-                    } else {
-                      accionSaberes.innerHTML = '<a href="/saberes" style="background: #8b5cf6; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
-                    }
+                // Lógica Saberes y Pensamiento Científico
+                const accionSaberes = document.getElementById('accion-saberes');
+                if (accionSaberes) {
+                  if (data.examen_saberes && data.examen_saberes.completado) {
+                    accionSaberes.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
+                  } else {
+                    accionSaberes.innerHTML = '<a href="/saberes" style="background: #8b5cf6; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
                   }
-
-        } catch (error) {
-          console.error("Error al obtener datos:", error);
-        }
-      }
-      revisarEstatus();
-    </script>
-  </body>
-</html>
+                }
+              }
+            } catch (error) {
+              console.error("Error al obtener datos:", error);
+            }
+          }
+          revisarEstatus();
+      </script>
+    </body>
+  </html>
