@@ -119,37 +119,57 @@ const preguntas = examenData;
       import { doc, updateDoc, getDoc } from "firebase/firestore";
       import { db } from "../firebase.js";
 
-            // ==========================================
-            // CANDADO DE TIEMPO LÍMITE
-            // ==========================================
-            async function validarAcceso() {
-                try {
-                const docRef = doc(db, "configuracion", "examenes");
-                const docSnap = await getDoc(docRef);
-                
-                if (docSnap.exists()) {
-                    const config = docSnap.data();
-                    // Leemos la fecha límite (Asegúrate de que este nombre coincida con el que pusiste en tu panel de Resultados)
-                    const limite = config.lenguajes; 
-                    
-                    if (limite) {
-                    const fechaLimite = new Date(limite).getTime();
-                    const ahora = new Date().getTime();
-                    
-                    if (ahora > fechaLimite) {
-                        alert("⏳ El tiempo límite para este examen ha expirado. Ya no puedes ingresar.");
-                        window.location.href = "/dashboard"; 
-                        return;
+                    // ==========================================
+                    // CANDADO DE SEGURIDAD TOTAL
+                    // ==========================================
+                    import { doc, getDoc } from "firebase/firestore";
+
+                    // 1. Destruir el truco del botón "Atrás" del navegador
+                    window.addEventListener('pageshow', function(event) {
+                        if (event.persisted) {
+                        window.location.reload(); 
+                        }
+                    });
+
+                    async function validarAcceso() {
+                        try {
+                        const alumnoId = sessionStorage.getItem('alumnoActivo');
+                        if (!alumnoId) return;
+
+                        // 2. Bloquear si ya resolvió este examen antes
+                        const docAlumno = await getDoc(doc(db, "alumnos", alumnoId));
+                        if (docAlumno.exists() && docAlumno.data().lenguajes_sem1) {
+                            alert("Ya completaste este examen. No puedes volver a ingresar.");
+                            window.location.replace("/dashboard");
+                            return;
+                        }
+
+                        // 3. Validar el límite de tiempo con zona horaria segura
+                        const docSnap = await getDoc(doc(db, "configuracion", "examenes"));
+                        if (docSnap.exists()) {
+                            const config = docSnap.data();
+                            const limite = config.lenguajes_sem1; 
+                            
+                            if (limite) {
+                            // Convierte "2026-11-08T23:50" a un formato estándar para evitar desfases
+                            const fechaLimite = new Date(limite.replace("T", " ")).getTime();
+                            const ahora = new Date().getTime();
+                            
+                            if (ahora > fechaLimite) {
+                                alert("⏳ El tiempo límite para este examen ha expirado.");
+                                window.location.replace("/dashboard");
+                                return;
+                            }
+                            }
+                        }
+                        } catch (error) {
+                        console.error("Error al validar acceso:", error);
+                        }
                     }
-                    }
-                }
-                } catch (error) {
-                console.error("Error al validar fecha:", error);
-                }
-            }
-            
-            validarAcceso();
-            // ==========================================
+                    
+                    validarAcceso();
+                    // ==========================================
+
 
 
       const alumnoId = sessionStorage.getItem('alumnoActivo');
@@ -290,10 +310,14 @@ const preguntas = examenData;
           // Limpiamos el borrador local ya que se envió con éxito
           sessionStorage.removeItem(STORAGE_KEY);
 
-          setTimeout(() => {
-            alert("¡Tus respuestas han sido guardadas correctamente!");
-            window.location.replace('/dashboard');
-          }, 500);
+            // Calcular calificación base 10 (con 1 decimal)
+                const calificacionBase10 = ((aciertos / totalCalificables) * 10).toFixed(1);
+
+                setTimeout(() => {
+                alert(`¡Examen terminado!\nTu calificación es: ${calificacionBase10} / 10`);
+                window.location.replace('/dashboard');
+                }, 500);
+
 
         } catch (error) {
           console.error("Error al guardar:", error);
