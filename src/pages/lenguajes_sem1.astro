@@ -119,8 +119,9 @@ const preguntas = examenData;
                     // ==========================================
                     // CANDADO DE SEGURIDAD TOTAL
                     // ==========================================
-                        import { db } from "../firebase.js";
-                          import * as fs from "firebase/firestore";
+                          import { db } from "../firebase.js";
+                            import { doc, getDoc, updateDoc } from "firebase/firestore";
+
 
 
                     // 1. Destruir el truco del botón "Atrás" del navegador
@@ -132,44 +133,45 @@ const preguntas = examenData;
 
                     async function validarAcceso() {
                         try {
-                        const alumnoId = sessionStorage.getItem('alumnoActivo');
-                        if (!alumnoId) return;
+                            const alumnoId = sessionStorage.getItem('alumnoActivo');
+                            if (!alumnoId) return;
 
-                        // 2. Bloquear si ya resolvió este examen antes
-                        const docAlumno = await fs.getDoc(fs.doc(db, "alumnos", alumnoId));
-                        if (docAlumno.exists() && docAlumno.data().lenguajes_sem1) {
+                            // 2. Bloquear si ya resolvió este examen antes
+                            const docAlumno = await getDoc(doc(db, "alumnos", alumnoId));
+                            if (docAlumno.exists() && docAlumno.data().lenguajes_sem1) {
                             alert("Ya completaste este examen. No puedes volver a ingresar.");
                             window.location.replace("/dashboard");
                             return;
-                        }
+                            }
 
-                        // 3. Validar el límite de tiempo con zona horaria segura
-                        const docSnap = await fs.getDoc(fs.doc(db, "configuracion", "examenes"));
-                        if (docSnap.exists()) {
+                            // 3. Validar el límite de tiempo con zona horaria segura
+                            const docSnap = await getDoc(doc(db, "configuracion", "examenes"));
+                            if (docSnap.exists()) {
                             const config = docSnap.data();
                             const limite = config.lenguajes_sem1; 
                             
                             if (limite) {
-                            // Desglosamos la fecha y hora localmente para evitar el error de UTC de JavaScript
-                            const [datePart, timePart] = limite.split('T');
-                            const [year, month, day] = datePart.split('-').map(Number);
-                            const [hours, minutes] = timePart.split(':').map(Number);
-                            
-                            // Creamos el objeto Date usando la zona horaria local exacta
-                            const fechaLimite = new Date(year, month - 1, day, hours, minutes).getTime();
-                            const ahora = new Date().getTime();
-
-                            if (ahora > fechaLimite) {
+                                // Desglosamos la fecha y hora localmente para evitar el error de UTC de JavaScript
+                                const [datePart, timePart] = limite.split('T');
+                                const [year, month, day] = datePart.split('-').map(Number);
+                                const [hours, minutes] = timePart.split(':').map(Number);
+                                
+                                // Creamos el objeto Date usando la zona horaria local exacta
+                                const fechaLimite = new Date(year, month - 1, day, hours, minutes).getTime();
+                                const ahora = new Date().getTime();
+                                
+                                if (ahora > fechaLimite) {
                                 alert("⏳ El tiempo límite para este examen ha expirado.");
                                 window.location.replace("/dashboard");
                                 return;
+                                }
                             }
                             }
-                        }
                         } catch (error) {
-                        console.error("Error al validar acceso:", error);
+                            console.error("Error al validar acceso:", error);
                         }
-                    }
+                        }
+
                     
                     validarAcceso();
                     // ==========================================
