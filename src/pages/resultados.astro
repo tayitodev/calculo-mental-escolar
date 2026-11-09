@@ -403,6 +403,40 @@
                         tdAcciones.style.padding = '15px';
                         tdAcciones.style.textAlign = 'center';
 
+                                // ======= CREAR BOTÓN DETALLES =======
+                              let btnDetalles = document.createElement('button');
+                              btnDetalles.textContent = 'Detalles';
+                              btnDetalles.style.cssText = 'background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; margin-right: 8px;';
+                              
+                              btnDetalles.addEventListener('click', () => {
+                                let htmlDetalle = `<table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+                                  <tr style="background: #f1f5f9;"><th style="padding: 10px;">Pregunta</th><th style="padding: 10px;">Tu Respuesta</th><th style="padding: 10px;">Correcta</th><th style="padding: 10px; text-align: center;">Eval</th></tr>`;
+                                
+                                if (alumno.lenguajes_sem1 && alumno.lenguajes_sem1.historial) {
+                                  alumno.lenguajes_sem1.historial.forEach((h, i) => {
+                                    let color = h.esCorrecta ? '#166534' : '#991b1b';
+                                    let bg = h.esCorrecta ? '#dcfce7' : '#fee2e2';
+                                    let icono = h.esCorrecta ? '✅' : '❌';
+                                    htmlDetalle += `<tr style="border-bottom: 1px solid #e2e8f0;">
+                                      <td style="padding: 10px;">${i + 1}</td>
+                                      <td style="padding: 10px;">${h.respuestaUsuario || '-'}</td>
+                                      <td style="padding: 10px;">${h.correcta || h.respuestaCorrecta || '-'}</td>
+                                      <td style="padding: 10px; background: ${bg}; color: ${color}; text-align: center;">${icono}</td>
+                                    </tr>`;
+                                  });
+                                }
+                                htmlDetalle += `</table>`;
+                                
+                                document.getElementById('modal-titulo-detalle').textContent = `Detalles: ${alumno.nombre} (Lenguajes)`;
+                                document.getElementById('modal-contenido-detalle').innerHTML = htmlDetalle;
+                                document.getElementById('modal-detalle').style.display = 'flex';
+                              });
+
+                              // Limpiamos y agregamos ambos botones a la celda
+                              tdAcciones.innerHTML = '';
+                              tdAcciones.appendChild(btnDetalles);
+
+
                         let btnReiniciar = document.createElement('button');
                         btnReiniciar.textContent = 'Reiniciar';
                         btnReiniciar.style.cssText = 'background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold;';
@@ -846,71 +880,72 @@
           });
 
               // ==========================================
-    // RENDERIZAR GRÁFICAS LENGUAJES SEMANA 1
-    // ==========================================
-    
-    // Destruir gráficas previas si existen para que no se encimen
-    if (window.chartLeng1Calif) window.chartLeng1Calif.destroy();
-    if (window.chartLeng1Tiempo) window.chartLeng1Tiempo.destroy();
+              // RENDERIZAR GRÁFICAS LENGUAJES SEMANA 1 (VERSIÓN BLINDADA)
+              // ==========================================
+              setTimeout(() => {
+                const canvasCalif = document.getElementById('grafica-leng1-calif');
+                const canvasTiempo = document.getElementById('grafica-leng1-tiempo');
 
-    // 1. Gráfica de Distribución de Calificaciones
-    const ctxCalifLeng1 = document.getElementById('grafica-leng1-calif').getContext('2d');
-    window.chartLeng1Calif = new Chart(ctxCalifLeng1, {
-      type: 'bar',
-      data: {
-        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
-        datasets: [{
-          label: 'Alumnos (Calificación base 10)',
-          data: conteoCalifLeng1,
-          backgroundColor: '#10b981', // Verde esmeralda
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
-      }
-    });
+                if (canvasCalif && canvasTiempo) {
+                  if (window.chartLeng1Calif) window.chartLeng1Calif.destroy();
+                  if (window.chartLeng1Tiempo) window.chartLeng1Tiempo.destroy();
 
-    // 2. Gráfica de Tiempos por Alumno
-    const ctxTiempoLeng1 = document.getElementById('grafica-leng1-tiempo').getContext('2d');
-    window.chartLeng1Tiempo = new Chart(ctxTiempoLeng1, {
-      type: 'bar',
-      data: {
-        labels: nombresLeng1,
-        datasets: [{
-          label: 'Tiempo Usado (Minutos)',
-          data: tiemposLeng1,
-          backgroundColor: '#3b82f6', // Azul
-          borderRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: { y: { beginAtZero: true } }
-      }
-    });
+                  window.chartLeng1Calif = new Chart(canvasCalif.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                      labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                      datasets: [{
+                        label: 'Alumnos (Calificación base 10)',
+                        data: [...conteoCalifLeng1], // Clonamos el arreglo para forzar lectura
+                        backgroundColor: '#10b981',
+                        borderRadius: 4
+                      }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+                  });
 
-          // 3. Lógica de los botones para alternar entre gráficas
-          document.getElementById('btn-leng1-calif').addEventListener('click', () => {
-            document.getElementById('grafica-leng1-calif').style.display = 'block';
-            document.getElementById('grafica-leng1-tiempo').style.display = 'none';
-            document.getElementById('btn-leng1-calif').style.background = '#10b981';
-            document.getElementById('btn-leng1-calif').style.color = 'white';
-            document.getElementById('btn-leng1-tiempo').style.background = '#e2e8f0';
-            document.getElementById('btn-leng1-tiempo').style.color = '#475569';
-          });
+                  window.chartLeng1Tiempo = new Chart(canvasTiempo.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                      labels: [...nombresLeng1],
+                      datasets: [{
+                        label: 'Tiempo Usado (Minutos)',
+                        data: [...tiemposLeng1],
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 4
+                      }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                  });
+                }
+              }, 100);
 
-          document.getElementById('btn-leng1-tiempo').addEventListener('click', () => {
-            document.getElementById('grafica-leng1-calif').style.display = 'none';
-            document.getElementById('grafica-leng1-tiempo').style.display = 'block';
-            document.getElementById('btn-leng1-tiempo').style.background = '#3b82f6';
-            document.getElementById('btn-leng1-tiempo').style.color = 'white';
-            document.getElementById('btn-leng1-calif').style.background = '#e2e8f0';
-            document.getElementById('btn-leng1-calif').style.color = '#475569';
-          });
+              // 3. Lógica de los botones para alternar entre gráficas
+              const btnCalif = document.getElementById('btn-leng1-calif');
+              const btnTiempo = document.getElementById('btn-leng1-tiempo');
+              
+              if (btnCalif && btnTiempo) {
+                btnCalif.addEventListener('click', () => {
+                  document.getElementById('grafica-leng1-calif').style.display = 'block';
+                  document.getElementById('grafica-leng1-tiempo').style.display = 'none';
+                  btnCalif.style.background = '#10b981';
+                  btnCalif.style.color = 'white';
+                  btnTiempo.style.background = '#e2e8f0';
+                  btnTiempo.style.color = '#475569';
+                });
+
+                btnTiempo.addEventListener('click', () => {
+                  document.getElementById('grafica-leng1-calif').style.display = 'none';
+                  document.getElementById('grafica-leng1-tiempo').style.display = 'block';
+                  btnTiempo.style.background = '#3b82f6';
+                  btnTiempo.style.color = 'white';
+                  btnCalif.style.background = '#e2e8f0';
+                  btnCalif.style.color = '#475569';
+                });
+              }
+
+
+
 
 
           // ================== PINTAR PROMEDIOS GENERALES ==================

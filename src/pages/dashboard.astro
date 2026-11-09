@@ -48,9 +48,10 @@
             <h3 style="margin: 0 0 5px 0; color: #047857;">Lenguajes</h3>
             <p style="margin: 0; color: #475569; font-size: 14px;">Evaluación de opción múltiple.</p>
           </div>
-          <a href="/lenguajes_sem1" style="background-color: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; cursor: pointer;">
+          <a id="btn-lenguajes" href="/lenguajes_sem1" style="background-color: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; cursor: pointer;">
             Ingresar
           </a>
+
         </div>
 
       </div>
@@ -93,13 +94,15 @@
               accionCalculo.innerHTML = '<a href="/examen" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
             }
 
-            // Lógica Lenguajes
-            const accionLenguajes = document.getElementById('accion-lenguajes')!;
-            if (data.examen_lenguajes && data.examen_lenguajes.completado) {
-              accionLenguajes.innerHTML = '<span style="background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 14px;">Completado ✅</span>';
-            } else {
-              accionLenguajes.innerHTML = '<a href="/lenguajes" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
-            }
+                // Lógica Lenguajes
+                const accionLenguajes = document.getElementById('accion-lenguajes')!;
+                if (data.lenguajes_sem1 && data.lenguajes_sem1.completado) {
+                  const nota = ((data.lenguajes_sem1.aciertos / data.lenguajes_sem1.totalPreguntas) * 10).toFixed(1);
+                  accionLenguajes.innerHTML = `<span style="background: #dcfce7; color: #166534; padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 15px;">Calificación: ${nota} / 10</span>`;
+                } else {
+                  accionLenguajes.innerHTML = '<a href="/lenguajes_sem1" style="background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">Ingresar</a>';
+                }
+
 
             // Lógica Saberes y Pensamiento Científico
             const accionSaberes = document.getElementById('accion-saberes')!;
