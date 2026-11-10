@@ -1,0 +1,197 @@
+[
+  {
+    "id": "cie_1",
+    "numero": 1,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿En qué parte del sistema respiratorio se realiza el intercambio de oxígeno y dióxido de carbono?",
+    "opciones": {
+      "a": "Fosas nasales",
+      "b": "Alvéolos",
+      "c": "Laringe",
+      "d": "Bronquios"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_2",
+    "numero": 2,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Qué vasos sanguíneos devuelven la sangre al corazón?",
+    "opciones": {
+      "a": "Arterias",
+      "b": "Capilares",
+      "c": "Venas",
+      "d": "Alvéolos"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "cie_3",
+    "numero": 3,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es la afectación a la salud provocada por altas temperaturas según la infografía?",
+    "opciones": {
+      "a": "Infecciones gastrointestinales",
+      "b": "Aumento de enfermedades por vectores",
+      "c": "Golpes de calor o deshidratación",
+      "d": "Enfermedades respiratorias"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "cie_4",
+    "numero": 4,
+    "tipo": "opcion_multiple",
+    "pregunta": "Si contaste 18 latidos en 15 segundos, ¿cuál es la frecuencia cardíaca medida en latidos por minuto (lpm)?",
+    "opciones": {
+      "a": "60 lpm",
+      "b": "72 lpm",
+      "c": "80 lpm",
+      "d": "90 lpm"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_5",
+    "numero": 5,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es el valor de referencia de la frecuencia cardíaca en reposo para los niños?",
+    "opciones": {
+      "a": "60 - 100 lpm",
+      "b": "70 - 120 lpm",
+      "c": "80 - 140 lpm",
+      "d": "50 - 90 lpm"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_6",
+    "numero": 6,
+    "tipo": "opcion_multiple",
+    "pregunta": "Etapa del desarrollo humano que comprende de los 12 a los 17 años y presenta cambios físicos, emocionales y construcción de la identidad:",
+    "opciones": {
+      "a": "Infancia",
+      "b": "Adolescencia",
+      "c": "Adultez",
+      "d": "Vejez"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_7",
+    "numero": 7,
+    "tipo": "opcion_multiple",
+    "pregunta": "En el proceso de fecundación y desarrollo, ¿cuál es la estructura que se implanta en el útero?",
+    "opciones": {
+      "a": "Cígoto",
+      "b": "Mórula",
+      "c": "Blastocito",
+      "d": "Feto"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "cie_8",
+    "numero": 8,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿En qué semana de desarrollo se considera la etapa de embrión?",
+    "opciones": {
+      "a": "Unión del espermatozoide con el óvulo",
+      "b": "Semana 3 a la 8",
+      "c": "Semana 9 al nacimiento",
+      "d": "Aproximadamente en la semana 40"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_9",
+    "numero": 9,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál de los siguientes aspectos es un rasgo sano en el noviazgo?",
+    "opciones": {
+      "a": "Celos excesivos",
+      "b": "Control o vigilancia",
+      "c": "Toma de decisiones en equipo",
+      "d": "Aislamiento de amistades y familia"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "cie_10",
+    "numero": 10,
+    "tipo": "opcion_multiple",
+    "pregunta": "Es considerado un rasgo insano en el noviazgo:",
+    "opciones": {
+      "a": "Respeto mutuo",
+      "b": "Comunicación abierta y honesta",
+      "c": "Apoyo en metas y proyectos",
+      "d": "Manipulación"
+    },
+    "respuestaCorrecta": "d"
+  },
+  {
+    "id": "cie_11",
+    "numero": 11,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es la función de la laringe en el sistema respiratorio?",
+    "opciones": {
+      "a": "Filtrar, humedecer y calentar el aire",
+      "b": "Contener las cuerdas vocales",
+      "c": "Permitir la entrada y salida del aire mediante un músculo",
+      "d": "Conducir el aire únicamente hacia los pulmones"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_12",
+    "numero": 12,
+    "tipo": "opcion_multiple",
+    "pregunta": "Característica correspondiente a una dieta saludable:",
+    "opciones": {
+      "a": "Alto consumo de alimentos ultraprocesados",
+      "b": "Exceso de grasas saturadas y azúcares",
+      "c": "Incorpora grasas saludables (aguacate, nueces, aceite de oliva)",
+      "d": "Porciones excesivas y desbalanceadas"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "cie_13",
+    "numero": 13,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Qué consecuencia puede generar una mala alimentación?",
+    "opciones": {
+      "a": "Disminución gradual de la deshidratación",
+      "b": "Mayor riesgo de sobrepeso, obesidad, diabetes e hipertensión",
+      "c": "Hidratación adecuada con agua simple",
+      "d": "Crecimiento rápido de habilidades básicas"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_14",
+    "numero": 14,
+    "tipo": "opcion_multiple",
+    "pregunta": "Son vasos sanguíneos muy pequeños donde se intercambian oxígeno, nutrientes y desechos con las células:",
+    "opciones": {
+      "a": "Arterias",
+      "b": "Capilares",
+      "c": "Venas",
+      "d": "Alvéolos"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "cie_15",
+    "numero": 15,
+    "tipo": "opcion_multiple",
+    "pregunta": "Etapa del desarrollo humano (60 años en adelante) caracterizada por la disminución gradual de funciones y mayor necesidad de cuidados:",
+    "opciones": {
+      "a": "Adultez",
+      "b": "Infancia",
+      "c": "Vejez",
+      "d": "Adolescencia"
+    },
+    "respuestaCorrecta": "c"
+  }
+]

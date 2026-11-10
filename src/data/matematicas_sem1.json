@@ -1,0 +1,197 @@
+[
+  {
+    "id": "mat_1",
+    "numero": 1,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cómo se lee el número 345,678,901?",
+    "opciones": {
+      "a": "Tres millones cuatrocientos cincuenta y seis mil setecientos ochenta y nueve",
+      "b": "Trescientos cuarenta y cinco millones, seiscientos setenta y ocho mil, novecientos uno",
+      "c": "Trescientos cuarenta y cinco mil, seiscientos setenta y ocho millones, novecientos uno",
+      "d": "Treinta y cuatro millones quinientos sesenta y siete mil ocho noventa y uno"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_2",
+    "numero": 2,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es el orden correcto de mayor a menor (descendente) del siguiente grupo de números?",
+    "opciones": {
+      "a": "125,340 > 237,560 > 589,721",
+      "b": "612,005 > 743,210 > 985,600",
+      "c": "985,600 > 743,210 > 612,005",
+      "d": "743,210 > 985,600 > 612,005"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "mat_3",
+    "numero": 3,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es la regla de la secuencia 90, 80, 70, 60...?",
+    "opciones": {
+      "a": "Regla: sumar 10",
+      "b": "Regla: restar 10",
+      "c": "Regla: multiplicar por 2",
+      "d": "Regla: restar 5"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_4",
+    "numero": 4,
+    "tipo": "opcion_multiple",
+    "pregunta": "Identifica el patrón en la siguiente serie numéricas: 3, 6, 12, 24...",
+    "opciones": {
+      "a": "Sumar 3",
+      "b": "Multiplicar por 2",
+      "c": "Sumar 6",
+      "d": "Restar 2"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_5",
+    "numero": 5,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es la representación decimal de la fracción 248/1,000 (doscientos cuarenta y ocho milésimos)?",
+    "opciones": {
+      "a": "2.48",
+      "b": "0.248",
+      "c": "0.0248",
+      "d": "24.8"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_6",
+    "numero": 6,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Qué número decimal equivale a la fracción diezmilésima 6,789/10,000?",
+    "opciones": {
+      "a": "67.89",
+      "b": "6.789",
+      "c": "0.6789",
+      "d": "0.06789"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "mat_7",
+    "numero": 7,
+    "tipo": "opcion_multiple",
+    "pregunta": "Si multiplicamos el numerador y el denominador de la fracción 1/2 por 3, obtenemos la fracción equivalente:",
+    "opciones": {
+      "a": "3/6",
+      "b": "2/5",
+      "c": "3/2",
+      "d": "1/6"
+    },
+    "respuestaCorrecta": "a"
+  },
+  {
+    "id": "mat_8",
+    "numero": 8,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es la forma más simple (simplificada) de la fracción 12/18 al dividir numerador y denominador entre 6?",
+    "opciones": {
+      "a": "6/9",
+      "b": "1/2",
+      "c": "2/3",
+      "d": "4/6"
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "mat_9",
+    "numero": 9,
+    "tipo": "opcion_multiple",
+    "pregunta": "Al convertir la fracción 5/8 a número decimal dividiendo 5 ÷ 8, el resultado es:",
+    "opciones": {
+      "a": "0.75",
+      "b": "0.625",
+      "c": "3.5",
+      "d": "0.58"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_10",
+    "numero": 10,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Cuál es el resultado decimal de convertir la fracción 7/2 dividiendo 7 ÷ 2?",
+    "opciones": {
+      "a": "3.5",
+      "b": "0.72",
+      "c": "2.5",
+      "d": "0.35"
+    },
+    "respuestaCorrecta": "a"
+  },
+  {
+    "id": "mat_11",
+    "numero": 11,
+    "tipo": "opcion_multiple",
+    "pregunta": "Al comparar fracciones con igual denominador, como 5/8 y 3/8, ¿cuál es la regla para saber cuál es mayor?",
+    "opciones": {
+      "a": "Es mayor la que tiene el denominador más grande.",
+      "b": "Es mayor la que tiene el numerador más pequeño.",
+      "c": "Es mayor la que tiene el numerador más grande.",
+      "d": "Ambas son iguales."
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "mat_12",
+    "numero": 12,
+    "tipo": "opcion_multiple",
+    "pregunta": "Al comparar fracciones con igual numerador, como 4/5 y 4/9, ¿cuál es la fracción mayor?",
+    "opciones": {
+      "a": "4/9, porque 9 es mayor que 5.",
+      "b": "4/5, porque tiene el denominador más pequeño.",
+      "c": "Son iguales porque tienen el mismo numerador.",
+      "d": "Ninguna de las anteriores."
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_13",
+    "numero": 13,
+    "tipo": "opcion_multiple",
+    "pregunta": "Para comparar fracciones con diferente numerador y diferente denominador (como 2/3 y 5/6), multiplicamos cruzado los numeradores por los denominadores contrarios. ¿Cuáles son los productos cruzados obtenidos?",
+    "opciones": {
+      "a": "2 × 5 = 10 y 3 × 6 = 18",
+      "b": "2 × 6 = 12 y 5 × 3 = 15",
+      "c": "2 × 3 = 6 y 5 × 6 = 30",
+      "d": "6 × 6 = 36 y 2 × 2 = 4"
+    },
+    "respuestaCorrecta": "b"
+  },
+  {
+    "id": "mat_14",
+    "numero": 14,
+    "tipo": "opcion_multiple",
+    "pregunta": "De acuerdo con el procedimiento del ejercicio anterior, ¿cuál es la relación correcta entre 2/3 y 5/6?",
+    "opciones": {
+      "a": "2/3 > 5/6",
+      "b": "2/3 = 5/6",
+      "c": "2/3 < 5/6",
+      "d": "No se pueden comparar."
+    },
+    "respuestaCorrecta": "c"
+  },
+  {
+    "id": "mat_15",
+    "numero": 15,
+    "tipo": "opcion_multiple",
+    "pregunta": "¿Qué número decimal equivale a la fracción centésima 35/100?",
+    "opciones": {
+      "a": "3.5",
+      "b": "0.035",
+      "c": "0.35",
+      "d": "35.0"
+    },
+    "respuestaCorrecta": "c"
+  }
+]
